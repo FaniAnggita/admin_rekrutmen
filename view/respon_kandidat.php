@@ -200,40 +200,7 @@ include 'komponen/koneksi.php';
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
-    <!-- <script>
-        $(document).ready(function() {
-            var table = $('#deviceTable').DataTable({
-                "scrollX": true, // Enable horizontal scrolling
-                "scrollY": "300px", // Set a fixed vertical scroll height
-                "select": true, // Enable individual column searching
-                "scrollCollapse": true, // Use the Scroller extension
-            });
 
-
-
-            // Add the individual column searching (select inputs) for each column
-            table.columns().every(function() {
-                var column = this;
-                var columnIndex = column[0][0];
-
-                // Check if the column index is not equal to 13 (the "Dokumen" column)
-                if (columnIndex !== 14 && columnIndex !== 15) {
-                    var select = $('<select><option value=""></option></select>')
-                        .appendTo($(column.header()))
-                        .on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
-
-                    column.data().unique().sort().each(function(d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>');
-                    });
-                }
-            });
-        });
-    </script> -->
     <script>
         $(document).ready(function() {
             var table = $('#deviceTable').DataTable({
