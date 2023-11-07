@@ -35,26 +35,30 @@ include 'komponen/koneksi.php';
                             </div>
 
 
-                            <!-- <div class="card-body row">
-                                <div class="form-group col-4">
-                                    <label for="start_date">Tanggal Awal Lamaran:</label>
-                                    <input type="date" id="start_date" class="form-control">
-                                </div>
-                                <div class="form-group col-4">
-                                    <label for="end_date">Tanggal Akhir Lamaran:</label>
-                                    <input type="date" id="end_date" class="form-control">
-                                </div>
-                                <div class="form-group col-4">
-                                    <label for="end_date">Rekomendasi</label>
-                                    <select id="inputState" class="form-select">
-                                        <option selected>Semua</option>
-                                        <option>Belum Ditentukan (chosee)</option>
-                                        <option>Lolos</option>
-                                        <option>Tidak Lolos</option>
-                                    </select>
-                                </div>
-
-                            </div> -->
+                            <div class="card-body ">
+                                <form action="" method="get" class="row">
+                                    <div class="form-group col-3">
+                                        <label for="start_date">Tanggal Awal Lamaran:</label>
+                                        <input type="date" id="start_date" class="form-control">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="end_date">Tanggal Akhir Lamaran:</label>
+                                        <input type="date" id="end_date" class="form-control">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="end_date">Rekomendasi</label>
+                                        <select id="inputState" class="form-select">
+                                            <option selected>Semua</option>
+                                            <option>Belum Ditentukan (chosee)</option>
+                                            <option>Lolos</option>
+                                            <option>Tidak Lolos</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <button type="submit" class="btn btn-primary mt-4 w-100">Cari</button>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="card-body table-responsive">
 
                                 <table id="deviceTable" class="table display table-sm table-bordered table-striped">
