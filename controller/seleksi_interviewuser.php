@@ -1,0 +1,46 @@
+<?php
+require_once '../koneksi/koneksi.php';
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id_pelamar = $_POST['id_pelamar'];
+    $tanggalInterviewUser = $_POST['tanggalIntUser'];
+    $konfirmasiKehadiran = $_POST['konfirmasiKehadiran'];
+    $dt = $_POST['dt'];
+    $ka = $_POST['ka'];
+    $pm = $_POST['pm'];
+    $pd = $_POST['pd'];
+    $bd = $_POST['bd'];
+    $ktb = $_POST['ktb'];
+    $interviewer = $_POST['korektor2'];
+    $hasil = $_POST['hasil'];
+    $pengumuman = $_POST['pengumuman'];
+    $keterangan = $_POST['keterangan'];
+
+    // Check if a record with the same id_pelamar exists
+    $check_sql = "SELECT id_interview_user FROM seleksi_interviewuser WHERE id_pelamar = '$id_pelamar'";
+    $result = mysqli_query($conn, $check_sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Update the existing record
+        $update_sql = "UPDATE seleksi_interviewuser SET tanggalInterviewUser = '$tanggalInterviewUser', konfirmasiKehadiran = '$konfirmasiKehadiran', dt = '$dt', ka = '$ka', pm = '$pm', pd = '$pd', bd = '$bd', ktb = '$ktb', interviewer = '$interviewer', hasil = '$hasil', pengumuman = '$pengumuman', keterangan = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
+
+        if (mysqli_query($conn, $update_sql)) {
+            echo "Data updated successfully";
+        } else {
+            echo "Error updating data: " . mysqli_error($conn);
+        }
+    } else {
+        // Insert a new record
+        $insert_sql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran, dt, ka, pm, pd, bd, ktb, interviewer, hasil, pengumuman, keterangan) VALUES ('$id_pelamar', '$tanggalInterviewUser', '$konfirmasiKehadiran', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$interviewer', '$hasil', '$pengumuman', '$keterangan')";
+
+        if (mysqli_query($conn, $insert_sql)) {
+            echo "Data inserted successfully";
+        } else {
+            echo "Error inserting data: " . mysqli_error($conn);
+        }
+    }
+}
+
+// Close the database connection
+mysqli_close($conn);
