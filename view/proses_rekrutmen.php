@@ -58,7 +58,6 @@ include 'komponen/koneksi.php';
                             <div class="card-body table-responsive">
 
                                 <table id="deviceTable" class="table display table-sm table-bordered table-striped">
-
                                     <thead>
                                         <tr class="text-center">
                                             <th colspan="4"></th>
@@ -312,9 +311,10 @@ include 'komponen/koneksi.php';
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            $('#deviceTable').DataTable({
+            var table = $('#deviceTable').DataTable({
                 fixedColumns: {
                     left: 4
                 },
@@ -322,10 +322,40 @@ include 'komponen/koneksi.php';
                 scrollCollapse: true,
                 scrollY: true,
                 scrollX: true,
+                select: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print', // Existing buttons
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Print Excel', // Text for the button
+                        className: 'btn-excel', // Optional custom class for styling
+                        exportOptions: {
+                            columns: ':visible' // Export all visible columns
+                        }
+                    }
+                ]
+            });
 
+            // Create select inputs for each column
+            table.columns().every(function() {
+                var column = this;
+                if (column.index() !== 0) {
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.header()))
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>');
+                    });
+                }
             });
         });
     </script>
+
 
 
 

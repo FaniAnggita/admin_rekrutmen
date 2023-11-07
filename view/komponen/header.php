@@ -62,7 +62,8 @@
   <!-- Include Select2 JS from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/searchpanes/1.3.3/js/dataTables.searchPanes.min.js"></script>
 
 
 
