@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (mysqli_num_rows($result) > 0) {
         // Update the existing record
-        $update_sql = "UPDATE seleksi_administrasi SET tanggal_seleksi = '$tanggal_seleksi', nilai_cv = '$nilai_cv', nilai_kualifikasi = '$nilai_kualifikasi', nilai_pengalaman = '$nilai_pengalaman', hasil_seleksi_adm = '$hasil', keterangan = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
+        $update_sql = "UPDATE seleksi_administrasi SET tanggal_seleksi = '$tanggal_seleksi', nilai_cv = '$nilai_cv', nilai_kualifikasi = '$nilai_kualifikasi', nilai_pengalaman = '$nilai_pengalaman', hasil_seleksi_adm = '$hasil', keterangan_adm = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
 
         if (mysqli_query($conn, $update_sql)) {
             echo "Data updated successfully";
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         // Insert a new record
-        $insert_sql = "INSERT INTO seleksi_administrasi (id_pelamar, tanggal_seleksi, nilai_cv, nilai_kualifikasi, nilai_pengalaman, hasil_seleksi_adm, keterangan) VALUES ('$id_pelamar', '$tanggal_seleksi', '$nilai_cv', '$nilai_kualifikasi', '$nilai_pengalaman', '$hasil', '$keterangan')";
+        $insert_sql = "INSERT INTO seleksi_administrasi (id_pelamar, tanggal_seleksi, nilai_cv, nilai_kualifikasi, nilai_pengalaman, hasil_seleksi_adm, keterangan_adm) VALUES ('$id_pelamar', '$tanggal_seleksi', '$nilai_cv', '$nilai_kualifikasi', '$nilai_pengalaman', '$hasil', '$keterangan')";
 
         if (mysqli_query($conn, $insert_sql)) {
             echo "Data inserted successfully";

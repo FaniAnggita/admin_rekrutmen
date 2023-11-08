@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (mysqli_num_rows($result) > 0) {
         // Update the existing record
-        $update_sql = "UPDATE seleksi_wii SET waktuInterview = '$waktuInterview', konfirmasiKehadiran = '$konfirmasiKehadiran', p = '$p', a = '$a', k = '$k', r = '$r', rating = '$rating', pengumuman = '$pengumuman' WHERE id_pelamar = '$id_pelamar'";
+        $update_sql = "UPDATE seleksi_wii SET waktuInterview = '$waktuInterview', konfirmasiKehadiran_wii = '$konfirmasiKehadiran', p = '$p', a = '$a', k = '$k', r = '$r', rating_wii = '$rating', pengumuman_wii = '$pengumuman' WHERE id_pelamar = '$id_pelamar'";
 
         if (mysqli_query($conn, $update_sql)) {
             echo "Data updated successfully";
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         // Insert a new record
-        $insert_sql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran, p, a, k, r, rating, pengumuman) VALUES ('$id_pelamar', '$waktuInterview', '$konfirmasiKehadiran', '$p', '$a', '$k', '$r', '$rating', '$pengumuman')";
+        $insert_sql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii) VALUES ('$id_pelamar', '$waktuInterview', '$konfirmasiKehadiran', '$p', '$a', '$k', '$r', '$rating', '$pengumuman')";
 
         if (mysqli_query($conn, $insert_sql)) {
             echo "Data inserted successfully";

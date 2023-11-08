@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (mysqli_num_rows($result) > 0) {
         // Update the existing record
-        $update_sql = "UPDATE seleksi_tesbidang SET tanggalTesBidang = '$tanggalTesBidang', nilaiTesBidang1 = '$nilaiTesBidang1', korektor1 = '$korektor1', nilaiTesBidang2 = '$nilaiTesBidang2', korektor2 = '$korektor2', hasil = '$hasil', pengumuman = '$pengumuman', keterangan = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
+        $update_sql = "UPDATE seleksi_tesbidang SET tanggalTesBidang = '$tanggalTesBidang', nilaiTesBidang1 = '$nilaiTesBidang1', korektor1 = '$korektor1', nilaiTesBidang2 = '$nilaiTesBidang2', korektor2 = '$korektor2', hasil_tb = '$hasil', pengumuman_tb = '$pengumuman', keterangan_tb = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
 
         if (mysqli_query($conn, $update_sql)) {
             echo "Data updated successfully";
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         // Insert a new record
-        $insert_sql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil, pengumuman, keterangan) VALUES ('$id_pelamar', '$tanggalTesBidang', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2', '$korektor2', '$hasil', '$pengumuman', '$keterangan')";
+        $insert_sql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil_tb, pengumuman_tb, keterangan_tb) VALUES ('$id_pelamar', '$tanggalTesBidang', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2', '$korektor2', '$hasil', '$pengumuman', '$keterangan')";
 
         if (mysqli_query($conn, $insert_sql)) {
             echo "Data inserted successfully";

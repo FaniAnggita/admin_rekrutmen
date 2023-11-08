@@ -89,19 +89,19 @@ include 'komponen/koneksi.php';
 
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-wii-tab" data-bs-toggle="pill" data-bs-target="#pills-wii" type="button" role="tab" aria-controls="pills-wii" aria-selected="false"><i class="fa-regular fa-comments"></i> WII <?php echo isset($row_wii['rating']) && $row_wii['rating'] === '1' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
+                                        <button class="nav-link" id="pills-wii-tab" data-bs-toggle="pill" data-bs-target="#pills-wii" type="button" role="tab" aria-controls="pills-wii" aria-selected="false"><i class="fa-regular fa-comments"></i> WII <?php echo isset($row_wii['rating_wii']) && $row_wii['rating_wii'] === '1' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fa-solid fa-pen"></i> Psikotest <?php echo isset($row_psikotest['rating']) && $row_psikotest['rating'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
+                                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fa-solid fa-pen"></i> Psikotest <?php echo isset($row_psikotest['rating_psikotest']) && $row_psikotest['rating_psikotest'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-indepth-tab" data-bs-toggle="pill" data-bs-target="#pills-indepth" type="button" role="tab" aria-controls="pills-indepth" aria-selected="false"><i class="fa-regular fa-comments"></i> Indepth <?php echo isset($row_indepth['hasilIndepth']) && $row_indepth['hasilIndepth'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-tesBidang-tab" data-bs-toggle="pill" data-bs-target="#pills-tesBidang" type="button" role="tab" aria-controls="pills-tesBidang" aria-selected="false"><i class="fa-solid fa-laptop-file"></i> Tes Bidang <?php echo isset($row_indepth['hasilIndepth']) && $row_indepth['hasilIndepth'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
+                                        <button class="nav-link" id="pills-tesBidang-tab" data-bs-toggle="pill" data-bs-target="#pills-tesBidang" type="button" role="tab" aria-controls="pills-tesBidang" aria-selected="false"><i class="fa-solid fa-laptop-file"></i> Tes Bidang <?php echo isset($row_tes_bidang['hasil_tb']) && $row_tes_bidang['hasil_tb'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-intUser-tab" data-bs-toggle="pill" data-bs-target="#pills-intUser" type="button" role="tab" aria-controls="pills-intUser" aria-selected="false"><i class="fa-regular fa-comments"></i> Interview User <?php echo isset($row_interview_user['hasil']) && $row_interview_user['hasil'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
+                                        <button class="nav-link" id="pills-intUser-tab" data-bs-toggle="pill" data-bs-target="#pills-intUser" type="button" role="tab" aria-controls="pills-intUser" aria-selected="false"><i class="fa-regular fa-comments"></i> Interview User <?php echo isset($row_interview_user['hasil_iu']) && $row_interview_user['hasil_iu'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-hasilAkhir-tab" data-bs-toggle="pill" data-bs-target="#pills-hasilAkhir" type="button" role="tab" aria-controls="pills-hasilAkhir" aria-selected="false"><i class="fa-solid fa-file"></i> Hasil Akhir</button>
@@ -144,7 +144,7 @@ include 'komponen/koneksi.php';
 
                                             <div class="col-md-4">
                                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_amd['keterangan']) && $row_amd['keterangan'] != null ? $row_amd['keterangan'] : ''; ?>">
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_amd['keterangan_adm']) && $row_amd['keterangan_adm'] != null ? $row_amd['keterangan_adm'] : ''; ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="hasil" class="form-label">Hasil</label>
@@ -173,10 +173,10 @@ include 'komponen/koneksi.php';
                                             <div class="col-md-4">
                                                 <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
                                                 <select id="konfirmasiKehadiran" class="form-select" name="konfirmasiKehadiran">
-                                                    <option value="pilih" <?php echo isset($row_wii['konfirmasiKehadiran']) && $row_wii['konfirmasiKehadiran'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="bersedia" <?php echo isset($row_wii['konfirmasiKehadiran']) && $row_wii['konfirmasiKehadiran'] === 'bersedia' ? 'selected' : ''; ?>>Bersedia</option>
-                                                    <option value="tidak bersedia" <?php echo isset($row_wii['konfirmasiKehadiran']) && $row_wii['konfirmasiKehadiran'] === 'tidak bersedia' ? 'selected' : ''; ?>>Tidak Bersedia</option>
-                                                    <option value="reschedule" <?php echo isset($row_wii['konfirmasiKehadiran']) && $row_wii['konfirmasiKehadiran'] === 'reschedule' ? 'selected' : ''; ?>>Reschedule</option>
+                                                    <option value="pilih" <?php echo isset($row_wii['konfirmasiKehadiran_wii']) && $row_wii['konfirmasiKehadiran_wii'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="bersedia" <?php echo isset($row_wii['konfirmasiKehadiran_wii']) && $row_wii['konfirmasiKehadiran_wii'] === 'bersedia' ? 'selected' : ''; ?>>Bersedia</option>
+                                                    <option value="tidak bersedia" <?php echo isset($row_wii['konfirmasiKehadiran_wii']) && $row_wii['konfirmasiKehadiran_wii'] === 'tidak bersedia' ? 'selected' : ''; ?>>Tidak Bersedia</option>
+                                                    <option value="reschedule" <?php echo isset($row_wii['konfirmasiKehadiran_wii']) && $row_wii['konfirmasiKehadiran_wii'] === 'reschedule' ? 'selected' : ''; ?>>Reschedule</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
@@ -215,17 +215,17 @@ include 'komponen/koneksi.php';
                                             <div class="col-md-4">
                                                 <label for="pengumuman" class="form-label">Pengumuman</label>
                                                 <select id="pengumuman" class="form-select" name="pengumuman">
-                                                    <option value="pilih" <?php echo isset($row_wii['pengumuman']) && $row_wii['pengumuman'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="sudah" <?php echo isset($row_wii['pengumuman']) && $row_wii['pengumuman'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
-                                                    <option value="belum" <?php echo isset($row_wii['pengumuman']) && $row_wii['pengumuman'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
+                                                    <option value="pilih" <?php echo isset($row_wii['pengumuman_wii']) && $row_wii['pengumuman_wii'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="sudah" <?php echo isset($row_wii['pengumuman_wii']) && $row_wii['pengumuman_wii'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
+                                                    <option value="belum" <?php echo isset($row_wii['pengumuman_wii']) && $row_wii['pengumuman_wii'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="rating" class="form-label">Hasil</label>
                                                 <select id="rating" class="form-select" name="rating">
-                                                    <option value="2" <?php echo isset($row_wii['rating']) && $row_wii['rating'] === '2' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="1" <?php echo isset($row_wii['rating']) && $row_wii['rating'] === '1' ? 'selected' : ''; ?>>Lolos</option>
-                                                    <option value="0" <?php echo isset($row_wii['rating']) && $row_wii['rating'] === '0' ? 'selected' : ''; ?>>Tidak Lolos</option>
+                                                    <option value="2" <?php echo isset($row_wii['rating_wii']) && $row_wii['rating_wii'] === '2' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="1" <?php echo isset($row_wii['rating_wii']) && $row_wii['rating_wii'] === '1' ? 'selected' : ''; ?>>Lolos</option>
+                                                    <option value="0" <?php echo isset($row_wii['rating_wii']) && $row_wii['rating_wii'] === '0' ? 'selected' : ''; ?>>Tidak Lolos</option>
                                                 </select>
                                             </div>
                                             <div class="col-12">
@@ -264,8 +264,6 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                         <form class="row g-3" id="form3">
                                             <input type="number" name="id_pelamar" value="<?php echo $_GET['id_pelamar']; ?>" hidden>
 
-
-
                                             <div class="col-md-4">
                                                 <label for="tanggalPsikotest" class="form-label">Tanggal Psikotest</label>
                                                 <input type="date" class="form-control" id="tanggalPsikotest" name="tanggalPsikotest" value="<?php echo isset($row_psikotest['tanggalPsikotest']) ? $row_psikotest['tanggalPsikotest'] : ''; ?>">
@@ -284,9 +282,9 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="pengumuman" class="form-label">Pengumuman</label>
                                                 <select id="pengumuman" class="form-select" name="pengumuman">
-                                                    <option value="pilih" <?php echo isset($row_psikotest['pengumuman']) && $row_psikotest['pengumuman'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="sudah" <?php echo isset($row_psikotest['pengumuman']) && $row_psikotest['pengumuman'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
-                                                    <option value="belum" <?php echo isset($row_psikotest['pengumuman']) && $row_psikotest['pengumuman'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
+                                                    <option value="pilih" <?php echo isset($row_psikotest['pengumuman_psikotest']) && $row_psikotest['pengumuman_psikotest'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="sudah" <?php echo isset($row_psikotest['pengumuman_psikotest']) && $row_psikotest['pengumuman_psikotest'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
+                                                    <option value="belum" <?php echo isset($row_psikotest['pengumuman_psikotest']) && $row_psikotest['pengumuman_psikotest'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
                                                 </select>
                                             </div>
 
@@ -297,9 +295,9 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="rating" class="form-label">Hasil</label>
                                                 <select id="rating" class="form-select" name="rating">
-                                                    <option value="pilih" <?php echo isset($row_psikotest['rating']) && $row_psikotest['rating'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="lolos" <?php echo isset($row_psikotest['rating']) && $row_psikotest['rating'] === 'lolos' ? 'selected' : ''; ?>>Lolos</option>
-                                                    <option value="tidak lolos" <?php echo isset($row_psikotest['rating']) && $row_psikotest['hasil'] === 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
+                                                    <option value="pilih" <?php echo isset($row_psikotest['rating_psikotest']) && $row_psikotest['rating_psikotest'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="lolos" <?php echo isset($row_psikotest['rating_psikotest']) && $row_psikotest['rating_psikotest'] === 'lolos' ? 'selected' : ''; ?>>Lolos</option>
+                                                    <option value="tidak lolos" <?php echo isset($row_psikotest['rating_psikotest']) && $row_psikotest['rating_psikotest'] === 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
                                                 </select>
                                             </div>
                                             <div class="col-12">
@@ -321,10 +319,10 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
                                                 <select id="konfirmasiKehadiran" class="form-select" name="konfirmasiKehadiran">
-                                                    <option value="pilih" <?php echo isset($row_indepth['konfirmasiKehadiran']) && $row_indepth['konfirmasiKehadiran'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="bersedia" <?php echo isset($row_indepth['konfirmasiKehadiran']) && $row_indepth['konfirmasiKehadiran'] === 'bersedia' ? 'selected' : ''; ?>>Bersedia</option>
-                                                    <option value="tidak bersedia" <?php echo isset($row_indepth['konfirmasiKehadiran']) && $row_indepth['konfirmasiKehadiran'] === 'tidak bersedia' ? 'selected' : ''; ?>>Tidak Bersedia</option>
-                                                    <option value="reschedule" <?php echo isset($row_indepth['konfirmasiKehadiran']) && $row_indepth['konfirmasiKehadiran'] === 'reschedule' ? 'selected' : ''; ?>>Reschedule</option>
+                                                    <option value="pilih" <?php echo isset($row_indepth['konfirmasiKehadiran_in']) && $row_indepth['konfirmasiKehadiran_in'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="bersedia" <?php echo isset($row_indepth['konfirmasiKehadiran_in']) && $row_indepth['konfirmasiKehadiran_in'] === 'bersedia' ? 'selected' : ''; ?>>Bersedia</option>
+                                                    <option value="tidak bersedia" <?php echo isset($row_indepth['konfirmasiKehadiran_in']) && $row_indepth['konfirmasiKehadiran_in'] === 'tidak bersedia' ? 'selected' : ''; ?>>Tidak Bersedia</option>
+                                                    <option value="reschedule" <?php echo isset($row_indepth['konfirmasiKehadiran_in']) && $row_indepth['konfirmasiKehadiran_in'] === 'reschedule' ? 'selected' : ''; ?>>Reschedule</option>
                                                 </select>
                                             </div>
 
@@ -364,15 +362,15 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="pengumuman" class="form-label">Pengumuman</label>
                                                 <select id="pengumuman" class="form-select" name="pengumuman">
-                                                    <option value="pilih" <?php echo isset($row_indepth['pengumuman']) && $row_indepth['pengumuman'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="sudah" <?php echo isset($row_indepth['pengumuman']) && $row_indepth['pengumuman'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
-                                                    <option value="belum" <?php echo isset($row_indepth['pengumuman']) && $row_indepth['pengumuman'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
+                                                    <option value="pilih" <?php echo isset($row_indepth['pengumuman_in']) && $row_indepth['pengumuman_in'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="sudah" <?php echo isset($row_indepth['pengumuman_in']) && $row_indepth['pengumuman_in'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
+                                                    <option value="belum" <?php echo isset($row_indepth['pengumuman_in']) && $row_indepth['pengumuman_in'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_indepth['keterangan']) ? $row_indepth['keterangan'] : ''; ?>">
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_indepth['keterangan_in']) ? $row_indepth['keterangan_in'] : ''; ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="hasil" class="form-label">Hasil</label>
@@ -425,21 +423,21 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="pengumuman" class="form-label">Pengumuman</label>
                                                 <select id="pengumuman" class="form-select" name="pengumuman">
-                                                    <option value="pilih" <?php echo isset($row_tes_bidang['pengumuman']) && $row_tes_bidang['pengumuman'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="sudah" <?php echo isset($row_tes_bidang['pengumuman']) && $row_tes_bidang['pengumuman'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
-                                                    <option value="belum" <?php echo isset($row_tes_bidang['pengumuman']) && $row_tes_bidang['pengumuman'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
+                                                    <option value="pilih" <?php echo isset($row_tes_bidang['pengumuman_tb']) && $row_tes_bidang['pengumuman_tb'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="sudah" <?php echo isset($row_tes_bidang['pengumuman_tb']) && $row_tes_bidang['pengumuman_tb'] === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
+                                                    <option value="belum" <?php echo isset($row_tes_bidang['pengumuman_tb']) && $row_tes_bidang['pengumuman_tb'] === 'belum' ? 'selected' : ''; ?>>Belum</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-8">
                                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_tes_bidang['keterangan']) ? $row_tes_bidang['keterangan'] : ''; ?>">
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_tes_bidang['keterangan_tb']) ? $row_tes_bidang['keterangan_tb'] : ''; ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="hasil" class="form-label">Hasil</label>
                                                 <select id="hasil" class="form-select" name="hasil">
-                                                    <option value="pilih" <?php echo isset($row_tes_bidang['hasil']) && $row_tes_bidang['hasil'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="lolos" <?php echo isset($row_tes_bidang['hasil']) && $row_tes_bidang['hasil'] === 'lolos' ? 'selected' : ''; ?>>Lolos</option>
-                                                    <option value="tidak lolos" <?php echo isset($row_tes_bidang['hasil']) && $row_tes_bidang['hasil'] === 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
+                                                    <option value="pilih" <?php echo isset($row_tes_bidang['hasil_tb']) && $row_tes_bidang['hasil_tb'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="lolos" <?php echo isset($row_tes_bidang['hasil_tb']) && $row_tes_bidang['hasil_tb'] === 'lolos' ? 'selected' : ''; ?>>Lolos</option>
+                                                    <option value="tidak lolos" <?php echo isset($row_tes_bidang['hasil_tb']) && $row_tes_bidang['hasil_tb'] === 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
                                                 </select>
                                             </div>
                                             <div class="col-12">
@@ -458,10 +456,10 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
                                                 <select id="konfirmasiKehadiran" class="form-select" name="konfirmasiKehadiran">
-                                                    <option value="pilih" <?php echo ($row_interview_user['konfirmasiKehadiran'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="bersedia" <?php echo ($row_interview_user['konfirmasiKehadiran'] ?? '') === 'bersedia' ? 'selected' : ''; ?>>Bersedia</option>
-                                                    <option value="tidak bersedia" <?php echo ($row_interview_user['konfirmasiKehadiran'] ?? '') === 'tidak bersedia' ? 'selected' : ''; ?>>Tidak Bersedia</option>
-                                                    <option value="reschedule" <?php echo ($row_interview_user['konfirmasiKehadiran'] ?? '') === 'reschedule' ? 'selected' : ''; ?>>Reschedule</option>
+                                                    <option value="pilih" <?php echo ($row_interview_user['konfirmasiKehadiran_iu'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="bersedia" <?php echo ($row_interview_user['konfirmasiKehadiran_iu'] ?? '') === 'bersedia' ? 'selected' : ''; ?>>Bersedia</option>
+                                                    <option value="tidak bersedia" <?php echo ($row_interview_user['konfirmasiKehadiran_iu'] ?? '') === 'tidak bersedia' ? 'selected' : ''; ?>>Tidak Bersedia</option>
+                                                    <option value="reschedule" <?php echo ($row_interview_user['konfirmasiKehadiran_iu'] ?? '') === 'reschedule' ? 'selected' : ''; ?>>Reschedule</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
@@ -515,31 +513,31 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="korektor2" class="form-label">Interviewer</label>
                                                 <select id="korektor2" class="form-select" name="korektor2">
-                                                    <option value="pilih" <?php echo isset($row_interview_user['interviewer']) && ($row_interview_user['interviewer'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="Ani" <?php echo isset($row_interview_user['interviewer']) && ($row_interview_user['interviewer'] ?? '') === 'Ani' ? 'selected' : ''; ?>>Ani</option>
-                                                    <option value="Toni" <?php echo  isset($row_interview_user['interviewer']) && ($row_interview_user['interviewer'] ?? '') === 'Toni' ? 'selected' : ''; ?>>Toni</option>
-                                                    <option value="Rio" <?php echo isset($row_interview_user['interviewer']) && ($row_interview_user['interviewer'] ?? '') === 'Rio' ? 'selected' : ''; ?>>Rio</option>
+                                                    <option value="pilih" <?php echo isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="Ani" <?php echo isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? '') === 'Ani' ? 'selected' : ''; ?>>Ani</option>
+                                                    <option value="Toni" <?php echo  isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? '') === 'Toni' ? 'selected' : ''; ?>>Toni</option>
+                                                    <option value="Rio" <?php echo isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? '') === 'Rio' ? 'selected' : ''; ?>>Rio</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <label for="pengumuman" class="form-label">Pengumuman</label>
                                                 <select id="pengumuman" class="form-select" name="pengumuman">
-                                                    <option value="pilih" <?php echo isset($row_interview_user['pengumuman']) && ($row_interview_user['pengumuman'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="sudah" <?php echo isset($row_interview_user['pengumuman']) && ($row_interview_user['pengumuman'] ?? '') === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
-                                                    <option value="belum" <?php echo isset($row_interview_user['pengumuman']) && ($row_interview_user['pengumuman'] ?? '') === 'belum' ? 'selected' : ''; ?>>Belum</option>
+                                                    <option value="pilih" <?php echo isset($row_interview_user['pengumuman_iu']) && ($row_interview_user['pengumuman_iu'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="sudah" <?php echo isset($row_interview_user['pengumuman_iu']) && ($row_interview_user['pengumuman_iu'] ?? '') === 'sudah' ? 'selected' : ''; ?>>Sudah</option>
+                                                    <option value="belum" <?php echo isset($row_interview_user['pengumuman_iu']) && ($row_interview_user['pengumuman_iu'] ?? '') === 'belum' ? 'selected' : ''; ?>>Belum</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_interview_user['keterangan']) && $row_interview_user['keterangan'] ?? ''; ?>">
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?php echo isset($row_interview_user['keterangan_iu']) && $row_interview_user['keterangan_iu'] ?? ''; ?>">
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="hasil" class="form-label">Hasil</label>
                                                 <select id="hasil" class="form-select" name="hasil">
-                                                    <option value="pilih" <?php echo isset($row_interview_user['hasil']) && ($row_interview_user['hasil'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="lolos" <?php echo isset($row_interview_user['hasil']) && ($row_interview_user['hasil'] ?? '') === 'lolos' ? 'selected' : ''; ?>>Lolos</option>
-                                                    <option value="tidak lolos" <?php echo isset($row_interview_user['interviewer']) && ($row_interview_user['hasil'] ?? '') === 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
+                                                    <option value="pilih" <?php echo isset($row_interview_user['hasil_iu']) && ($row_interview_user['hasil_iu'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="lolos" <?php echo isset($row_interview_user['hasil_iu']) && ($row_interview_user['hasil_iu'] ?? '') === 'lolos' ? 'selected' : ''; ?>>Lolos</option>
+                                                    <option value="tidak lolos" <?php echo isset($row_interview_user['hasil_iu']) && ($row_interview_user['hasil_iu'] ?? '') === 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
                                                 </select>
                                             </div>
                                             <div class="col-12">

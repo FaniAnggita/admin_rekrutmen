@@ -39,19 +39,19 @@ include 'komponen/koneksi.php';
                                 <form action="" method="get" class="row">
                                     <div class="form-group col-3">
                                         <label for="start_date">Tanggal Awal Lamaran:</label>
-                                        <input type="date" id="start_date" class="form-control">
+                                        <input type="date" id="start_date" class="form-control" name="start_date">
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="end_date">Tanggal Akhir Lamaran:</label>
-                                        <input type="date" id="end_date" class="form-control">
+                                        <input type="date" id="end_date" class="form-control" name="end_date">
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="end_date">Rekomendasi</label>
-                                        <select id="inputState" class="form-select">
-                                            <option selected>Semua</option>
-                                            <option>Belum Ditentukan (chosee)</option>
-                                            <option>Lolos</option>
-                                            <option>Tidak Lolos</option>
+                                        <select id="inputState" class="form-select" name="rekomendasi">
+                                            <option value="semua" selected>Semua</option>
+                                            <option value="pilih">Belum Ditentukan (chosee)</option>
+                                            <option value="lolos">Lolos</option>
+                                            <option value="tidak lolos">Tidak Lolos</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-2">
@@ -117,11 +117,11 @@ include 'komponen/koneksi.php';
                                             <!-- Tes Bidang -->
                                             <th class="table-primary">Tanggal Tes Bidang</th>
                                             <th class="table-primary">Konfirmasi Kehadiran Tes Bidang</th>
-                                            <th class="table-primary">Nilai Tes Bidang 1</th>
+                                            <th class="table-primary">Nilai TB 1</th>
                                             <th class="table-primary">Korektor 1</th>
-                                            <th class="table-primary">Nilai Test Bidang 2</th>
+                                            <th class="table-primary">Nilai TBg 2</th>
                                             <th class="table-primary">Korektor 2</th>
-                                            <th class="table-primary">Hasil Test Bidang</th>
+                                            <th class="table-primary">Hasil TB</th>
                                             <th class="table-primary">Keterangan</th>
                                             <th class="table-primary">Pengumuman</th>
                                             <!-- Akhir Tes Bidang -->
@@ -152,12 +152,27 @@ include 'komponen/koneksi.php';
                                         <?php
                                         // Ambil data dari database dan tampilkan dalam tabel
                                         $sql = "SELECT * FROM pelamar2 pl
-                                        LEFT JOIN seleksi_administrasi sa ON  pl.id = sa.id_pelamar
-                                        LEFT JOIN seleksi_wii sw ON pl.id = sw.id_pelamar
-                                        LEFT JOIN seleksi_psikotest sp ON pl.id = sp.id_pelamar
-                                        LEFT JOIN seleksi_indepth si ON pl.id = si.id_pelamar
-                                        LEFT JOIN seleksi_tesbidang st ON pl.id = st.id_pelamar
-                                        LEFT JOIN seleksi_interviewuser sin ON pl.id = sin.id_pelamar";
+                                                LEFT JOIN seleksi_administrasi sa ON  pl.id = sa.id_pelamar
+                                                LEFT JOIN seleksi_wii sw ON pl.id = sw.id_pelamar
+                                                LEFT JOIN seleksi_psikotest sp ON pl.id = sp.id_pelamar
+                                                LEFT JOIN seleksi_indepth si ON pl.id = si.id_pelamar
+                                                LEFT JOIN seleksi_tesbidang st ON pl.id = st.id_pelamar
+                                                LEFT JOIN seleksi_interviewuser sin ON pl.id = sin.id_pelamar";
+
+                                        // if (isset($_GET['start_date']) && isset($_GET['end_date']) && isset($_GET['rekomendasi'])) {
+                                        //     $rekomendasi = $_GET['rekomendasi'];
+
+                                        //     // Ambil data dari database dan tampilkan dalam tabel
+                                        //     $sql = "SELECT * FROM pelamar2 pl
+                                        //     LEFT JOIN seleksi_administrasi sa ON  pl.id = sa.id_pelamar
+                                        //     LEFT JOIN seleksi_wii sw ON pl.id = sw.id_pelamar
+                                        //     LEFT JOIN seleksi_psikotest sp ON pl.id = sp.id_pelamar
+                                        //     LEFT JOIN seleksi_indepth si ON pl.id = si.id_pelamar
+                                        //     LEFT JOIN seleksi_tesbidang st ON pl.id = st.id_pelamar
+                                        //     LEFT JOIN seleksi_interviewuser sin ON pl.id = sin.id_pelamar
+                                        //     WHERE pl.rekomendasi = '$rekomendasi'";
+                                        // }
+
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
@@ -173,35 +188,35 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['nilai_kualifikasi'] . "</td>";
                                                 echo "<td>" . $row['nilai_pengalaman'] . "</td>";
                                                 echo "<td>" . $row['hasil_seleksi_adm'] . "</td>";
-                                                echo "<td>" . $row['keterangan'] . "</td>";
+                                                echo "<td>" . $row['keterangan_adm'] . "</td>";
                                                 // Akhir Administrasi
                                                 // WII
                                                 echo "<td>" . $row['waktuInterview'] . "</td>";
-                                                echo "<td>" . $row['konfirmasiKehadiran'] . "</td>";
+                                                echo "<td>" . $row['konfirmasiKehadiran_wii'] . "</td>";
                                                 echo "<td>" . $row['p'] . "</td>";
                                                 echo "<td>" . $row['a'] . "</td>";
                                                 echo "<td>" . $row['k'] . "</td>";
                                                 echo "<td>" . $row['r'] . "</td>";
-                                                echo "<td>" . $row['rating'] . "</td>";
-                                                echo "<td>" . $row['pengumuman'] . "</td>";
+                                                echo "<td>" . $row['rating_wii'] . "</td>";
+                                                echo "<td>" . $row['pengumuman_wii'] . "</td>";
                                                 // Akhir WII
                                                 // Psikotest
                                                 echo "<td>" . $row['tanggalPsikotest'] . "</td>";
                                                 echo "<td>" . $row['konfirmasiKehadiran'] . "</td>";
                                                 echo "<td> - </td>";
-                                                echo "<td>" . $row['rating'] . "</td>";
-                                                echo "<td>" . $row['pengumuman'] . "</td>";
+                                                echo "<td>" . $row['rating_psikotest'] . "</td>";
+                                                echo "<td>" . $row['pengumuman_psikotest'] . "</td>";
                                                 // Akhir Psikotest
                                                 // Indepth
                                                 echo "<td>" . $row['tanggalIndepth'] . "</td>";
-                                                echo "<td>" . $row['konfirmasiKehadiran'] . "</td>";
+                                                echo "<td>" . $row['konfirmasiKehadiran_in'] . "</td>";
                                                 echo "<td>" . $row['KTB'] . "</td>";
                                                 echo "<td>" . $row['KPR'] . "</td>";
                                                 echo "<td>" . $row['Siker'] . "</td>";
                                                 echo "<td>" . $row['hasilIndepth'] . "</td>";
                                                 echo "<td>" . $row['interviewerIndepth'] . "</td>";
-                                                echo "<td>" . $row['pengumuman'] . "</td>";
-                                                echo "<td>" . $row['keterangan'] . "</td>";
+                                                echo "<td>" . $row['pengumuman_in'] . "</td>";
+                                                echo "<td>" . $row['keterangan_in'] . "</td>";
                                                 // Akhir Indepth
                                                 // Test Bidang
                                                 echo "<td>" . $row['tanggalTesBidang'] . "</td>";
@@ -210,23 +225,23 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['korektor1'] . "</td>";
                                                 echo "<td>" . $row['nilaiTesBidang2'] . "</td>";
                                                 echo "<td>" . $row['korektor2'] . "</td>";
-                                                echo "<td>" . $row['hasil'] . "</td>";
-                                                echo "<td>" . $row['keterangan'] . "</td>";
-                                                echo "<td>" . $row['pengumuman'] . "</td>";
+                                                echo "<td>" . $row['hasil_tb'] . "</td>";
+                                                echo "<td>" . $row['keterangan_tb'] . "</td>";
+                                                echo "<td>" . $row['pengumuman_tb'] . "</td>";
                                                 // Akhir Test Bidang
                                                 // Interview User
                                                 echo "<td>" . $row['tanggalInterviewUser'] . "</td>";
-                                                echo "<td>" . $row['konfirmasiKehadiran'] . "</td>";
+                                                echo "<td>" . $row['konfirmasiKehadiran_iu'] . "</td>";
                                                 echo "<td>" . $row['dt'] . "</td>";
                                                 echo "<td>" . $row['ka'] . "</td>";
                                                 echo "<td>" . $row['pm'] . "</td>";
                                                 echo "<td>" . $row['pd'] . "</td>";
                                                 echo "<td>" . $row['bd'] . "</td>";
                                                 echo "<td>" . $row['ktb'] . "</td>";
-                                                echo "<td>" . $row['interviewer'] . "</td>";
-                                                echo "<td>" . $row['hasil'] . "</td>";
-                                                echo "<td>" . $row['pengumuman'] . "</td>";
-                                                echo "<td>" . $row['keterangan'] . "</td>";
+                                                echo "<td>" . $row['interviewer_iu'] . "</td>";
+                                                echo "<td>" . $row['hasil_iu'] . "</td>";
+                                                echo "<td>" . $row['pengumuman_iu'] . "</td>";
+                                                echo "<td>" . $row['keterangan_iu'] . "</td>";
                                                 // Akhir Interview User
                                                 // Alasan
                                                 echo "<td> - </td>";

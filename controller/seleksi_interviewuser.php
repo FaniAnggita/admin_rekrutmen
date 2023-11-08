@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (mysqli_num_rows($result) > 0) {
         // Update the existing record
-        $update_sql = "UPDATE seleksi_interviewuser SET tanggalInterviewUser = '$tanggalInterviewUser', konfirmasiKehadiran = '$konfirmasiKehadiran', dt = '$dt', ka = '$ka', pm = '$pm', pd = '$pd', bd = '$bd', ktb = '$ktb', interviewer = '$interviewer', hasil = '$hasil', pengumuman = '$pengumuman', keterangan = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
+        $update_sql = "UPDATE seleksi_interviewuser SET tanggalInterviewUser = '$tanggalInterviewUser', konfirmasiKehadiran_iu = '$konfirmasiKehadiran', dt = '$dt', ka = '$ka', pm = '$pm', pd = '$pd', bd = '$bd', ktb = '$ktb', interviewer_Iu = '$interviewer', hasil_iu = '$hasil', pengumuman_iu = '$pengumuman', keterangan_iu = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
 
         if (mysqli_query($conn, $update_sql)) {
             echo "Data updated successfully";
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         // Insert a new record
-        $insert_sql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran, dt, ka, pm, pd, bd, ktb, interviewer, hasil, pengumuman, keterangan) VALUES ('$id_pelamar', '$tanggalInterviewUser', '$konfirmasiKehadiran', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$interviewer', '$hasil', '$pengumuman', '$keterangan')";
+        $insert_sql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran_iu, dt, ka, pm, pd, bd, ktb, interviewer_iu, hasil_iu, pengumuman_iu, keterangan_iu) VALUES ('$id_pelamar', '$tanggalInterviewUser', '$konfirmasiKehadiran', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$interviewer', '$hasil', '$pengumuman', '$keterangan')";
 
         if (mysqli_query($conn, $insert_sql)) {
             echo "Data inserted successfully";

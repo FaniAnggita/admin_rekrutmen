@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (mysqli_num_rows($result) > 0) {
         // Update the existing record
-        $update_sql = "UPDATE seleksi_psikotest SET tanggalPsikotest = '$tanggalPsikotest', konfirmasiKehadiran = '$konfirmasiKehadiran', rating = '$rating', pengumuman = '$pengumuman', keterangan = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
+        $update_sql = "UPDATE seleksi_psikotest SET tanggalPsikotest = '$tanggalPsikotest', konfirmasiKehadiran = '$konfirmasiKehadiran', rating_psikotest = '$rating', pengumuman_psikotest = '$pengumuman', keterangan = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
 
         if (mysqli_query($conn, $update_sql)) {
             echo "Data updated successfully";
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         // Insert a new record
-        $insert_sql = "INSERT INTO seleksi_psikotest (id_pelamar, tanggalPsikotest, konfirmasiKehadiran, rating, pengumuman, keterangan) VALUES ('$id_pelamar', '$tanggalPsikotest', '$konfirmasiKehadiran', '$rating', '$pengumuman', '$keterangan')";
+        $insert_sql = "INSERT INTO seleksi_psikotest (id_pelamar, tanggalPsikotest, konfirmasiKehadiran, rating_psikotest, pengumuman_psikotest, keterangan) VALUES ('$id_pelamar', '$tanggalPsikotest', '$konfirmasiKehadiran', '$rating', '$pengumuman', '$keterangan')";
 
         if (mysqli_query($conn, $insert_sql)) {
             echo "Data inserted successfully";
