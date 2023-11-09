@@ -46,6 +46,11 @@
                         <div data-i18n="tidak lolos">Lowongan</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="user.php" class="menu-link">
+                        <div data-i18n="tidak lolos">Interviewer/korektor</div>
+                    </a>
+                </li>
 
             </ul>
         </li>

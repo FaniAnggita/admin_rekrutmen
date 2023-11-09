@@ -39,24 +39,17 @@ include 'komponen/koneksi.php';
                                 <form action="" method="get" class="row">
                                     <div class="form-group col-3">
                                         <label for="start_date">Tanggal Awal Lamaran:</label>
-                                        <input type="date" id="start_date" class="form-control" name="start_date">
+                                        <input type="date" id="start_date" class="form-control" name="start_date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="end_date">Tanggal Akhir Lamaran:</label>
-                                        <input type="date" id="end_date" class="form-control" name="end_date">
+                                        <input type="date" id="end_date" class="form-control" name="end_date" value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
                                     </div>
-                                    <div class="form-group col-3">
-                                        <label for="end_date">Rekomendasi</label>
-                                        <select id="inputState" class="form-select" name="rekomendasi">
-                                            <option value="semua" selected>Semua</option>
-                                            <option value="pilih">Belum Ditentukan (chosee)</option>
-                                            <option value="lolos">Lolos</option>
-                                            <option value="tidak lolos">Tidak Lolos</option>
-                                        </select>
-                                    </div>
+
                                     <div class="form-group col-2">
                                         <button type="submit" class="btn btn-primary mt-4 w-100">Cari</button>
                                     </div>
+
                                 </form>
                             </div>
                             <div class="card-body table-responsive">
@@ -150,6 +143,7 @@ include 'komponen/koneksi.php';
                                     </thead>
                                     <tbody>
                                         <?php
+
                                         // Ambil data dari database dan tampilkan dalam tabel
                                         $sql = "SELECT * FROM pelamar2 pl
                                                 LEFT JOIN seleksi_administrasi sa ON  pl.id = sa.id_pelamar
@@ -157,21 +151,17 @@ include 'komponen/koneksi.php';
                                                 LEFT JOIN seleksi_psikotest sp ON pl.id = sp.id_pelamar
                                                 LEFT JOIN seleksi_indepth si ON pl.id = si.id_pelamar
                                                 LEFT JOIN seleksi_tesbidang st ON pl.id = st.id_pelamar
-                                                LEFT JOIN seleksi_interviewuser sin ON pl.id = sin.id_pelamar";
+                                                LEFT JOIN seleksi_interviewuser sin ON pl.id = sin.id_pelamar
+                                                LEFT JOIN pelamar_lolos pls ON pl.id = pls.id_pelamar";
 
-                                        // if (isset($_GET['start_date']) && isset($_GET['end_date']) && isset($_GET['rekomendasi'])) {
-                                        //     $rekomendasi = $_GET['rekomendasi'];
+                                        // Periksa apakah ada filter tanggal yang disetel
+                                        if (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] != '' && $_GET['end_date'] != '') {
+                                            $start_date = $_GET['start_date'];
+                                            $end_date = $_GET['end_date'];
 
-                                        //     // Ambil data dari database dan tampilkan dalam tabel
-                                        //     $sql = "SELECT * FROM pelamar2 pl
-                                        //     LEFT JOIN seleksi_administrasi sa ON  pl.id = sa.id_pelamar
-                                        //     LEFT JOIN seleksi_wii sw ON pl.id = sw.id_pelamar
-                                        //     LEFT JOIN seleksi_psikotest sp ON pl.id = sp.id_pelamar
-                                        //     LEFT JOIN seleksi_indepth si ON pl.id = si.id_pelamar
-                                        //     LEFT JOIN seleksi_tesbidang st ON pl.id = st.id_pelamar
-                                        //     LEFT JOIN seleksi_interviewuser sin ON pl.id = sin.id_pelamar
-                                        //     WHERE pl.rekomendasi = '$rekomendasi'";
-                                        // }
+                                            // Tambahkan kondisi tanggal ke query SQL
+                                            $sql .= " WHERE pl.time BETWEEN '$start_date' AND '$end_date'";
+                                        }
 
                                         $result = $conn->query($sql);
 
@@ -244,15 +234,13 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['keterangan_iu'] . "</td>";
                                                 // Akhir Interview User
                                                 // Alasan
-                                                echo "<td> - </td>";
+                                                echo "<td>" . $row['alasan_tidak_lolos'] . "</td>";
                                                 // Akhir Alasan
                                                 // Etc
-                                                echo "<td> - </td>";
-                                                echo "<td> - </td>";
+                                                echo "<td>" . $row['spkwt'] . "</td>";
+                                                echo "<td>" . $row['onboard'] . "</td>";
                                                 echo "</tr>";
                                             }
-                                        } else {
-                                            echo "<tr><td colspan='28'>Tidak ada data.</td></tr>";
                                         }
 
                                         // Close the database connection

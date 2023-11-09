@@ -79,6 +79,12 @@ include 'komponen/koneksi.php';
                                     $result_interview_user = $conn->query($sql_interview_user);
                                     $row_interview_user = mysqli_fetch_assoc($result_interview_user);
                                     ?>
+                                    <?php
+                                    // Retrieve data from the database for Interview User form
+                                    $sql_hasil_akhir = "SELECT * FROM pelamar_lolos WHERE id_pelamar = $id_pelamar";
+                                    $result_hasil_akhir = $conn->query($sql_hasil_akhir);
+                                    $row_hasil_akhir = mysqli_fetch_assoc($result_hasil_akhir);
+                                    ?>
 
                                 </div>
                             </div>
@@ -104,7 +110,7 @@ include 'komponen/koneksi.php';
                                         <button class="nav-link" id="pills-intUser-tab" data-bs-toggle="pill" data-bs-target="#pills-intUser" type="button" role="tab" aria-controls="pills-intUser" aria-selected="false"><i class="fa-regular fa-comments"></i> Interview User <?php echo isset($row_interview_user['hasil_iu']) && $row_interview_user['hasil_iu'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-hasilAkhir-tab" data-bs-toggle="pill" data-bs-target="#pills-hasilAkhir" type="button" role="tab" aria-controls="pills-hasilAkhir" aria-selected="false"><i class="fa-solid fa-file"></i> Hasil Akhir</button>
+                                        <button class="nav-link" id="pills-hasilAkhir-tab" data-bs-toggle="pill" data-bs-target="#pills-hasilAkhir" type="button" role="tab" aria-controls="pills-hasilAkhir" aria-selected="false"><i class="fa-solid fa-file"></i> Hasil Akhir <?php echo isset($row_hasil_akhir['hasil_akhir']) && $row_hasil_akhir['hasil_akhir'] === 'lolos' ? '<i class="fa-solid fa-circle-check fa-xs" style="color: #00d13f;"></i>' : ''; ?></button>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="pills-tabContent">
@@ -309,9 +315,6 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                         <!-- Form Indepth -->
                                         <form class="row g-3" id="form4">
                                             <input type="number" name="id_pelamar" value="<?php echo $_GET['id_pelamar']; ?>" hidden>
-
-
-
                                             <div class="col-md-4">
                                                 <label for="tanggalIndepth" class="form-label">Tanggal Indepth</label>
                                                 <input type="date" class="form-control" id="tanggalIndepth" name="tanggalIndepth" value="<?php echo isset($row_indepth['tanggalIndepth']) ? $row_indepth['tanggalIndepth'] : ''; ?>">
@@ -549,30 +552,34 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
 
                                     <div class="tab-pane fade" id="pills-hasilAkhir" role="tabpanel" aria-labelledby="pills-hasilAkhir-tab">
                                         <!-- Form hasil akhir -->
-                                        <form class="row g-3">
+                                        <form class="row g-3" id="form7">
                                             <input type="number" name="id_pelamar" value="<?php echo $_GET['id_pelamar']; ?>" hidden>
 
                                             <div class="col-md-6">
                                                 <label for="spkwt" class="form-label">SPKWT</label>
-                                                <input type="text" class="form-control" id="spkwt">
+                                                <input type="text" class="form-control" id="spkwt" name="spkwt" value="<?php echo isset($row_hasil_akhir['spkwt']) ? $row_hasil_akhir['spkwt'] : ''; ?>">
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label for="tanggalOnboard" class="form-label">Tanggal Onboarding</label>
-                                                <input type="date" class="form-control" id="tanggalOnboard">
+                                                <input type="date" class="form-control" id="tanggalOnboard" name="onboard" value="<?php echo isset($row_hasil_akhir['onboard']) ? $row_hasil_akhir['onboard'] : ''; ?>">
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                                <input type="text" class="form-control" id="keterangan">
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan_akhir" value="<?php echo isset($row_hasil_akhir['keterangan_akhir']) ? $row_hasil_akhir['keterangan_akhir'] : ''; ?>">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="hasil" class="form-label">Hasil Akhir</label>
-                                                <select id="hasil" class="form-select" name="hasil">
-                                                    <option selected>Choose...</option>
-                                                    <option>Lolos</option>
-                                                    <option>Tidak Lolos</option>
+                                                <select id="hasil" class="form-select" name="hasil_akhir">
+                                                    <option value="pilih" <?php echo isset($row_hasil_akhir['hasil_akhir']) && $row_hasil_akhir['hasil_akhir'] == 'pilih' ? 'selected' : ''; ?>>Choose...</option>
+                                                    <option value="lolos" <?php echo isset($row_hasil_akhir['hasil_akhir']) && $row_hasil_akhir['hasil_akhir'] == 'lolos' ? 'selected' : ''; ?>>Lolos</option>
+                                                    <option value="tidak lolos" <?php echo isset($row_hasil_akhir['hasil_akhir']) && $row_hasil_akhir['hasil_akhir'] == 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
                                                 </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="alasan_tidak_lolos" class="form-label">alasan_tidak_lolos</label>
+                                                <input type="text" class="form-control" id="alasan_tidak_lolos" name="alasan_tidak_lolos" value="<?php echo isset($row_hasil_akhir['alasan_tidak_lolos']) ? $row_hasil_akhir['alasan_tidak_lolos'] : ''; ?>">
                                             </div>
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -768,6 +775,26 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                     },
                     error: function() {
                         alert("Error while submitting Form 6");
+                    }
+                });
+            });
+
+            // Form 6 submission
+            $("#form7").submit(function(event) {
+                event.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/pelamar_lolos.php",
+                    data: formData,
+                    success: function(response) {
+                        alert(response); // Display the response from the server
+                        // You can redirect or perform other actions as needed.
+                    },
+                    error: function() {
+                        alert("Error while submitting Form 7");
                     }
                 });
             });
