@@ -31,8 +31,8 @@ include 'komponen/koneksi.php';
                         <div class="card">
 
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Interviewer/Korektor</h5>
-                                <a href="add_interviewer.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i> Tambah</a>
+                                <h5 class="mb-0">Posisi</h5>
+                                <a href="add_posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i> Tambah</a>
                             </div>
 
 
@@ -41,8 +41,9 @@ include 'komponen/koneksi.php';
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>NIK</th>
-                                            <th>Nama</th>
+                                            <th>Kode Posisi</th>
+                                            <th>Nama Posisi</th>
+                                            <th>Max. Usia Pelamar</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -50,15 +51,16 @@ include 'komponen/koneksi.php';
                                         <?php
 
                                         // Ambil data dari database dan tampilkan dalam tabel
-                                        $sql = "SELECT * FROM interviewer";
+                                        $sql = "SELECT * FROM posisi";
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
-                                                echo "<td>" . $row['id_int'] . "</td>";
-                                                echo "<td>" . $row['nik'] . "</td>";
-                                                echo "<td>" . $row['nama_int'] . "</td>";
+                                                echo "<td>" . $row['id_ps'] . "</td>";
+                                                echo "<td>" . $row['kode_ps'] . "</td>";
+                                                echo "<td>" . $row['nama_ps'] . "</td>";
+                                                echo "<td>" . $row['max_usia'] . "</td>";
                                                 echo '
                                                 <td>
                                                 <div class="dropdown">

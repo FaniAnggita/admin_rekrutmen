@@ -31,7 +31,7 @@
             <ul class="menu-sub">
 
                 <li class="menu-item">
-                    <a href="add-user.php" class="menu-link">
+                    <a href="posisi.php" class="menu-link">
                         <div data-i18n="semua">Posisi/Jabatan</div>
                     </a>
                 </li>
