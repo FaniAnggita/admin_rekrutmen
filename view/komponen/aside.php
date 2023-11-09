@@ -23,7 +23,7 @@
             </a>
         </li>
         <!-- Device -->
-        <li class="menu-item  <?php if ($page == 'user') echo 'active'; ?>">
+        <li class="menu-item  <?php if ($page == 'master') echo 'active'; ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Account Settings">Master</div>
@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="user.php" class="menu-link">
+                    <a href="interviewer.php" class="menu-link">
                         <div data-i18n="tidak lolos">Interviewer/korektor</div>
                     </a>
                 </li>
