@@ -65,6 +65,10 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/searchpanes/1.3.3/js/dataTables.searchPanes.min.js"></script>
 
-
+  <!-- include summernote css/js -->
+  <!-- Summernote CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <!-- Summernote JS -->
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 </head>
