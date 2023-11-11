@@ -59,7 +59,7 @@ include 'komponen/koneksi.php';
                                         <tr class="text-center">
                                             <th colspan="4"></th>
                                             <th colspan="6" class="table-warning">Administrasi</th>
-                                            <th colspan="8" class="table-info">WII</th>
+                                            <th colspan="9" class="table-info">WII</th>
                                             <th colspan="5" class="table-success">Psikotest</th>
                                             <th colspan="9" class="table-danger">Indepth</th>
                                             <th colspan="9" class="table-primary">Tes Bidang</th>
@@ -86,6 +86,7 @@ include 'komponen/koneksi.php';
                                             <th class="table-info">A</th>
                                             <th class="table-info">K</th>
                                             <th class="table-info">R</th>
+                                            <th class="table-info">Interviewer</th>
                                             <th class="table-info">Rating</th>
                                             <th class="table-info">Pengumuman</th>
                                             <!-- Akhir WII -->
@@ -187,6 +188,20 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['a'] . "</td>";
                                                 echo "<td>" . $row['k'] . "</td>";
                                                 echo "<td>" . $row['r'] . "</td>";
+
+                                                // Assuming $conn is your database connection
+                                                // Assuming $row['interviewer_wii'] contains the ID of the interviewer
+
+                                                $interviewer_id = $row['interviewer_wii'];
+                                                $sql_interviewer = "SELECT id_int, nama_int 
+                                                                    FROM interviewer
+                                                                    JOIN seleksi_wii ON id_int = interviewer_wii
+                                                                    WHERE id_int = '$interviewer_id'";
+
+                                                $result_interviewer = $conn->query($sql_interviewer);
+
+                                                echo "<td>" . ($result_interviewer->num_rows > 0 ? $result_interviewer->fetch_assoc()['nama_int'] : '-') . "</td>";
+
                                                 echo "<td>" . $row['rating_wii'] . "</td>";
                                                 echo "<td>" . $row['pengumuman_wii'] . "</td>";
                                                 // Akhir WII
@@ -204,7 +219,16 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['KPR'] . "</td>";
                                                 echo "<td>" . $row['Siker'] . "</td>";
                                                 echo "<td>" . $row['hasilIndepth'] . "</td>";
-                                                echo "<td>" . $row['interviewerIndepth'] . "</td>";
+                                                $interviewer_id = $row['interviewerIndepth'];
+                                                $sql_interviewer = "SELECT id_int, nama_int 
+                                                                    FROM interviewer
+                                                                    JOIN seleksi_indepth ON id_int = interviewerIndepth
+                                                                    WHERE id_int = '$interviewer_id'";
+
+                                                $result_interviewer = $conn->query($sql_interviewer);
+
+                                                echo "<td>" . ($result_interviewer->num_rows > 0 ? $result_interviewer->fetch_assoc()['nama_int'] : '-') . "</td>";
+
                                                 echo "<td>" . $row['pengumuman_in'] . "</td>";
                                                 echo "<td>" . $row['keterangan_in'] . "</td>";
                                                 // Akhir Indepth
@@ -212,9 +236,28 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['tanggalTesBidang'] . "</td>";
                                                 echo "<td> - </td>";
                                                 echo "<td>" . $row['nilaiTesBidang1'] . "</td>";
-                                                echo "<td>" . $row['korektor1'] . "</td>";
+
+                                                $interviewer_id = $row['korektor1'];
+                                                $sql_interviewer = "SELECT id_int, nama_int 
+                                                                    FROM interviewer
+                                                                    JOIN seleksi_tesbidang ON id_int = korektor1
+                                                                    WHERE id_int = '$interviewer_id'";
+
+                                                $result_interviewer = $conn->query($sql_interviewer);
+
+                                                echo "<td>" . ($result_interviewer->num_rows > 0 ? $result_interviewer->fetch_assoc()['nama_int'] : '-') . "</td>";
+
                                                 echo "<td>" . $row['nilaiTesBidang2'] . "</td>";
-                                                echo "<td>" . $row['korektor2'] . "</td>";
+                                                $interviewer_id = $row['korektor2'];
+                                                $sql_interviewer = "SELECT id_int, nama_int 
+                                                                    FROM interviewer
+                                                                    JOIN seleksi_tesbidang ON id_int = korektor2
+                                                                    WHERE id_int = '$interviewer_id'";
+
+                                                $result_interviewer = $conn->query($sql_interviewer);
+
+                                                echo "<td>" . ($result_interviewer->num_rows > 0 ? $result_interviewer->fetch_assoc()['nama_int'] : '-') . "</td>";
+
                                                 echo "<td>" . $row['hasil_tb'] . "</td>";
                                                 echo "<td>" . $row['keterangan_tb'] . "</td>";
                                                 echo "<td>" . $row['pengumuman_tb'] . "</td>";
@@ -228,10 +271,21 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['pd'] . "</td>";
                                                 echo "<td>" . $row['bd'] . "</td>";
                                                 echo "<td>" . $row['ktb'] . "</td>";
-                                                echo "<td>" . $row['interviewer_iu'] . "</td>";
+
                                                 echo "<td>" . $row['hasil_iu'] . "</td>";
-                                                echo "<td>" . $row['pengumuman_iu'] . "</td>";
                                                 echo "<td>" . $row['keterangan_iu'] . "</td>";
+
+                                                $interviewer_id = $row['interviewer_iu'];
+                                                $sql_interviewer = "SELECT id_int, nama_int 
+                                                                    FROM interviewer
+                                                                    JOIN seleksi_interviewuser ON id_int = interviewer_iu
+                                                                    WHERE id_int = '$interviewer_id'";
+
+                                                $result_interviewer = $conn->query($sql_interviewer);
+
+                                                echo "<td>" . ($result_interviewer->num_rows > 0 ? $result_interviewer->fetch_assoc()['nama_int'] : '-') . "</td>";
+
+                                                echo "<td>" . $row['pengumuman_iu'] . "</td>";
                                                 // Akhir Interview User
                                                 // Alasan
                                                 echo "<td>" . $row['alasan_tidak_lolos'] . "</td>";
@@ -330,25 +384,15 @@ include 'komponen/koneksi.php';
                 scrollY: true,
                 scrollX: true,
                 select: true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print', // Existing buttons
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Print Excel', // Text for the button
-                        className: 'btn-excel', // Optional custom class for styling
-                        exportOptions: {
-                            columns: ':visible' // Export all visible columns
-                        }
-                    }
-                ]
+
+
             });
 
             // Create select inputs for each column
             table.columns().every(function() {
                 var column = this;
                 if (column.index() !== 0) {
-                    var select = $('<select><option value=""></option></select>')
+                    var select = $('<br><select class="w-100 form-select-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
                         .on('change', function() {
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());

@@ -71,4 +71,15 @@
   <!-- Summernote JS -->
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+  <style>
+    table {
+      margin: 0 auto;
+      width: 100%;
+      clear: both;
+      border-collapse: collapse;
+      table-layout: fixed;
+      word-wrap: break-word;
+    }
+  </style>
+
 </head>

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pd = $_POST['pd'];
     $bd = $_POST['bd'];
     $ktb = $_POST['ktb'];
-    $interviewer = $_POST['korektor2'];
+    $interviewer = $_POST['id_int'];
     $hasil = $_POST['hasil'];
     $pengumuman = $_POST['pengumuman'];
     $keterangan = $_POST['keterangan'];

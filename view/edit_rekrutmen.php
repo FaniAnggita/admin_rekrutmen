@@ -227,6 +227,35 @@ include 'komponen/koneksi.php';
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
+                                                <label for="id_int" class="form-label">Interviewer</label>
+                                                <select id="id_int" class="form-select" name="id_int">
+                                                    <?php
+                                                    // Your SQL query to fetch data from the 'interviewer' table
+                                                    $sql = "SELECT id_int, nama_int FROM interviewer";
+                                                    $result = $conn->query($sql);
+
+                                                    // Check if there are results
+                                                    if ($result->num_rows > 0) {
+                                                        // Output data of each row
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            $selected = '';
+
+                                                            // Check if there is a pre-selected value available
+                                                            if (isset($row_wii['interviewer_wii']) && $row['id_int'] == $row_wii['interviewer_wii']) {
+                                                                $selected = 'selected';
+                                                            }
+
+                                                            // Generate the options for the select element
+                                                            echo '<option value="' . $row['id_int'] . '" ' . $selected . '>' . $row['nama_int'] . '</option>';
+                                                        }
+                                                    } else {
+                                                        echo '<option value="">No interviewers found</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-4">
                                                 <label for="rating" class="form-label">Hasil</label>
                                                 <select id="rating" class="form-select" name="rating">
                                                     <option value="2" <?php echo isset($row_wii['rating_wii']) && $row_wii['rating_wii'] === '2' ? 'selected' : ''; ?>>Choose...</option>
@@ -357,9 +386,31 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="interviewer" class="form-label">Interviewer Indepth</label>
                                                 <select id="interviewer" class="form-select" name="interviewer">
-                                                    <option value="pilih" <?php echo isset($row_indepth['interviewerIndepth']) && $row_indepth['interviewerIndepth'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="lolos" <?php echo isset($row_indepth['interviewerIndepth']) && $row_indepth['interviewerIndepth'] === 'lolos' ? 'selected' : ''; ?>>Lolos</option>
-                                                    <option value="tidak lolos" <?php echo isset($row_indepth['interviewerIndepth']) && $row_indepth['interviewerIndepth'] === 'tidak lolos' ? 'selected' : ''; ?>>Tidak Lolos</option>
+
+                                                    <?php
+                                                    // Your SQL query to fetch data from the 'interviewer' table
+                                                    $sql = "SELECT id_int, nama_int FROM interviewer";
+                                                    $result = $conn->query($sql);
+
+                                                    // Check if there are results
+                                                    if ($result->num_rows > 0) {
+                                                        // Output data of each row
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            $selected = '';
+
+                                                            // Check if there is a pre-selected value available
+                                                            if (isset($row_indepth['interviewerIndepth']) && $row['id_int'] == $row_indepth['interviewerIndepth']) {
+                                                                $selected = 'selected';
+                                                            }
+
+                                                            // Generate the options for the select element
+                                                            echo '<option value="' . $row['id_int'] . '" ' . $selected . '>' . $row['nama_int'] . '</option>';
+                                                        }
+                                                    } else {
+                                                        echo '<option value="">No interviewers found</option>';
+                                                    }
+                                                    ?>
+
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
@@ -403,10 +454,29 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="korektor1" class="form-label">Korektor 1</label>
                                                 <select id="korektor1" class="form-select" name="korektor1">
-                                                    <option value="pilih" <?php echo isset($row_tes_bidang['korektor1']) && $row_tes_bidang['korektor1'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="Ani" <?php echo isset($row_tes_bidang['korektor1']) && $row_tes_bidang['korektor1'] === 'Ani' ? 'selected' : ''; ?>>Ani</option>
-                                                    <option value="Toni" <?php echo isset($row_tes_bidang['korektor1']) && $row_tes_bidang['korektor1'] === 'Toni' ? 'selected' : ''; ?>>Toni</option>
-                                                    <option value="Rio" <?php echo isset($row_tes_bidang['korektor1']) && $row_tes_bidang['korektor1'] === 'Rio' ? 'selected' : ''; ?>>Rio</option>
+                                                    <?php
+                                                    // Your SQL query to fetch data from the 'interviewer' table
+                                                    $sql = "SELECT id_int, nama_int FROM interviewer";
+                                                    $result = $conn->query($sql);
+
+                                                    // Check if there are results
+                                                    if ($result->num_rows > 0) {
+                                                        // Output data of each row
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            $selected = '';
+
+                                                            // Check if there is a pre-selected value available
+                                                            if (isset($row_tes_bidang['korektor1']) && $row['id_int'] == $row_tes_bidang['korektor1']) {
+                                                                $selected = 'selected';
+                                                            }
+
+                                                            // Generate the options for the select element
+                                                            echo '<option value="' . $row['id_int'] . '" ' . $selected . '>' . $row['nama_int'] . '</option>';
+                                                        }
+                                                    } else {
+                                                        echo '<option value="">No interviewers found</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
@@ -416,10 +486,29 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             <div class="col-md-4">
                                                 <label for="korektor2" class="form-label">Korektor 2</label>
                                                 <select id="korektor2" class="form-select" name="korektor2">
-                                                    <option value="pilih" <?php echo isset($row_tes_bidang['korektor2']) && $row_tes_bidang['korektor2'] === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="Ani" <?php echo isset($row_tes_bidang['korektor2']) && $row_tes_bidang['korektor2'] === 'Ani' ? 'selected' : ''; ?>>Ani</option>
-                                                    <option value="Toni" <?php echo isset($row_tes_bidang['korektor2']) && $row_tes_bidang['korektor2'] === 'Toni' ? 'selected' : ''; ?>>Toni</option>
-                                                    <option value="Rio" <?php echo isset($row_tes_bidang['korektor2']) && $row_tes_bidang['korektor2'] === 'Rio' ? 'selected' : ''; ?>>Rio</option>
+                                                    <?php
+                                                    // Your SQL query to fetch data from the 'interviewer' table
+                                                    $sql = "SELECT id_int, nama_int FROM interviewer";
+                                                    $result = $conn->query($sql);
+
+                                                    // Check if there are results
+                                                    if ($result->num_rows > 0) {
+                                                        // Output data of each row
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            $selected = '';
+
+                                                            // Check if there is a pre-selected value available
+                                                            if (isset($row_tes_bidang['korektor2']) && $row['id_int'] == $row_tes_bidang['korektor2']) {
+                                                                $selected = 'selected';
+                                                            }
+
+                                                            // Generate the options for the select element
+                                                            echo '<option value="' . $row['id_int'] . '" ' . $selected . '>' . $row['nama_int'] . '</option>';
+                                                        }
+                                                    } else {
+                                                        echo '<option value="">No interviewers found</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
 
@@ -514,12 +603,31 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="korektor2" class="form-label">Interviewer</label>
-                                                <select id="korektor2" class="form-select" name="korektor2">
-                                                    <option value="pilih" <?php echo isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? 'pilih') === 'pilih' ? 'selected' : ''; ?>>Choose...</option>
-                                                    <option value="Ani" <?php echo isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? '') === 'Ani' ? 'selected' : ''; ?>>Ani</option>
-                                                    <option value="Toni" <?php echo  isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? '') === 'Toni' ? 'selected' : ''; ?>>Toni</option>
-                                                    <option value="Rio" <?php echo isset($row_interview_user['interviewer_iu']) && ($row_interview_user['interviewer_iu'] ?? '') === 'Rio' ? 'selected' : ''; ?>>Rio</option>
+                                                <label for="id_int" class="form-label">Interviewer</label>
+                                                <select id="id_int" class="form-select" name="id_int">
+                                                    <?php
+                                                    // Your SQL query to fetch data from the 'interviewer' table
+                                                    $sql = "SELECT id_int, nama_int FROM interviewer";
+                                                    $result = $conn->query($sql);
+
+                                                    // Check if there are results
+                                                    if ($result->num_rows > 0) {
+                                                        // Output data of each row
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            $selected = '';
+
+                                                            // Check if there is a pre-selected value available
+                                                            if (isset($row_interview_user['interviewer_iu']) && $row['id_int'] == $row_interview_user['interviewer_iu']) {
+                                                                $selected = 'selected';
+                                                            }
+
+                                                            // Generate the options for the select element
+                                                            echo '<option value="' . $row['id_int'] . '" ' . $selected . '>' . $row['nama_int'] . '</option>';
+                                                        }
+                                                    } else {
+                                                        echo '<option value="">No interviewers found</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
 
