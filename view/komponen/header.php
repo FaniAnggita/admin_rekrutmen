@@ -71,14 +71,27 @@
   <!-- Summernote JS -->
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+  <script src="https://cdn.datatables.net/buttons/2.3.0/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.0/js/buttons.print.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.0/css/buttons.dataTables.min.css">
+
   <style>
     table {
       margin: 0 auto;
       width: 100%;
       clear: both;
       border-collapse: collapse;
-      table-layout: fixed;
+      table-layout: auto;
       word-wrap: break-word;
+    }
+
+    thead {
+      width: calc(100% - 17px);
+    }
+
+    tbody {
+      width: 100%;
     }
   </style>
 

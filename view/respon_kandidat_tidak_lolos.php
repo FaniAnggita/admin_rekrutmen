@@ -180,7 +180,7 @@ include 'komponen/koneksi.php';
 
                 // Check if the column index is not equal to 13 (the "Dokumen" column)
                 if (columnIndex !== 13) {
-                    var select = $('<select><option value=""></option></select>')
+                    var select = $('<br><select class="w-100 form-select-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
                         .on('change', function() {
                             var val = $.fn.dataTable.util.escapeRegex(

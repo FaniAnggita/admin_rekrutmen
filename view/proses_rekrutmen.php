@@ -64,7 +64,7 @@ include 'komponen/koneksi.php';
                                             <th colspan="9" class="table-danger">Indepth</th>
                                             <th colspan="9" class="table-primary">Tes Bidang</th>
                                             <th colspan="12" class="table-warning">Interview User</th>
-                                            <th colspan="3"></th>
+                                            <th colspan="4"></th>
                                         </tr>
                                         <tr class="text-center fw-bold">
                                             <th class="table-danger">Aksi</th>
@@ -134,6 +134,7 @@ include 'komponen/koneksi.php';
                                             <th class="table-warning">Pengumuman</th>
                                             <!-- Akhir Interview User -->
                                             <!-- Alasan -->
+                                            <th class="table-danger">Hasil Akhir</th>
                                             <th class="table-danger">Alasan Tidak Lolos</th>
                                             <!-- Akhir Alasan -->
                                             <!-- etc -->
@@ -275,19 +276,32 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['hasil_iu'] . "</td>";
                                                 echo "<td>" . $row['keterangan_iu'] . "</td>";
 
-                                                $interviewer_id = $row['interviewer_iu'];
-                                                $sql_interviewer = "SELECT id_int, nama_int 
-                                                                    FROM interviewer
-                                                                    JOIN seleksi_interviewuser ON id_int = interviewer_iu
-                                                                    WHERE id_int = '$interviewer_id'";
+                                                $interviewer_ids = explode(',', $row['interviewer_iu']); // Memisahkan ID yang terpisah koma menjadi array
+                                                $interviewer_names = array();
 
-                                                $result_interviewer = $conn->query($sql_interviewer);
+                                                foreach ($interviewer_ids as $interviewer_id) {
+                                                    $sql_interviewer = "SELECT nama_int FROM interviewer WHERE id_int = '$interviewer_id'";
+                                                    $result_interviewer = $conn->query($sql_interviewer);
 
-                                                echo "<td>" . ($result_interviewer->num_rows > 0 ? $result_interviewer->fetch_assoc()['nama_int'] : '-') . "</td>";
+                                                    if ($result_interviewer) {
+                                                        if ($result_interviewer->num_rows > 0) {
+                                                            $interviewer_name = $result_interviewer->fetch_assoc()['nama_int'];
+                                                            $interviewer_names[] = $interviewer_name; // Menyimpan nama interviewer ke dalam array
+                                                        }
+                                                    } else {
+                                                        echo "Error: " . $sql_interviewer . "<br>" . $conn->error;
+                                                    }
+                                                }
+
+                                                // Menggabungkan nama interviewer menjadi satu string dengan koma
+                                                $interviewer_names_string = implode(', ', $interviewer_names);
+
+                                                echo "<td>" . $interviewer_names_string . "</td>";
 
                                                 echo "<td>" . $row['pengumuman_iu'] . "</td>";
                                                 // Akhir Interview User
                                                 // Alasan
+                                                echo "<td>" . $row['hasil_akhir'] . "</td>";
                                                 echo "<td>" . $row['alasan_tidak_lolos'] . "</td>";
                                                 // Akhir Alasan
                                                 // Etc

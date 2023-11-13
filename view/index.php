@@ -4,7 +4,7 @@ include 'komponen/header.php';
 include 'komponen/koneksi.php';
 
 // Grafik menampilkan jumlah pelamar berdarkan posisi
-$sql = "SELECT kode_ps, COUNT(*) AS jumlah_pelamar FROM pelamar2 GROUP BY kode_ps";
+$sql = "SELECT kode_ps, COUNT(*) AS jumlah_pelamar FROM pelamar2 GROUP BY kode_ps ORDER BY jumlah_pelamar LIMIT 5";
 $result = $conn->query($sql);
 
 $chartData = array('categories' => array(), 'data' => array());
@@ -214,7 +214,9 @@ if ($resultRekomendasi->num_rows > 0) {
               <div class="col-12 col-md-12 col-lg-6">
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">Presentase Pelamar Berdarkan Rekomendasi</h6>
+                    <h6 class="mb-0">Top 5 Jumlah Pelamar Berdarkan Posisi</h6>
+                    <a href="#" class="btn btn-primary btn-sm" id="showModal">Detail <i class="bx bx-chevron-right"></i></a>
+
                   </div>
                   <div class="card-body">
                     <div id="chartPie"></div>
@@ -224,7 +226,7 @@ if ($resultRekomendasi->num_rows > 0) {
               <div class="col-12 col-md-12 col-lg-6">
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">Jumlah Pelamar Berdasarkan Rekomendasi</h6>
+                    <h6 class="mb-0">Presentase Pelamar Berdasarkan rekomendasi</h6>
                   </div>
                   <div class="card-body">
                     <div id="chart"></div>
@@ -235,7 +237,43 @@ if ($resultRekomendasi->num_rows > 0) {
 
           </div>
 
+          <!-- Modal -->
+          <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6 class="modal-title">Detail Jumlah Pelamar Berdasarkan Posisi</h6>
+                  <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                </div>
+                <div class="modal-body">
+                  <table class="table table-bordered table-striped">
+                    <tr>
+                      <th>Posisi</th>
+                      <th>Jumlah Pelamar</th>
+                    </tr>
+                    <?php
+                    $sql = "SELECT posisi.nama_ps AS nama_posisi, COUNT(pelamar2.id) AS jumlah_pelamar
+                    FROM posisi
+                    LEFT JOIN pelamar2 ON posisi.kode_ps = pelamar2.kode_ps
+                    GROUP BY posisi.nama_ps ORDER BY jumlah_pelamar DESC";
 
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                      while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['nama_posisi'] . "</td>";
+                        echo "<td>" . $row['jumlah_pelamar'] . "</td>";
+                        echo "</tr>";
+                      }
+                    } else {
+                      echo "<tr><td colspan='2'>No results found</td></tr>";
+                    }
+                    ?>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Footer -->
           <?php
@@ -296,6 +334,10 @@ if ($resultRekomendasi->num_rows > 0) {
 
   <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.3/dist/apexcharts.min.js"></script>
 
+  <!-- Bootstrap and jQuery scripts -->
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <script>
     // JavaScript using PHP data for ApexCharts
     var pelamarData = <?php echo json_encode($chartData); ?>;
@@ -329,6 +371,22 @@ if ($resultRekomendasi->num_rows > 0) {
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#showModal').click(function(e) {
+        e.preventDefault();
+
+        // Here, you'd fetch the table content via AJAX or insert sample content
+        // For example, assuming 'tableContent' holds your table's HTML:
+
+
+
+        // Show the modal
+        $('#myModal').modal('show');
+      });
+    });
   </script>
 
 </body>

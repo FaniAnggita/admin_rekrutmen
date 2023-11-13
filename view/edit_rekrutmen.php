@@ -43,17 +43,70 @@ include 'komponen/koneksi.php';
                                     $result = $conn->query($sql);
                                     $row = mysqli_fetch_assoc($result);
                                     echo $row['id'] . " - " . $row['nama_lengkap'] . " - " . $row['kode_ps'];
+                                    $nama_pelamar = $row['nama_lengkap'];
+                                    $gender = $row['gender'] == 'Laki-Laki' ? 'saudara' : 'saudari';
+
                                     ?>
                                     <?php
                                     $sql_amd = "SELECT * FROM seleksi_administrasi WHERE id_pelamar = $id_pelamar";
                                     $result_amd = $conn->query($sql_amd);
                                     $row_amd = mysqli_fetch_assoc($result_amd);
                                     ?>
+
                                     <?php
                                     // Retrieve data from the database for WII form
                                     $sql_wii = "SELECT * FROM seleksi_wii WHERE id_pelamar = $id_pelamar";
                                     $result_wii = $conn->query($sql_wii);
                                     $row_wii = mysqli_fetch_assoc($result_wii);
+                                    // $waktuInterview = $row_wii['waktuInterview'];
+                                    $tanggalBulanTahun = '(belum diatur)';
+                                    $jam = '(belum diatur)';
+
+                                    if (!empty($row_wii['waktuInterview'])) {
+                                        $waktuInterview = $row_wii['waktuInterview'];
+
+                                        // Mendapatkan informasi waktu
+                                        $tanggal = date('j', strtotime($waktuInterview)); // Tanggal tanpa leading zero
+                                        $bulan = date('n', strtotime($waktuInterview)); // Bulan tanpa leading zero
+                                        $tahun = date('Y', strtotime($waktuInterview)); // Tahun
+                                        $hari = date('N', strtotime($waktuInterview)); // Hari
+                                        $jam = date('H:i', strtotime($waktuInterview)); // Jam dalam format 24 jam
+                                        // Array untuk konversi nama bulan
+                                        $namaHari = [
+                                            1 => 'Senin',
+                                            2 => 'Selasa',
+                                            3 => 'Rabu',
+                                            4 => 'Kamis',
+                                            5 => 'Jumat',
+                                            6 => 'Sabtu',
+                                            7 => 'Minggu'
+                                        ];
+
+                                        $namaBulan = [
+                                            1 => 'Januari',
+                                            2 => 'Februari',
+                                            3 => 'Maret',
+                                            4 => 'April',
+                                            5 => 'Mei',
+                                            6 => 'Juni',
+                                            7 => 'Juli',
+                                            8 => 'Agustus',
+                                            9 => 'September',
+                                            10 => 'Oktober',
+                                            11 => 'November',
+                                            12 => 'Desember'
+                                        ];
+
+                                        // Membuat string dengan format yang diinginkan
+                                        $tanggalBulanTahun = $namaHari[(int)$hari] . ', ' . $tanggal . ' ' . $namaBulan[(int)$bulan] . ' ' . $tahun;
+
+                                        // echo $tanggalBulanTahun;
+                                    } else {
+                                        $row_wii['waktuInterview'] = "(belum diset)";
+                                        // echo $row_wii['waktuInterview'];
+                                    }
+
+
                                     ?>
                                     <?php
                                     // Retrieve data from the database for Psikotest form
@@ -269,11 +322,11 @@ include 'komponen/koneksi.php';
                                                 $teks = "
 Selamat Pagi,
 
-Kami HRD PT Pustaka Insan Madani menginformasikan kepada sdra/sdri bahwa kami akan mengadakan *Walk In Interview* secara online.
+Kami HRD PT Pustaka Insan Madani menginformasikan kepada $gender *$nama_pelamar* bahwa kami akan mengadakan *Walk In Interview* secara online.
 
-Hari dan Tanggal : Selasa, 03 Oktober 2023
+Hari dan Tanggal : $tanggalBulanTahun
 Tempat : Video Call by WhatsApp
-Waktu : 14.30 WIB
+Waktu : $jam WIB
 
 Silakan stand by dari pukul (14.20), jadwal sewaktu-waktu bisa berubah.
 
@@ -289,7 +342,7 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
 *PT PUSTAKA INSAN MADANI*
 "; ?>
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
-                                                <a class="btn btn-success text-white" href="https://api.whatsapp.com/send?phone=<?php echo $phone; ?>&text=
+                                                <a class="btn btn-success text-white" target="_blank" href="https://api.whatsapp.com/send?phone=<?php echo $phone; ?>&text=
                                                 <?php echo urlencode($teks); ?>" data-action="share/whatsapp/share">Invite</a>
                                             </div>
                                         </form>
@@ -604,7 +657,7 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="id_int" class="form-label">Interviewer</label>
-                                                <select id="id_int" class="form-select" name="id_int">
+                                                <select id="id_int" class="form-select" name="id_int[]" multiple> <!-- Include '[]' in the name attribute and add 'multiple' -->
                                                     <?php
                                                     // Your SQL query to fetch data from the 'interviewer' table
                                                     $sql = "SELECT id_int, nama_int FROM interviewer";
@@ -615,9 +668,10 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                                         // Output data of each row
                                                         while ($row = $result->fetch_assoc()) {
                                                             $selected = '';
+                                                            $interviewer_iu = $row_interview_user['interviewer_iu'];
 
-                                                            // Check if there is a pre-selected value available
-                                                            if (isset($row_interview_user['interviewer_iu']) && $row['id_int'] == $row_interview_user['interviewer_iu']) {
+                                                            if (strpos($interviewer_iu, (string)$row['id_int']) !== false) {
+                                                                // Jika ID saat ini ada dalam string 'interviewer_iu'
                                                                 $selected = 'selected';
                                                             }
 
@@ -630,6 +684,7 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                                     ?>
                                                 </select>
                                             </div>
+
 
                                             <div class="col-md-4">
                                                 <label for="pengumuman" class="form-label">Pengumuman</label>
