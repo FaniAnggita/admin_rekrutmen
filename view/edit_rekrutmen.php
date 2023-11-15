@@ -316,7 +316,7 @@ include 'komponen/koneksi.php';
                                                     <option value="0" <?php echo isset($row_wii['rating_wii']) && $row_wii['rating_wii'] === '0' ? 'selected' : ''; ?>>Tidak Lolos</option>
                                                 </select>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12 ">
                                                 <?php
                                                 $phone = '+62 882-9347-7565';
                                                 $teks = "
@@ -342,7 +342,7 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
 *PT PUSTAKA INSAN MADANI*
 "; ?>
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
-                                                <a class="btn btn-success text-white" target="_blank" href="https://api.whatsapp.com/send?phone=<?php echo $phone; ?>&text=
+                                                <a class="btn btn-success text-white " target="_blank" href="https://api.whatsapp.com/send?phone=<?php echo $phone; ?>&text=
                                                 <?php echo urlencode($teks); ?>" data-action="share/whatsapp/share">Invite</a>
                                             </div>
                                         </form>
@@ -657,7 +657,7 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="id_int" class="form-label">Interviewer</label>
-                                                <select id="id_int" class="form-select" name="id_int[]" multiple> <!-- Include '[]' in the name attribute and add 'multiple' -->
+                                                <select id="id_int" class="form-select" name="id_int[]" size="3" multiple> <!-- Include '[]' in the name attribute and add 'multiple' -->
                                                     <?php
                                                     // Your SQL query to fetch data from the 'interviewer' table
                                                     $sql = "SELECT id_int, nama_int FROM interviewer";

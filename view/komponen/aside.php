@@ -53,7 +53,7 @@
         <!-- Respon Kandidat -->
         <li class="menu-item  <?php if ($page == 'respon_kandidat') echo 'active'; ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
+                <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Account Settings">Respon Kandidat</div>
             </a>
             <ul class="menu-sub">
@@ -83,6 +83,29 @@
                 <i class="menu-icon tf-icons bx bx-edit-alt"></i>
                 <div data-i18n="device">Proses Rekrutmen</div>
             </a>
+        </li>
+        <!-- User Mng -->
+        <li class="menu-item  <?php if ($page == 'user') echo 'active'; ?>">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Account Settings">User</div>
+            </a>
+            <ul class="menu-sub">
+
+                <li class="menu-item">
+                    <a href="add_user.php" class="menu-link">
+                        <div data-i18n="semua">Add User</div>
+                    </a>
+                </li>
+
+
+                <li class="menu-item">
+                    <a href="lowongan.php" class="menu-link">
+                        <div data-i18n="tidak lolos">User Management</div>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <!-- Setting -->
         <li class="menu-item <?php if ($page == 'setting') echo 'active'; ?>">

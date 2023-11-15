@@ -31,49 +31,95 @@ include 'komponen/koneksi.php';
                         <div class="card">
 
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Tambah Posisi/Jabatan</h5>
-                                <a href="posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-left-arrow-alt"></i> Kembali</a>
+                                <h5 class="mb-0">Tambah User</h5>
+                                <a href="user_management.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i> Tambah</a>
                             </div>
 
+
                             <div class="card-body">
-                                <form id="tambah">
+                                <form id="add_user">
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="kode_ps">Kode Posisi</label>
+                                        <label class="col-sm-2 col-form-label" for="name">Name</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-user"></i></span>
+                                                <input type="text" class="form-control" id="name" name="name" aria-label="John Doe" aria-describedby="name" autocomplete="off" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="gender">Gender</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-male"></i></span>
+                                                <select id="gender" name="gender" class="form-select" required>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="dob">Date of Birth</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                                                <input type="date" class="form-control" id="dob" name="dob" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="email">Email</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                                <input type="email" class="form-control" id="email" name="email" autocomplete="off" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="password">Password</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="text" class="form-control" id="kode_ps" name="kode_ps" aria-describedby="kode_ps" required>
+                                                <input type="password" class="form-control" id="password" name="password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="nama_ps">Nama Posisi</label>
+                                        <label class="col-sm-2 col-form-label" for="copassword">Confirm Password</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
-                                                <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="nama_ps" name="nama_ps" aria-label="John Doe" aria-describedby="nama_ps" autocomplete="on" required>
+                                                <span class="input-group-text"><i class="bx bx-key"></i></span>
+                                                <input type="password" class="form-control" id="copassword" name="copassword" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="max_usia">Max. Usia Pelamar</label>
+                                        <label class="col-sm-2 col-form-label" for="role">Role</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
-                                                <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="max_usia" name="max_usia" aria-label="John Doe" aria-describedby="max_usia" autocomplete="on" required>
+                                                <span class="input-group-text"><i class="bx bx-cog"></i></span>
+                                                <select id="role" name="role" class="form-select" required>
+                                                    <option value="2">Home User</option>
+                                                    <option value="1">Admin</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row justify-content-end">
                                         <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <button type="button" class="btn btn-primary" id="submitButton">Send</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
+
                         </div>
+
                     </div>
+
+
 
 
                     <!-- Footer -->
@@ -92,6 +138,7 @@ include 'komponen/koneksi.php';
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    <!-- / Layout wrapper -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Core JS -->
@@ -119,6 +166,9 @@ include 'komponen/koneksi.php';
     <!-- Time -->
     <script src="scripts/time.js"></script>
 
+
+
+
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -139,27 +189,7 @@ include 'komponen/koneksi.php';
 
     <script>
         $(document).ready(function() {
-            // Form 1 submission
-            $("#tambah").submit(function(event) {
-                event.preventDefault();
-
-                var formData = $(this).serialize();
-
-                $.ajax({
-                    type: "POST",
-                    url: "../controller/tambah_posisi.php", // Replace with the path to your PHP script
-                    data: formData,
-                    success: function(response) {
-                        alert(response); // Display the response from the server
-                        // You can redirect or perform other actions as needed.
-                    },
-                    error: function() {
-                        alert("Error while submitting Form 1");
-                    }
-                });
-            });
-
-
+            $('#myTable').DataTable();
         });
     </script>
 
