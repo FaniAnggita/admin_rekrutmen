@@ -39,11 +39,13 @@ include 'komponen/koneksi.php';
                                 <form action="" method="get" class="row">
                                     <div class="form-group col-3">
                                         <label for="start_date">Tanggal Awal Lamaran:</label>
-                                        <input type="date" id="start_date" class="form-control" name="start_date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
+                                        <input type="date" id="start_date" class="form-control" name="start_date"
+                                            value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="end_date">Tanggal Akhir Lamaran:</label>
-                                        <input type="date" id="end_date" class="form-control" name="end_date" value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
+                                        <input type="date" id="end_date" class="form-control" name="end_date"
+                                            value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
                                     </div>
 
                                     <div class="form-group col-2">
@@ -52,13 +54,18 @@ include 'komponen/koneksi.php';
 
                                 </form>
                             </div>
+                            <div class="card-body">
+                                <button id="editButton" class="btn btn-danger btn-sm"><i class='bx bx-edit-alt'></i>
+                                    Edit</button>
+
+                            </div>
                             <div class="card-body table-responsive">
 
                                 <table id="deviceTable" class="table display table-sm table-bordered table-striped">
                                     <thead>
                                         <tr class="text-center">
-                                            <th colspan="4"></th>
-                                            <th colspan="6" class="table-warning">Administrasi</th>
+                                            <th colspan="5"></th>
+                                            <th colspan="7" class="table-warning">Administrasi</th>
                                             <th colspan="9" class="table-info">WII</th>
                                             <th colspan="5" class="table-success">Psikotest</th>
                                             <th colspan="9" class="table-danger">Indepth</th>
@@ -67,6 +74,7 @@ include 'komponen/koneksi.php';
                                             <th colspan="4"></th>
                                         </tr>
                                         <tr class="text-center fw-bold">
+                                            <th><input type="checkbox" id="select-all"></th>
                                             <th class="table-danger">Aksi</th>
                                             <th class="table-primary">Tanggal Daftar</th>
                                             <th class="table-primary">ID Pelamar</th>
@@ -78,6 +86,7 @@ include 'komponen/koneksi.php';
                                             <th class="table-warning">Nilai Pengalaman</th>
                                             <th class="table-warning">Hasil</th>
                                             <th class="table-warning">Keterangan</th>
+                                            <th class="table-warning">Aksi</th>
                                             <!-- Akhir Administrasi -->
                                             <!-- WII -->
                                             <th class="table-info">Waktu WII</th>
@@ -170,16 +179,19 @@ include 'komponen/koneksi.php';
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
+                                                echo "<td><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "'></td>";
                                                 echo "<td><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-danger btn-sm'><i class='bx bx-edit-alt'></i></a></td>";
                                                 echo "<td>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
                                                 echo "<td>" . $row['id'] . "</td>";
-                                                echo "<td>" . $row['nama_lengkap'] . "</td>";
+                                                echo '<td>  <button id="editButton" class="btn btn-danger btn-sm"><i class="bx bx-edit-alt"></i>
+                                                Edit</button> </td>';
                                                 // Administrasi
                                                 echo "<td><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
                                                 echo "<td>" . $row['nilai_cv'] . "</td>";
                                                 echo "<td>" . $row['nilai_kualifikasi'] . "</td>";
                                                 echo "<td>" . $row['nilai_pengalaman'] . "</td>";
                                                 echo "<td>" . $row['hasil_seleksi_adm'] . "</td>";
+                                                echo "<td>" . $row['keterangan_adm'] . "</td>";
                                                 echo "<td>" . $row['keterangan_adm'] . "</td>";
                                                 // Akhir Administrasi
                                                 // WII
@@ -192,7 +204,7 @@ include 'komponen/koneksi.php';
 
                                                 // Assuming $conn is your database connection
                                                 // Assuming $row['interviewer_wii'] contains the ID of the interviewer
-
+                                        
                                                 $interviewer_id = $row['interviewer_wii'];
                                                 $sql_interviewer = "SELECT id_int, nama_int 
                                                                     FROM interviewer
@@ -319,6 +331,40 @@ include 'komponen/koneksi.php';
                             </div>
                         </div>
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Selected Rows</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Display selected IDs here
+                                    <p id="selectedIds"></p> -->
+                                    <form action="control_seleksi.php" method="post" class="row">
+                                        <div class="col-12">
+                                            <label for="selectedIdsInput" class="form-label">Selected IDs:</label>
+                                            <input type="text" name="id" class="form-control" id="selectedIdsInput"
+                                                readonly>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+
 
 
                     <!-- Footer -->
@@ -388,36 +434,68 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#deviceTable').DataTable({
                 fixedColumns: {
-                    left: 4
+                    left: 5
                 },
                 paging: true,
                 scrollCollapse: true,
                 scrollY: true,
                 scrollX: true,
                 select: true,
+            });
 
+            // Add a checkbox for row selection
+            $('#deviceTable thead tr').first().prepend('<th><input type="checkbox" id="select-all"></th>');
 
+            // Handle row selection
+            $('#deviceTable tbody').on('click', '.select-checkbox', function () {
+                $(this).toggleClass('selected');
+            });
+
+            // Handle "Select All" checkbox
+            $('#select-all').on('click', function () {
+                var rows = table.rows({ page: 'current' }).nodes();
+                $(':checkbox', rows).prop('checked', this.checked).toggleClass('selected', this.checked);
             });
 
             // Create select inputs for each column
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var column = this;
                 if (column.index() !== 0) {
                     var select = $('<br><select class="w-100 form-select-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
-                        .on('change', function() {
+                        .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());
                             column.search(val ? '^' + val + '$' : '', true, false).draw();
                         });
 
-                    column.data().unique().sort().each(function(d, j) {
+                    column.data().unique().sort().each(function (d, j) {
                         select.append('<option value="' + d + '">' + d + '</option>');
                     });
                 }
             });
+
+            // Handle "Edit" button click
+            $('#editButton').on('click', function () {
+                var selectedIds = [];
+                $('.select-checkbox.selected').each(function () {
+                    selectedIds.push($(this).data('id'));
+                });
+
+                // Display the selected IDs in the paragraph
+                $('#selectedIds').text('Selected IDs: ' + selectedIds.join(', '));
+
+                // Set the value of the input field
+                $('#selectedIdsInput').val(selectedIds.join(', '));
+
+                // Open the modal
+                $('#editModal').modal('show');
+            });
+
+
+
         });
     </script>
 

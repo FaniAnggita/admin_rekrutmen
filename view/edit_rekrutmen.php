@@ -98,7 +98,7 @@ include 'komponen/koneksi.php';
                                         ];
 
                                         // Membuat string dengan format yang diinginkan
-                                        $tanggalBulanTahun = $namaHari[(int)$hari] . ', ' . $tanggal . ' ' . $namaBulan[(int)$bulan] . ' ' . $tahun;
+                                        $tanggalBulanTahun = $namaHari[(int) $hari] . ', ' . $tanggal . ' ' . $namaBulan[(int) $bulan] . ' ' . $tahun;
 
                                         // echo $tanggalBulanTahun;
                                     } else {
@@ -670,7 +670,7 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
                                                             $selected = '';
                                                             $interviewer_iu = $row_interview_user['interviewer_iu'];
 
-                                                            if (strpos($interviewer_iu, (string)$row['id_int']) !== false) {
+                                                            if (strpos($interviewer_iu, (string) $row['id_int']) !== false) {
                                                                 // Jika ID saat ini ada dalam string 'interviewer_iu'
                                                                 $selected = 'selected';
                                                             }
