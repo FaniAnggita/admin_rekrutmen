@@ -54,9 +54,18 @@ include 'komponen/koneksi.php';
 
                                 </form>
                             </div>
-                            <div class="card-body">
-                                <button id="editButton" class="btn btn-danger btn-sm"><i class='bx bx-edit-alt'></i>
-                                    Edit</button>
+
+                            <div class="card-body d-flex justify-content-center">
+                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                    <button type="button" class="btn btn-outline-primary"
+                                        id="editButton">Administrasi</button>
+                                    <button type="button" class="btn btn-outline-primary">WII</button>
+                                    <button type="button" class="btn btn-outline-primary">Psikotest</button>
+                                    <button type="button" class="btn btn-outline-primary">Indepth</button>
+                                    <button type="button" class="btn btn-outline-primary">Tes Bidang</button>
+                                    <button type="button" class="btn btn-outline-primary">Interview User</button>
+                                    <button type="button" class="btn btn-outline-primary">Hasil Akhir</button>
+                                </div>
 
                             </div>
                             <div class="card-body table-responsive">
@@ -65,7 +74,7 @@ include 'komponen/koneksi.php';
                                     <thead>
                                         <tr class="text-center">
                                             <th colspan="5"></th>
-                                            <th colspan="7" class="table-warning">Administrasi</th>
+                                            <th colspan="6" class="table-warning">Administrasi</th>
                                             <th colspan="9" class="table-info">WII</th>
                                             <th colspan="5" class="table-success">Psikotest</th>
                                             <th colspan="9" class="table-danger">Indepth</th>
@@ -86,7 +95,6 @@ include 'komponen/koneksi.php';
                                             <th class="table-warning">Nilai Pengalaman</th>
                                             <th class="table-warning">Hasil</th>
                                             <th class="table-warning">Keterangan</th>
-                                            <th class="table-warning">Aksi</th>
                                             <!-- Akhir Administrasi -->
                                             <!-- WII -->
                                             <th class="table-info">Waktu WII</th>
@@ -183,15 +191,13 @@ include 'komponen/koneksi.php';
                                                 echo "<td><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-danger btn-sm'><i class='bx bx-edit-alt'></i></a></td>";
                                                 echo "<td>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
                                                 echo "<td>" . $row['id'] . "</td>";
-                                                echo '<td>  <button id="editButton" class="btn btn-danger btn-sm"><i class="bx bx-edit-alt"></i>
-                                                Edit</button> </td>';
+                                                echo "<td>" . $row['nama_lengkap'] . "</td>";
                                                 // Administrasi
                                                 echo "<td><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
                                                 echo "<td>" . $row['nilai_cv'] . "</td>";
                                                 echo "<td>" . $row['nilai_kualifikasi'] . "</td>";
                                                 echo "<td>" . $row['nilai_pengalaman'] . "</td>";
                                                 echo "<td>" . $row['hasil_seleksi_adm'] . "</td>";
-                                                echo "<td>" . $row['keterangan_adm'] . "</td>";
                                                 echo "<td>" . $row['keterangan_adm'] . "</td>";
                                                 // Akhir Administrasi
                                                 // WII
@@ -334,7 +340,7 @@ include 'komponen/koneksi.php';
                     <!-- Modal -->
                     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalLabel">Edit Selected Rows</h5>
@@ -344,7 +350,7 @@ include 'komponen/koneksi.php';
                                 <div class="modal-body">
                                     <!-- Display selected IDs here
                                     <p id="selectedIds"></p> -->
-                                    <form action="control_seleksi.php" method="post" class="row">
+                                    <!-- <form action="control_seleksi.php" method="post" class="row">
                                         <div class="col-12">
                                             <label for="selectedIdsInput" class="form-label">Selected IDs:</label>
                                             <input type="text" name="id" class="form-control" id="selectedIdsInput"
@@ -353,7 +359,9 @@ include 'komponen/koneksi.php';
                                         <div class="col-12">
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </div>
-                                    </form>
+                                    </form> -->
+                                    <?php include_once 'modal/modal_adm.php'; ?>
+
                                 </div>
                                 <!-- <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
