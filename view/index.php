@@ -44,10 +44,6 @@ if ($resultRekomendasi->num_rows > 0) {
 }
 
 
-
-
-
-
 ?>
 
 <body>
