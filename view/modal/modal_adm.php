@@ -1,4 +1,4 @@
-<form class="row g-3" id="form1">
+<form class="row g-3" id="form111" action="../controller/seleksi_administrasi.php" method="post">
 
     <input type="number" name="id_pelamar" value="<?php echo $_GET['id_pelamar']; ?>" hidden>
     <div class="col-md-4">
