@@ -2,7 +2,7 @@
 <?php
 require_once '../koneksi/koneksi.php';
 
-var_dump($_POST);
+
 // Split the "selectedIdsInput" string into an array
 $selectedIdsArray = explode(", ", $_POST["selectedIdsInput"]);
 

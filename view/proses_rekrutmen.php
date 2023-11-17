@@ -4,7 +4,7 @@ include 'komponen/header.php';
 include 'komponen/koneksi.php';
 ?>
 
-<body onload="startTime()">
+<body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -35,7 +35,7 @@ include 'komponen/koneksi.php';
                             </div>
 
 
-                            <div class="card-body ">
+                            <div class="card-body justify-content-center ">
                                 <form action="" method="get" class="row">
                                     <div class="form-group col-3">
                                         <label for="start_date">Tanggal Awal Lamaran:</label>
@@ -48,7 +48,7 @@ include 'komponen/koneksi.php';
                                             value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
                                     </div>
 
-                                    <div class="form-group col-2">
+                                    <div class="form-group col-3">
                                         <button type="submit" class="btn btn-primary mt-4 w-100">Cari</button>
                                     </div>
 
@@ -488,17 +488,36 @@ include 'komponen/koneksi.php';
             // Handle "Edit" button click
             $('#editButton').on('click', function () {
                 var selectedIds = [];
-                $('.select-checkbox.selected').each(function () {
-                    selectedIds.push($(this).data('id'));
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the third column
+                    selectedIds.push(id);
                 });
 
-                // Display the selected IDs in the paragraph
-                $('#selectedIds').text('Selected IDs: ' + selectedIds.join(', '));
+                // Check if any IDs are selected
+                if (selectedIds.length > 0) {
+                    // Construct the new URL with selectedIds as a query paramlseter
+                    var newUrl = window.location.pathname + '?selectedIds=' + selectedIds.join(',');
 
-                // Set the value of the input field
-                $('#selectedIdsInput').val(selectedIds.join(', '));
+                    // Update the URL without reloading the page
+                    history.pushState(null, null, newUrl);
 
-                // Open the modal
+                    // Set the value of the input field
+                    $('#selectedIdsInput').val(selectedIds.join(', '));
+
+                    // Trigger the modal display
+                    $('#editModal').modal('show');
+
+                    // You can perform additional actions here if needed
+                    // For example, trigger an AJAX request to fetch and update content in the modal
+                } else {
+                    // Show an alert or perform any other action if no IDs are selected
+                    alert('Please select at least one row.');
+                }
+            });
+
+
+            // Handle popstate event to show the modal when using the back button
+            $(window).on('popstate', function () {
                 $('#editModal').modal('show');
             });
 

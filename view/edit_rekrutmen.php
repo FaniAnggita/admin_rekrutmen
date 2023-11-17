@@ -799,7 +799,7 @@ Nama_Bersedia (paling lambat pukul 14.00 WIB)
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <!-- Time -->
-    <script src="scripts/time.js"></script>
+
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
