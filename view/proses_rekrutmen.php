@@ -59,7 +59,9 @@ include 'komponen/koneksi.php';
                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                     <button type="button" class="btn btn-outline-primary"
                                         id="editButton">Administrasi</button>
-                                    <button type="button" class="btn btn-outline-primary">WII</button>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        id="editButtonWII">WII</button>
+
                                     <button type="button" class="btn btn-outline-primary">Psikotest</button>
                                     <button type="button" class="btn btn-outline-primary">Indepth</button>
                                     <button type="button" class="btn btn-outline-primary">Tes Bidang</button>
@@ -338,41 +340,39 @@ include 'komponen/koneksi.php';
                         </div>
                     </div>
                     <!-- Modal -->
+                    <!-- Modal for Edit Form ADM -->
                     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Edit Selected Rows</h5>
+                                    <h5 class="modal-title" id="editModalLabel">Edit Administrasi</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- Display selected IDs here
-                                    <p id="selectedIds"></p> -->
-                                    <!-- <form action="control_seleksi.php" method="post" class="row">
-                                        <div class="col-12">
-                                            <label for="selectedIdsInput" class="form-label">Selected IDs:</label>
-                                            <input type="text" name="id" class="form-control" id="selectedIdsInput"
-                                                readonly>
-                                        </div>
-                                        <div class="col-12">
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                        </div>
-                                    </form> -->
                                     <?php include_once 'modal/modal_adm.php'; ?>
-
                                 </div>
-                                <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-
-                                </div> -->
                             </div>
                         </div>
                     </div>
 
-
+                    <!-- Modal for Edit Form WII -->
+                    <div class="modal fade" id="editModalWII" tabindex="-1" aria-labelledby="editModalWiiLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalWiiLabel">Edit WII</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <?php include_once 'modal/modal_wii.php'; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                     <!-- Footer -->
@@ -545,16 +545,89 @@ include 'komponen/koneksi.php';
                 }
             });
 
+
             // Handle popstate event to show the modal when using the back button
             $(window).on('popstate', function () {
                 $('#editModal').modal('show');
+            });
+
+            // WII
+            // Function to populate WII form fields based on the selected ID
+            function populateWiiFormFields(selectedId) {
+                var selectedRow = $('td:contains(' + selectedId + ')').closest('tr');
+
+                // Extract values from the selected row
+                var waktuInterview = selectedRow.find('td:eq(11)').text();
+                var konfirmasiKehadiran = selectedRow.find('td:eq(12)').text();
+                var p = selectedRow.find('td:eq(13)').text();
+                var a = selectedRow.find('td:eq(14)').text();
+                var k = selectedRow.find('td:eq(15)').text();
+                var r = selectedRow.find('td:eq(16)').text();
+                var interviewer = selectedRow.find('td:eq(17)').text();
+                var rating = selectedRow.find('td:eq(18)').text();
+                var pengumuman = selectedRow.find('td:eq(19)').text();
+
+                // Populate form fields with extracted values
+                $('#selectedIdsInputWII').val(selectedId);
+                $('#waktuInterview').val(waktuInterview);
+                $('#konfirmasiKehadiran').val(konfirmasiKehadiran);
+                $('#p').val(p);
+                $('#a').val(a);
+                $('#k').val(k);
+                $('#r').val(r);
+                $('#id_int').val(interviewer);
+                $('#rating').val(rating);
+                $('#pengumuman').val(pengumuman);
+
+                // Trigger the modal display
+                $('#editModalWII').modal('show');
+            }
+
+
+            // Handle "Edit" button click for WII form
+            $('#editButtonWII').on('click', function () {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text();
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    if (selectedIds.length === 1) {
+                        populateWiiFormFields(selectedIds[0]);
+                    } else {
+                        $('#selectedIdsInputWII').val(selectedIds.join(', '));
+                        $('#waktuInterview').val('');
+                        $('#konfirmasiKehadiran').val('');
+                        $('#p').val('');
+                        $('#a').val('');
+                        $('#k').val('');
+                        $('#r').val('');
+                        $('#id_int').val('');
+                        $('#rating').val('');
+                        $('#pengumuman').val('');
+
+                        $('#editModalWII').modal('show');
+                    }
+                } else {
+                    alert('Please select at least one row.');
+                }
+            });
+
+            // Handle popstate event to show the WII modal when using the back button
+            $(window).on('popstate', function () {
+                $('#editModalWII').modal('show');
             });
 
 
 
         });
     </script>
+    <script>
+        // Function to populate WII form fields based on the selected ID
 
+
+    </script>
 
 
 

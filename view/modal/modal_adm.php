@@ -1,4 +1,3 @@
-<?php var_dump($_GET); ?>
 <form class="row g-3" id="form1" action="../controller/seleksi_administrasi.php" method="post">
 
     <input type="number" name="id_pelamar" value="<?php echo $_GET['id_pelamar']; ?>" hidden>
