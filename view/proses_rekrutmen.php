@@ -485,36 +485,65 @@ include 'komponen/koneksi.php';
                 }
             });
 
+            // Function to populate form fields based on the selected ID
+            function populateFormFields(selectedId) {
+                // Find the selected row based on the ID
+                var selectedRow = $('td:contains(' + selectedId + ')').closest('tr');
+
+                // Extract values from the selected row
+                var tanggalseleksi = selectedRow.find('td:eq(2)').text(); // Assuming the date is in the third column
+                var nilaiCv = selectedRow.find('td:eq(6)').text(); // Assuming Nilai CV is in the seventh column
+                var nilaiKualifikasi = selectedRow.find('td:eq(7)').text(); // Assuming Nilai Kualifikasi is in the eighth column
+                var nilaiPengalaman = selectedRow.find('td:eq(8)').text(); // Assuming Nilai Pengalaman is in the ninth column
+                var hasil = selectedRow.find('td:eq(9)').text(); // Assuming Hasil is in the tenth column
+                var keterangan = selectedRow.find('td:eq(10)').text(); // Assuming Keterangan is in the eleventh column
+
+                // Populate form fields with extracted values
+                $('#selectedIdsInput').val(selectedId); // Add this line to set the selected ID
+                $('#tanggalseleksi').val(tanggalseleksi);
+                $('#nilaiCv').val(nilaiCv);
+                $('#nilaiKualifikasi').val(nilaiKualifikasi);
+                $('#nilaiPengalaman').val(nilaiPengalaman);
+                $('#hasil').val(hasil);
+                $('#keterangan').val(keterangan);
+
+                // Trigger the modal display
+                $('#editModal').modal('show');
+            }
+
             // Handle "Edit" button click
             $('#editButton').on('click', function () {
                 var selectedIds = [];
                 $('.select-checkbox:checked').each(function () {
-                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the third column
+                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the fourth column
                     selectedIds.push(id);
                 });
 
                 // Check if any IDs are selected
                 if (selectedIds.length > 0) {
-                    // Construct the new URL with selectedIds as a query paramlseter
-                    var newUrl = window.location.pathname + '?selectedIds=' + selectedIds.join(',');
+                    // If only one ID is selected, populate form fields
+                    if (selectedIds.length === 1) {
+                        populateFormFields(selectedIds[0]);
+                    } else {
+                        // If multiple IDs are selected, set only the selected IDs in #selectedIdsInput
+                        $('#selectedIdsInput').val(selectedIds.join(', '));
 
-                    // Update the URL without reloading the page
-                    history.pushState(null, null, newUrl);
+                        // Set default values to empty for other fields
+                        $('#tanggalseleksi').val('');
+                        $('#nilaiCv').val('');
+                        $('#nilaiKualifikasi').val('');
+                        $('#nilaiPengalaman').val('');
+                        $('#hasil').val('');
+                        $('#keterangan').val('');
 
-                    // Set the value of the input field
-                    $('#selectedIdsInput').val(selectedIds.join(', '));
-
-                    // Trigger the modal display
-                    $('#editModal').modal('show');
-
-                    // You can perform additional actions here if needed
-                    // For example, trigger an AJAX request to fetch and update content in the modal
+                        // Trigger the modal display
+                        $('#editModal').modal('show');
+                    }
                 } else {
                     // Show an alert or perform any other action if no IDs are selected
                     alert('Please select at least one row.');
                 }
             });
-
 
             // Handle popstate event to show the modal when using the back button
             $(window).on('popstate', function () {
