@@ -62,11 +62,16 @@ include 'komponen/koneksi.php';
                                     <button type="button" class="btn btn-outline-primary"
                                         id="editButtonWII">WII</button>
 
-                                    <button type="button" class="btn btn-outline-primary">Psikotest</button>
-                                    <button type="button" class="btn btn-outline-primary">Indepth</button>
-                                    <button type="button" class="btn btn-outline-primary">Tes Bidang</button>
-                                    <button type="button" class="btn btn-outline-primary">Interview User</button>
-                                    <button type="button" class="btn btn-outline-primary">Hasil Akhir</button>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        id="editButtonPsikotest">Psikotest</button>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        id="editButtonInDepth">Indepth</button>
+                                    <button type="button" class="btn btn-outline-primary" id="editButtonTesBidang">Tes
+                                        Bidang</button>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        id="editButtonInterviewUser">Interview User</button>
+                                    <button type="button" class="btn btn-outline-primary"
+                                        id="editButtonHasilAkhir">Hasil Akhir</button>
                                 </div>
 
                             </div>
@@ -152,13 +157,12 @@ include 'komponen/koneksi.php';
                                             <th class="table-warning">Interviewer</th>
                                             <th class="table-warning">Pengumuman</th>
                                             <!-- Akhir Interview User -->
-                                            <!-- Alasan -->
+                                            <!-- Hasil Akhir -->
                                             <th class="table-danger">Hasil Akhir</th>
                                             <th class="table-danger">Alasan Tidak Lolos</th>
-                                            <!-- Akhir Alasan -->
-                                            <!-- etc -->
                                             <th class="table-success">SPKWT</th>
                                             <th class="table-success">Masuk Kerja</th>
+                                            <!--Akhir Hasil Akhir -->
 
                                         </tr>
                                     </thead>
@@ -374,29 +378,84 @@ include 'komponen/koneksi.php';
                         </div>
                     </div>
 
-                    <!-- Modal Utama -->
-                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
-                        aria-hidden="true">
+                    <!-- Modal for Edit Form Psikotest -->
+                    <div class="modal fade" id="editModalPsikotest" tabindex="-1"
+                        aria-labelledby="editModalPsikotestLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Edit Data Pelamar</h5>
+                                    <h5 class="modal-title" id="editModalPsikotestLabel">Edit Psikotest</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- Form Utama -->
-
-                                    <!-- Form Psikotest -->
                                     <?php include_once 'modal/modal_psikotest.php'; ?>
-                                    <!-- Akhir Form Psikotest -->
-
-                                    <!-- Akhir Form Utama -->
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Edit Form Tes Bidang -->
+                    <div class="modal fade" id="editModalTesBidang" tabindex="-1"
+                        aria-labelledby="editModalTesBidangLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalTesBidangLabel">Edit Tes Bidang</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <?php include_once 'modal/modal_tes_bidang.php'; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal for Edit Form InDepth -->
+                    <div class="modal fade" id="editModalInDepth" tabindex="-1" aria-labelledby="editModalInDepthLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalInDepthLabel">Edit InDepth</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <?php include_once 'modal/modal_indepth.php'; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal for Edit Form Interview User -->
+                    <div class="modal fade" id="editModalInterviewUser" tabindex="-1"
+                        aria-labelledby="editModalInterviewUserLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalInterviewUserLabel">Edit Interview User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <?php include_once 'modal/modal_interview_user.php'; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal for Edit Form Hasil Akhir -->
+                    <div class="modal fade" id="editModalHasilAkhir" tabindex="-1"
+                        aria-labelledby="editModalHasilAkhirLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalHasilAkhirLabel">Edit Hasil Akhir</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Adjust the form fields and IDs based on your actual structure -->
+                                    <?php include_once 'modal/modal_hasil_akhir.php'; ?>
                                 </div>
                             </div>
                         </div>
@@ -646,6 +705,315 @@ include 'komponen/koneksi.php';
                 $('#editModalWII').modal('show');
             });
 
+            // Psikotest
+            // Function to populate Psikotest form fields based on the selected ID
+            function populatePsikotestFormFields(selectedId) {
+                var selectedRow = $('td:contains(' + selectedId + ')').closest('tr');
+
+                // Extract values from the selected row
+                var tanggalPsikotest = selectedRow.find('td:eq(20)').text();
+                var konfirmasiKehadiranPsikotest = selectedRow.find('td:eq(21)').text();
+                var hasilPsikotest = selectedRow.find('td:eq(22)').text();
+                var keteranganPsikotest = selectedRow.find('td:eq(23)').text();
+                var pengumumanPsikotest = selectedRow.find('td:eq(24)').text();
+
+                // Populate form fields with extracted values
+                $('#tanggalPsikotest').val(tanggalPsikotest);
+                $('#konfirmasiKehadiran').val(konfirmasiKehadiranPsikotest);
+                $('#hasilPsikotest').val(hasilPsikotest);
+                $('#keterangan').val(keteranganPsikotest);
+                $('#pengumuman').val(pengumumanPsikotest);
+
+                // Trigger the modal display
+                $('#editModalPsikotest').modal('show');
+            }
+
+            // Handle "Edit" button click for Psikotest form
+            $('#editButtonPsikotest').on('click', function () {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text();
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    if (selectedIds.length === 1) {
+                        populatePsikotestFormFields(selectedIds[0]);
+                    } else {
+                        $('#selectedIdsInputPsikotest').val(selectedIds.join(', '));
+                        $('#tanggalPsikotest').val('');
+                        $('#konfirmasiKehadiran').val('');
+                        $('#hasilPsikotest').val('');
+                        $('#keterangan').val('');
+                        $('#pengumuman').val('');
+
+                        $('#editModalPsikotest').modal('show');
+                    }
+                } else {
+                    alert('Please select at least one row.');
+                }
+            });
+
+            // Handle popstate event to show the Psikotest modal when using the back button
+            $(window).on('popstate', function () {
+                $('#editModalPsikotest').modal('show');
+            });
+            // Tes Bidang
+            // Function to populate Tes Bidang form fields based on the selected ID
+            function populateTesBidangFormFields(selectedId) {
+                var selectedRow = $('td:contains(' + selectedId + ')').closest('tr');
+
+                // Extract values from the selected row
+                var tanggalTesBidang = selectedRow.find('td:eq(25)').text();
+                var konfirmasiKehadiranTesBidang = selectedRow.find('td:eq(26)').text();
+                var nilaiTB1 = selectedRow.find('td:eq(27)').text();
+                var korektor1 = selectedRow.find('td:eq(28)').text();
+                var nilaiTB2 = selectedRow.find('td:eq(29)').text();
+                var korektor2 = selectedRow.find('td:eq(30)').text();
+                var hasilTB = selectedRow.find('td:eq(31)').text();
+                var keteranganTB = selectedRow.find('td:eq(32)').text();
+                var pengumumanTB = selectedRow.find('td:eq(33)').text();
+
+                // Populate form fields with extracted values
+                $('#tanggalTesBidang').val(tanggalTesBidang);
+                $('#konfirmasiKehadiranTesBidang').val(konfirmasiKehadiranTesBidang);
+                $('#nilaiTB1').val(nilaiTB1);
+                $('#korektor1').val(korektor1);
+                $('#nilaiTB2').val(nilaiTB2);
+                $('#korektor2').val(korektor2);
+                $('#hasilTB').val(hasilTB);
+                $('#keteranganTB').val(keteranganTB);
+                $('#pengumumanTB').val(pengumumanTB);
+
+                // Trigger the modal display
+                $('#editModalTesBidang').modal('show');
+            }
+
+            // Handle "Edit" button click for Tes Bidang form
+            $('#editButtonTesBidang').on('click', function () {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text();
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    if (selectedIds.length === 1) {
+                        populateTesBidangFormFields(selectedIds[0]);
+                    } else {
+                        $('#selectedIdsInputTesBidang').val(selectedIds.join(', '));
+                        $('#tanggalTesBidang').val('');
+                        $('#konfirmasiKehadiranTesBidang').val('');
+                        $('#nilaiTB1').val('');
+                        $('#korektor1').val('');
+                        $('#nilaiTB2').val('');
+                        $('#korektor2').val('');
+                        $('#hasilTB').val('');
+                        $('#keteranganTB').val('');
+                        $('#pengumumanTB').val('');
+
+                        $('#editModalTesBidang').modal('show');
+                    }
+                } else {
+                    alert('Please select at least one row.');
+                }
+            });
+
+            // Handle popstate event to show the Tes Bidang modal when using the back button
+            $(window).on('popstate', function () {
+                $('#editModalTesBidang').modal('show');
+            });
+
+            // InDepth
+            // Function to populate InDepth form fields based on the selected ID
+            function populateInDepthFormFields(selectedId) {
+                var selectedRow = $('td:contains(' + selectedId + ')').closest('tr');
+
+                // Extract values from the selected row
+                var tanggalInDepth = selectedRow.find('td:eq(30)').text();
+                var konfirmasiKehadiranInDepth = selectedRow.find('td:eq(31)').text();
+                var ktb = selectedRow.find('td:eq(32)').text();
+                var kpr = selectedRow.find('td:eq(33)').text();
+                var siker = selectedRow.find('td:eq(34)').text();
+                var hasilInDepth = selectedRow.find('td:eq(35)').text();
+                var keteranganInDepth = selectedRow.find('td:eq(36)').text();
+                var interviewerInDepth = selectedRow.find('td:eq(37)').text();
+                var pengumumanInDepth = selectedRow.find('td:eq(38)').text();
+
+                // Populate form fields with extracted values
+                $('#tanggalInDepth').val(tanggalInDepth);
+                $('#konfirmasiKehadiranInDepth').val(konfirmasiKehadiranInDepth);
+                $('#ktb').val(ktb);
+                $('#kpr').val(kpr);
+                $('#siker').val(siker);
+                $('#hasilInDepth').val(hasilInDepth);
+                $('#keteranganInDepth').val(keteranganInDepth);
+                $('#interviewerInDepth').val(interviewerInDepth);
+                $('#pengumumanInDepth').val(pengumumanInDepth);
+
+                // Trigger the modal display
+                $('#editModalInDepth').modal('show');
+            }
+
+            // Handle "Edit" button click for InDepth form
+            $('#editButtonInDepth').on('click', function () {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text();
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    if (selectedIds.length === 1) {
+                        populateInDepthFormFields(selectedIds[0]);
+                    } else {
+                        $('#selectedIdsInputInDepth').val(selectedIds.join(', '));
+                        $('#tanggalInDepth').val('');
+                        $('#konfirmasiKehadiranInDepth').val('');
+                        $('#ktb').val('');
+                        $('#kpr').val('');
+                        $('#siker').val('');
+                        $('#hasilInDepth').val('');
+                        $('#keteranganInDepth').val('');
+                        $('#interviewerInDepth').val('');
+                        $('#pengumumanInDepth').val('');
+
+                        $('#editModalInDepth').modal('show');
+                    }
+                } else {
+                    alert('Please select at least one row.');
+                }
+            });
+
+            // Handle popstate event to show the InDepth modal when using the back button
+            $(window).on('popstate', function () {
+                $('#editModalInDepth').modal('show');
+            });
+            // InterviewUser
+            // Function to populate InterviewUser form fields based on the selected ID
+            function populateInterviewUserFormFields(selectedId) {
+                var selectedRow = $('td:contains(' + selectedId + ')').closest('tr');
+
+                // Extract values from the selected row
+                var tanggalInterviewUser = selectedRow.find('td:eq(39)').text();
+                var konfirmasiKehadiranInterviewUser = selectedRow.find('td:eq(40)').text();
+                var dt = selectedRow.find('td:eq(41)').text();
+                var ka = selectedRow.find('td:eq(42)').text();
+                var pm = selectedRow.find('td:eq(43)').text();
+                var pd = selectedRow.find('td:eq(44)').text();
+                var bd = selectedRow.find('td:eq(45)').text();
+                var ktb2 = selectedRow.find('td:eq(46)').text();
+                var hasilInterviewUser = selectedRow.find('td:eq(47)').text();
+                var keteranganInterviewUser = selectedRow.find('td:eq(48)').text();
+                var interviewerInterviewUser = selectedRow.find('td:eq(49)').text();
+                var pengumumanInterviewUser = selectedRow.find('td:eq(50)').text();
+
+                // Populate form fields with extracted values
+                $('#tanggalInterviewUser').val(tanggalInterviewUser);
+                $('#konfirmasiKehadiranInterviewUser').val(konfirmasiKehadiranInterviewUser);
+                $('#dt').val(dt);
+                $('#ka').val(ka);
+                $('#pm').val(pm);
+                $('#pd').val(pd);
+                $('#bd').val(bd);
+                $('#ktb2').val(ktb2);
+                $('#hasilInterviewUser').val(hasilInterviewUser);
+                $('#keteranganInterviewUser').val(keteranganInterviewUser);
+                $('#interviewerInterviewUser').val(interviewerInterviewUser);
+                $('#pengumumanInterviewUser').val(pengumumanInterviewUser);
+
+                // Trigger the modal display
+                $('#editModalInterviewUser').modal('show');
+            }
+
+            // Handle "Edit" button click for InterviewUser form
+            $('#editButtonInterviewUser').on('click', function () {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text();
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    if (selectedIds.length === 1) {
+                        populateInterviewUserFormFields(selectedIds[0]);
+                    } else {
+                        $('#selectedIdsInputInterviewUser').val(selectedIds.join(', '));
+                        $('#tanggalInterviewUser').val('');
+                        $('#konfirmasiKehadiranInterviewUser').val('');
+                        $('#dt').val('');
+                        $('#ka').val('');
+                        $('#pm').val('');
+                        $('#pd').val('');
+                        $('#bd').val('');
+                        $('#ktb2').val('');
+                        $('#hasilInterviewUser').val('');
+                        $('#keteranganInterviewUser').val('');
+                        $('#interviewerInterviewUser').val('');
+                        $('#pengumumanInterviewUser').val('');
+
+                        $('#editModalInterviewUser').modal('show');
+                    }
+                } else {
+                    alert('Please select at least one row.');
+                }
+            });
+
+            // Handle popstate event to show the InterviewUser modal when using the back button
+            $(window).on('popstate', function () {
+                $('#editModalInterviewUser').modal('show');
+            });
+
+            // HasilAkhir
+            // Function to populate HasilAkhir form fields based on the selected ID
+            function populateHasilAkhirFormFields(selectedId) {
+                var selectedRow = $('td:contains(' + selectedId + ')').closest('tr');
+
+                // Extract values from the selected row
+                var hasilAkhir = selectedRow.find('td:eq(51)').text();
+                var alasanTidakLolos = selectedRow.find('td:eq(52)').text();
+                var spkwt = selectedRow.find('td:eq(53)').text();
+                var masukKerja = selectedRow.find('td:eq(54)').text();
+
+                // Populate form fields with extracted values
+                $('#hasilAkhir').val(hasilAkhir);
+                $('#alasanTidakLolos').val(alasanTidakLolos);
+                $('#spkwt').val(spkwt);
+                $('#masukKerja').val(masukKerja);
+
+                // Trigger the modal display
+                $('#editModalHasilAkhir').modal('show');
+            }
+
+            // Handle "Edit" button click for HasilAkhir form
+            $('#editButtonHasilAkhir').on('click', function () {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text();
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    if (selectedIds.length === 1) {
+                        populateHasilAkhirFormFields(selectedIds[0]);
+                    } else {
+                        $('#selectedIdsInputHasilAkhir').val(selectedIds.join(', '));
+                        $('#hasilAkhir').val('');
+                        $('#alasanTidakLolos').val('');
+                        $('#spkwt').val('');
+                        $('#masukKerja').val('');
+
+                        $('#editModalHasilAkhir').modal('show');
+                    }
+                } else {
+                    alert('Please select at least one row.');
+                }
+            });
+
+            // Handle popstate event to show the HasilAkhir modal when using the back button
+            $(window).on('popstate', function () {
+                $('#editModalHasilAkhir').modal('show');
+            });
 
 
         });

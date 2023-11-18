@@ -1,7 +1,7 @@
 <form class="row g-3">
     <div class="col-md-6">
         <label for="selectedIdsInputWII" class="form-label">ID</label>
-        <input type="id" class="form-control" id="selectedIdsInputWII">
+        <input type="id" class="form-control" id="selectedIdsInputWII" readonly>
     </div>
     <div class="col-md-6">
         <label for="waktuInterview" class="form-label">Waktu WII</label>
