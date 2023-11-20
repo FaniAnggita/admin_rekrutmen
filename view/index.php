@@ -12,7 +12,7 @@ $chartData = array('categories' => array(), 'data' => array());
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     array_push($chartData['categories'], $row["kode_ps"]);
-    array_push($chartData['data'], (int)$row["jumlah_pelamar"]);
+    array_push($chartData['data'], (int) $row["jumlah_pelamar"]);
   }
 } else {
   echo "0 results";
@@ -37,7 +37,7 @@ if ($resultRekomendasi->num_rows > 0) {
     // Mengubah label sesuai mapping
     $label = $labelMapping[$row["rekomendasi"]];
     array_push($chartDataRekomendasi['categories'], $label);
-    array_push($chartDataRekomendasi['data'], (int)$row["jumlah_pelamar"]);
+    array_push($chartDataRekomendasi['data'], (int) $row["jumlah_pelamar"]);
   }
 } else {
   echo "0 results";
@@ -85,24 +85,25 @@ if ($resultRekomendasi->num_rows > 0) {
                       </div>
                       <div class="ms-3">
                         <div class="small mb-1">Posisi</div>
-                        <h5 class="mb-0"><?php
-                                          // Lakukan koneksi ke database Anda di sini
+                        <h5 class="mb-0">
+                          <?php
+                          // Lakukan koneksi ke database Anda di sini
+                          
+                          // Query untuk menghitung jumlah posisi
+                          $query = "SELECT COUNT(*) AS total_posisi FROM posisi";
 
-                                          // Query untuk menghitung jumlah posisi
-                                          $query = "SELECT COUNT(*) AS total_posisi FROM posisi";
+                          // Eksekusi query
+                          $result = $conn->query($query);
 
-                                          // Eksekusi query
-                                          $result = $conn->query($query);
-
-                                          if ($result) {
-                                            // Ambil hasil perhitungan
-                                            $row = $result->fetch_assoc();
-                                            $totalPosisi = $row['total_posisi'];
-                                            echo $totalPosisi;
-                                          } else {
-                                            echo "Gagal mengambil data.";
-                                          }
-                                          ?>
+                          if ($result) {
+                            // Ambil hasil perhitungan
+                            $row = $result->fetch_assoc();
+                            $totalPosisi = $row['total_posisi'];
+                            echo $totalPosisi;
+                          } else {
+                            echo "Gagal mengambil data.";
+                          }
+                          ?>
 
                         </h5>
                       </div>
@@ -120,7 +121,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-
+                          
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2";
 
@@ -149,24 +150,26 @@ if ($resultRekomendasi->num_rows > 0) {
                       </div>
                       <div class="ms-3">
                         <div class="small mb-1">Pelamar Lolos</div>
-                        <h5 class="mb-0"> <?php
-                                          // Lakukan koneksi ke database Anda di sini
+                        <h5 class="mb-0">
+                          <?php
+                          // Lakukan koneksi ke database Anda di sini
+                          
+                          // Query untuk menghitung jumlah posisi
+                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE rekomendasi = 'yes'";
 
-                                          // Query untuk menghitung jumlah posisi
-                                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE rekomendasi = 'yes'";
+                          // Eksekusi query
+                          $result = $conn->query($query);
 
-                                          // Eksekusi query
-                                          $result = $conn->query($query);
-
-                                          if ($result) {
-                                            // Ambil hasil perhitungan
-                                            $row = $result->fetch_assoc();
-                                            $totalPosisi = $row['total_pelamar'];
-                                            echo $totalPosisi;
-                                          } else {
-                                            echo "Gagal mengambil data.";
-                                          }
-                                          ?></h5>
+                          if ($result) {
+                            // Ambil hasil perhitungan
+                            $row = $result->fetch_assoc();
+                            $totalPosisi = $row['total_pelamar'];
+                            echo $totalPosisi;
+                          } else {
+                            echo "Gagal mengambil data.";
+                          }
+                          ?>
+                        </h5>
                       </div>
                     </div>
                   </div>
@@ -182,7 +185,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-
+                          
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE rekomendasi = 'no'";
 
@@ -207,69 +210,101 @@ if ($resultRekomendasi->num_rows > 0) {
             </div>
             <div class="row mt-4">
 
-              <div class="col-12 col-md-12 col-lg-6">
+              <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">Top 5 Jumlah Pelamar Berdarkan Posisi</h6>
-                    <a href="#" class="btn btn-primary btn-sm" id="showModal">Detail <i class="bx bx-chevron-right"></i></a>
+                    <h6 class="mb-0">Laporan Proses Rekrutmen</h6>
+                    <a href="#" class="btn btn-primary btn-sm" id="showModal">Detail <i class="bx bx-printer"></i></a>
 
                   </div>
-                  <div class="card-body">
-                    <div id="chartPie"></div>
+                  <div class="card-body table-responsive">
+                    <table class="table table-bordered text-center">
+                      <thead>
+                        <tr>
+                          <th colspan="5"></th>
+                          <th colspan="5">Seleksi Administrasi</th>
+                          <th colspan="4">Walk in Interview</th>
+                          <th colspan="5">Psikotest</th>
+                          <th colspan="4">Wawancara HRD</th>
+                          <th colspan="4">Wawancara User</th>
+                        </tr>
+                        <tr>
+                          <th>No.</th>
+                          <th>Posisi</th>
+                          <th>Kode Posisi</th>
+                          <th>PT</th>
+                          <th>Total Kebutuhan</th>
+                          <th>Total Pelamar</th>
+                          <th>Lolos</th>
+                          <th>Tidak Lolos</th>
+                          <th>Belum Diseleksi</th>
+                          <th>Total</th>
+                          <th>Lolos</th>
+                          <th>Tidak Lolos</th>
+                          <th>Belum Dijadwalkan</th>
+                          <th>Total</th>
+                          <th>Lolos</th>
+                          <th>Tidak Lolos</th>
+                          <th>Dalam Proses</th>
+                          <th>Tidak Psikotest</th>
+                          <th>Total</th>
+                          <th>Lolos</th>
+                          <th>Tidak Lolos</th>
+                          <th>Belum Dijadwalkan</th>
+                          <th>Total</th>
+                          <th>Lolos</th>
+                          <th>Tidak Lolos</th>
+                          <th>Belum Dijadwalkan</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+
+                        // Ambil data dari database dan tampilkan dalam tabel
+                        $sql = "SELECT p.kode_ps,
+                                        posisi.nama_ps,
+                                        COUNT(CASE WHEN sa.hasil_seleksi_adm = 'lolos' THEN 1 END) AS jumlah_lolos,
+                                        COUNT(CASE WHEN sa.hasil_seleksi_adm = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos,
+                                        COUNT(CASE WHEN sa.hasil_seleksi_adm = 'pilih' THEN 1 END) AS jumlah_pilih
+                                FROM seleksi_administrasi sa
+                                JOIN pelamar2 p ON sa.id_pelamar = p.id
+                                JOIN posisi ON p.kode_ps = posisi.kode_ps
+                                GROUP BY p.kode_ps, posisi.nama_ps";
+
+
+
+                        $result = $conn->query($sql);
+                        $i = 0;
+                        if ($result->num_rows > 0) {
+                          while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $i . "</td>";
+                            echo "<td>" . $row['nama_ps'] . "</td>";
+                            echo "<td>" . $row['kode_ps'] . "</td>";
+                            echo "<td>  PIM </td>";
+                            echo "<td> - </td>";
+                            echo "<td>" . $row['jumlah_lolos'] + $row['jumlah_tidak_lolos'] + $row['jumlah_pilih'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos'] . "</td>";
+                            echo "<td>" . $row['jumlah_tidak_lolos'] . "</td>";
+                            echo "<td>" . $row['jumlah_pilih'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos'] + $row['jumlah_tidak_lolos'] + $row['jumlah_pilih'] . "</td>";
+                            echo "</tr>";
+                            $i++;
+                          }
+                        }
+                        ?>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-md-12 col-lg-6">
-                <div class="card">
-                  <div class="card-header d-flex align-items-center justify-content-between">
-                    <h6 class="mb-0">Presentase Pelamar Berdasarkan rekomendasi</h6>
-                  </div>
-                  <div class="card-body">
-                    <div id="chart"></div>
-                  </div>
-                </div>
-              </div>
+
             </div>
 
           </div>
 
-          <!-- Modal -->
-          <div class="modal" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h6 class="modal-title">Detail Jumlah Pelamar Berdasarkan Posisi</h6>
-                  <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                </div>
-                <div class="modal-body">
-                  <table class="table table-bordered table-striped">
-                    <tr>
-                      <th>Posisi</th>
-                      <th>Jumlah Pelamar</th>
-                    </tr>
-                    <?php
-                    $sql = "SELECT posisi.nama_ps AS nama_posisi, COUNT(pelamar2.id) AS jumlah_pelamar
-                    FROM posisi
-                    LEFT JOIN pelamar2 ON posisi.kode_ps = pelamar2.kode_ps
-                    GROUP BY posisi.nama_ps ORDER BY jumlah_pelamar DESC";
 
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                      while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row['nama_posisi'] . "</td>";
-                        echo "<td>" . $row['jumlah_pelamar'] . "</td>";
-                        echo "</tr>";
-                      }
-                    } else {
-                      echo "<tr><td colspan='2'>No results found</td></tr>";
-                    }
-                    ?>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Footer -->
           <?php
@@ -334,56 +369,7 @@ if ($resultRekomendasi->num_rows > 0) {
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <script>
-    // JavaScript using PHP data for ApexCharts
-    var pelamarData = <?php echo json_encode($chartData); ?>;
 
-    var options = {
-      series: [{
-        name: 'Jumlah Pelamar',
-        data: pelamarData.data
-      }],
-      chart: {
-        height: 350,
-        type: 'bar'
-      },
-      xaxis: {
-        categories: pelamarData.categories,
-      }
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chartPie"), options);
-    chart.render();
-  </script>
-  <script>
-    var options = {
-      chart: {
-        height: 360,
-        type: 'pie',
-      },
-      series: <?php echo json_encode($chartDataRekomendasi['data']); ?>,
-      labels: <?php echo json_encode($chartDataRekomendasi['categories']); ?>
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
-  </script>
-
-  <script>
-    $(document).ready(function() {
-      $('#showModal').click(function(e) {
-        e.preventDefault();
-
-        // Here, you'd fetch the table content via AJAX or insert sample content
-        // For example, assuming 'tableContent' holds your table's HTML:
-
-
-
-        // Show the modal
-        $('#myModal').modal('show');
-      });
-    });
-  </script>
 
 </body>
 

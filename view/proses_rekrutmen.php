@@ -192,11 +192,13 @@ include 'komponen/koneksi.php';
 
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
+
+                                                $tes = ($row['status'] === 1 ? 'text-danger' : '');
                                                 echo "<tr>";
                                                 echo "<td><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "'></td>";
                                                 echo "<td><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-danger btn-sm'><i class='bx bx-edit-alt'></i></a></td>";
                                                 echo "<td>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
-                                                echo "<td>" . $row['id'] . "</td>";
+                                                echo "<td class='$tes'>" . $row['id'] . "</td>";
                                                 echo "<td>" . $row['nama_lengkap'] . "</td>";
                                                 // Administrasi
                                                 echo "<td><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
@@ -578,9 +580,9 @@ include 'komponen/koneksi.php';
 
                 // Extract values from the selected row
                 var tanggalseleksi = selectedRow.find('td:eq(2)').text(); // Assuming the date is in the third column
-                var nilaiCv = selectedRow.find('td:eq(6)').text(); // Assuming Nilai CV is in the seventh column
-                var nilaiKualifikasi = selectedRow.find('td:eq(7)').text(); // Assuming Nilai Kualifikasi is in the eighth column
-                var nilaiPengalaman = selectedRow.find('td:eq(8)').text(); // Assuming Nilai Pengalaman is in the ninth column
+                var nilaiCv = parseInt(selectedRow.find('td:eq(6)').text(), 10);
+                var nilaiKualifikasi = parseInt(selectedRow.find('td:eq(7)').text(), 10);
+                var nilaiPengalaman = parseInt(selectedRow.find('td:eq(8)').text(), 10);
                 var hasil = selectedRow.find('td:eq(9)').text(); // Assuming Hasil is in the tenth column
                 var keterangan = selectedRow.find('td:eq(10)').text(); // Assuming Keterangan is in the eleventh column
 
