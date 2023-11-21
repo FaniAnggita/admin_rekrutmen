@@ -214,7 +214,7 @@ if ($resultRekomendasi->num_rows > 0) {
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
                     <h6 class="mb-0">Laporan Proses Rekrutmen</h6>
-                    <a href="#" class="btn btn-primary btn-sm" id="showModal">Detail <i class="bx bx-printer"></i></a>
+                    <a href="#" class="btn btn-primary btn-sm" id="showModal">Cetak <i class="bx bx-printer"></i></a>
 
                   </div>
                   <div class="card-body table-responsive">
@@ -289,6 +289,23 @@ if ($resultRekomendasi->num_rows > 0) {
                             echo "<td>" . $row['jumlah_tidak_lolos'] . "</td>";
                             echo "<td>" . $row['jumlah_pilih'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos'] + $row['jumlah_tidak_lolos'] + $row['jumlah_pilih'] . "</td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
                             echo "</tr>";
                             $i++;
                           }
@@ -370,6 +387,17 @@ if ($resultRekomendasi->num_rows > 0) {
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
+  <!-- DataTables JavaScript -->
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('.table').DataTable({
+        scrollX: true,
+      });
+    });
+  </script>
 
 </body>
 
