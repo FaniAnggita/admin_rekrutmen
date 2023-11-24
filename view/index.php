@@ -155,7 +155,7 @@ if ($resultRekomendasi->num_rows > 0) {
                           // Lakukan koneksi ke database Anda di sini
                           
                           // Query untuk menghitung jumlah posisi
-                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE rekomendasi = 'yes'";
+                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE status_hasil_akhir = 'Lolos'";
 
                           // Eksekusi query
                           $result = $conn->query($query);
@@ -187,7 +187,7 @@ if ($resultRekomendasi->num_rows > 0) {
                           // Lakukan koneksi ke database Anda di sini
                           
                           // Query untuk menghitung jumlah posisi
-                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE rekomendasi = 'no'";
+                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE status_hasil_akhir = 'Tidak Lolos'";
 
                           // Eksekusi query
                           $result = $conn->query($query);

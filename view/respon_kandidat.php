@@ -34,27 +34,6 @@ include 'komponen/koneksi.php';
                                 <h4 class="mb-0 ">Data Semua Respon Pelamar/Kandidat</h4>
                             </div>
 
-
-                            <div class="card-body row">
-                                <div class="form-group col-4">
-                                    <label for="start_date">Tanggal Awal Lamaran:</label>
-                                    <input type="date" id="start_date" class="form-control">
-                                </div>
-                                <div class="form-group col-4">
-                                    <label for="end_date">Tanggal Akhir Lamaran:</label>
-                                    <input type="date" id="end_date" class="form-control">
-                                </div>
-                                <div class="form-group col-4">
-                                    <label for="end_date">Rekomendasi</label>
-                                    <select id="inputState" class="form-select">
-                                        <option selected>Semua</option>
-                                        <option>Belum Ditentukan (chosee)</option>
-                                        <option>Lolos</option>
-                                        <option>Tidak Lolos</option>
-                                    </select>
-                                </div>
-
-                            </div>
                             <div class="card-body">
                                 <table id="deviceTable" class="table display table-sm table-bordered">
                                     <thead>
@@ -101,21 +80,7 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['kode_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 echo "<td><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
-
-                                        ?>
-                                                <td>
-                                                    <form action="" method="post" class="update-form">
-                                                        <input type="text" name="id" value="<?php echo $row['id']; ?>" hidden>
-                                                        <select name="rekomendasi" class="rekomendasi-select" data-id="<?php echo $row['id']; ?>">
-                                                            <option value="choose" <?php echo $row['rekomendasi'] == 'choose' ? 'selected' : ''; ?>>Pilih..</option>
-                                                            <option value="yes" <?php echo $row['rekomendasi'] == 'yes' ? 'selected' : ''; ?>>Lolos</option>
-                                                            <option value="no" <?php echo $row['rekomendasi'] == 'no' ? 'selected' : ''; ?>>Tidak Lolos</option>
-                                                        </select>
-                                                    </form>
-                                                </td>
-
-
-                                        <?php
+                                                echo "<td>" . $row['status_hasil_akhir'] . "</td>";
                                                 echo "</tr>";
                                             }
                                         } else {
@@ -202,7 +167,7 @@ include 'komponen/koneksi.php';
 
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#deviceTable').DataTable({
                 "scrollX": true,
                 "scrollY": "300px",
@@ -215,25 +180,25 @@ include 'komponen/koneksi.php';
             var end_date_input = $('#end_date');
 
             // Add the individual column searching (select inputs) for each column
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var column = this;
                 var columnIndex = column[0][0];
 
                 if (columnIndex !== 14 && columnIndex !== 15) {
                     var select = $('<br><select class="w-100 form-select-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
-                        .on('change', function() {
+                        .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());
                             column.search(val ? '^' + val + '$' : '', true, false).draw();
                         });
 
-                    column.data().unique().sort().each(function(d, j) {
+                    column.data().unique().sort().each(function (d, j) {
                         select.append('<option value="' + d + '">' + d + '</option>');
                     });
                 }
             });
 
-            $('#start_date, #end_date').on('change', function() {
+            $('#start_date, #end_date').on('change', function () {
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
 
@@ -241,7 +206,7 @@ include 'komponen/koneksi.php';
             });
 
             $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
+                function (settings, data, dataIndex) {
                     var start_date = $('#start_date').val();
                     var end_date = $('#end_date').val();
                     var tanggalDaftar = data[0]; // Kolom Tanggal Daftar
@@ -256,7 +221,7 @@ include 'komponen/koneksi.php';
         });
     </script>
 
-    <script>
+    <!-- <script>
         document.addEventListener('change', function(event) {
             if (event.target.classList.contains('rekomendasi-select')) {
                 var select = event.target;
@@ -276,7 +241,7 @@ include 'komponen/koneksi.php';
                 xhr.send(data);
             }
         });
-    </script>
+    </script> -->
 
 
 </body>

@@ -96,7 +96,10 @@
 
     thead {
       width: calc(100% - 17px);
+
     }
+
+
 
     tbody {
       width: 100%;

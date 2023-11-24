@@ -31,13 +31,14 @@ include 'komponen/koneksi.php';
                         <div class="card">
 
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 ">Data Pelamar/Kandidat Tidak Lolos</h4>
+                                <h4 class="mb-0 ">Data Semua Respon Pelamar Tidak Lolos</h4>
                             </div>
 
-                            <div class="card-body table-responsive">
-                                <table id="deviceTable" class="table display">
+                            <div class="card-body">
+                                <table id="deviceTable" class="table display table-sm table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>Tanggal Daftar</th>
                                             <th>Nama Lengkap</th>
                                             <th>Tanggal Lahir</th>
                                             <th>Umur</th>
@@ -52,19 +53,19 @@ include 'komponen/koneksi.php';
                                             <th>Posisi</th>
                                             <th>Max. Usia</th>
                                             <th>Dokumen</th>
-
+                                            <th>Rekomendasi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-
                                         // Ambil data dari database dan tampilkan dalam tabel
-                                        $sql = "SELECT * FROM pelamar2 plm JOIN posisi USING(kode_ps) WHERE plm.rekomendasi = 'no'  GROUP BY plm.id ";
+                                        $sql = "SELECT * FROM pelamar2 plm JOIN posisi USING(kode_ps) WHERE status_hasil_akhir = 'Tidak Lolos' GROUP BY plm.id";
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
+                                                echo "<td>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
                                                 echo "<td>" . $row['nama_lengkap'] . "</td>";
                                                 echo "<td>" . $row['tanggal_lahir'] . "</td>";
                                                 echo "<td>" . date_diff(date_create($row['tanggal_lahir']), date_create('today'))->y . "</td>";
@@ -79,10 +80,11 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['kode_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 echo "<td><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
+                                                echo "<td>" . $row['status_hasil_akhir'] . "</td>";
                                                 echo "</tr>";
                                             }
                                         } else {
-                                            echo "<tr><td colspan='12'>Tidak ada data pendaftar.</td></tr>";
+                                            echo "<tr><td colspan='13'>Tidak ada data.</td></tr>";
                                         }
 
                                         $conn->close();
@@ -114,7 +116,6 @@ include 'komponen/koneksi.php';
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- / Layout wrapper -->
     <!-- / Layout wrapper -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -164,38 +165,84 @@ include 'komponen/koneksi.php';
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
+
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#deviceTable').DataTable({
-                "scrollX": true, // Enable horizontal scrolling
-                "scrollY": "300px", // Set a fixed vertical scroll height
-                "select": true, // Enable individual column searching
-                "scrollCollapse": true, // Use the Scroller extension
+                "scrollX": true,
+                "scrollY": "300px",
+                "select": true,
+                "scrollCollapse": true,
             });
 
+            // Initialize date range inputs
+            var start_date_input = $('#start_date');
+            var end_date_input = $('#end_date');
+
             // Add the individual column searching (select inputs) for each column
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var column = this;
                 var columnIndex = column[0][0];
 
-                // Check if the column index is not equal to 13 (the "Dokumen" column)
-                if (columnIndex !== 13) {
+                if (columnIndex !== 14 && columnIndex !== 15) {
                     var select = $('<br><select class="w-100 form-select-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
-                        .on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
                             column.search(val ? '^' + val + '$' : '', true, false).draw();
                         });
 
-                    column.data().unique().sort().each(function(d, j) {
+                    column.data().unique().sort().each(function (d, j) {
                         select.append('<option value="' + d + '">' + d + '</option>');
                     });
                 }
             });
+
+            $('#start_date, #end_date').on('change', function () {
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+
+                table.draw();
+            });
+
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var start_date = $('#start_date').val();
+                    var end_date = $('#end_date').val();
+                    var tanggalDaftar = data[0]; // Kolom Tanggal Daftar
+
+                    if ((start_date === '' && end_date === '') || (tanggalDaftar >= start_date && tanggalDaftar <= end_date)) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            );
         });
     </script>
+
+    <!-- <script>
+        document.addEventListener('change', function(event) {
+            if (event.target.classList.contains('rekomendasi-select')) {
+                var select = event.target;
+                var id = select.getAttribute('data-id');
+                var rekomendasi = select.value;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'update.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log('Data berhasil diperbarui!');
+                    }
+                };
+
+                var data = 'id=' + id + '&rekomendasi=' + rekomendasi;
+                xhr.send(data);
+            }
+        });
+    </script> -->
+
 
 </body>
 

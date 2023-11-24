@@ -58,11 +58,20 @@ include 'komponen/koneksi.php';
                                         <input type="date" id="end_date" class="form-control" name="end_date"
                                             value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
                                     </div>
+                                    <div class="form-group col-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select id="status" class="form-select" name="status">
+                                            <option value="">Semua</option>
+                                            <option value="Proses">Diproses</option>
+                                            <option value="Lolos">Lolos</option>
+                                            <option value="Tidak Lolos">Tidak Lolos</option>
+                                        </select>
+                                    </div>
+
 
                                     <div class="form-group col-3">
                                         <button type="submit" class="btn btn-primary mt-4 w-100">Cari</button>
                                     </div>
-
                                 </form>
                             </div>
 
@@ -72,7 +81,6 @@ include 'komponen/koneksi.php';
                                         data-bs-toggle="modal" data-bs-target="#editModal">Administrasi</button>
                                     <button type="button" class="btn btn-outline-primary"
                                         id="editButtonWII">WII</button>
-
                                     <button type="button" class="btn btn-outline-primary"
                                         id="editButtonPsikotest">Psikotest</button>
                                     <button type="button" class="btn btn-outline-primary"
@@ -94,7 +102,7 @@ include 'komponen/koneksi.php';
                                             <th colspan="5"></th>
                                             <th colspan="6" class="table-warning">Administrasi</th>
                                             <th colspan="9" class="table-info">WII</th>
-                                            <th colspan="5" class="table-success">Psikotest</th>
+                                            <th colspan="4" class="table-success">Psikotest</th>
                                             <th colspan="9" class="table-danger">Indepth</th>
                                             <th colspan="9" class="table-primary">Tes Bidang</th>
                                             <th colspan="12" class="table-warning">Interview User</th>
@@ -113,8 +121,6 @@ include 'komponen/koneksi.php';
                                             <th class="table-warning editable-combobox">Nilai Pengalaman</th>
                                             <th class="table-warning not-editable">Hasil</th>
                                             <th class="table-warning">Keterangan</th>
-
-
                                             <!-- Akhir Administrasi -->
                                             <!-- WII -->
                                             <th class="table-info">Waktu WII</th>
@@ -139,9 +145,9 @@ include 'komponen/koneksi.php';
                                             <th class="table-danger">KTB</th>
                                             <th class="table-danger">KPR</th>
                                             <th class="table-danger">SiKer</th>
-                                            <th class="table-danger">Keterangan</th>
                                             <th class="table-danger">Interviewer Indepth</th>
                                             <th class="table-danger">Pengumuman Indepth</th>
+                                            <th class="table-danger">Keterangan</th>
                                             <th class="table-danger">Hasil Indepth</th>
                                             <!-- Akhir Indepth -->
                                             <!-- Tes Bidang -->
@@ -151,9 +157,9 @@ include 'komponen/koneksi.php';
                                             <th class="table-primary">Korektor 1</th>
                                             <th class="table-primary">Nilai TBg 2</th>
                                             <th class="table-primary">Korektor 2</th>
-                                            <th class="table-primary">Hasil TB</th>
                                             <th class="table-primary">Keterangan</th>
                                             <th class="table-primary">Pengumuman</th>
+                                            <th class="table-primary">Hasil TB</th>
                                             <!-- Akhir Tes Bidang -->
                                             <!-- Interview User -->
                                             <th class="table-warning">Tanggal Interview User</th>
@@ -164,10 +170,10 @@ include 'komponen/koneksi.php';
                                             <th class="table-warning">PD</th>
                                             <th class="table-warning">BD</th>
                                             <th class="table-warning">KTB2</th>
-                                            <th class="table-warning">Hasil</th>
                                             <th class="table-warning">Keterangan</th>
-                                            <th class="table-warning">Interviewer</th>
                                             <th class="table-warning">Pengumuman</th>
+                                            <th class="table-warning">Interviewer</th>
+                                            <th class="table-warning">Hasil</th>
                                             <!-- Akhir Interview User -->
                                             <!-- Hasil Akhir -->
                                             <th class="table-danger">Hasil Akhir</th>
@@ -200,6 +206,19 @@ include 'komponen/koneksi.php';
                                             $sql .= " WHERE pl.time BETWEEN '$start_date' AND '$end_date'";
                                         }
 
+                                        // Periksa apakah ada filter status yang disetel
+                                        if (isset($_GET['status']) && $_GET['status'] != '') {
+                                            $status = $_GET['status'];
+
+                                            // Tambahkan kondisi status ke query SQL
+                                            if (strpos($sql, 'WHERE') !== false) {
+                                                $sql .= " AND pl.status_hasil_akhir = '$status'";
+                                            } else {
+                                                $sql .= " WHERE pl.status_hasil_akhir = '$status'";
+                                            }
+                                        }
+
+
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
@@ -224,7 +243,6 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-text'>" . $row['keterangan_adm'] . "</td>";
                                                 // Akhir Administrasi
                                                 // WII
-                                        
                                                 echo "<td class='editable-datetime'>" . $row['waktuInterview'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['bersedia', 'tidak bersedia', 'reschedule', 'pilih'])) . "'>" . $row['konfirmasiKehadiran_wii'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['p'] . "</td>";
@@ -267,7 +285,6 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', '1', '0'])) . "'>" . $row['KTB'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', '1', '0'])) . "'>" . $row['KPR'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', '1', '0'])) . "'>" . $row['Siker'] . "</td>";
-
                                                 $interviewer_id = $row['interviewerIndepth'];
                                                 $sql_interviewer = "SELECT id_int, nama_int FROM interviewer";
                                                 $result_interviewer = $conn->query($sql_interviewer);
@@ -278,21 +295,19 @@ include 'komponen/koneksi.php';
                                                 while ($interviewer = $result_interviewer->fetch_assoc()) {
                                                     $listOfInterviewers[] = $interviewer['nama_int'];
 
-                                                    if ($interviewer['id_int'] == $interviewer_id) {
+                                                    if ($interviewer['nama_int'] == $interviewer_id) {
                                                         $defaultValue = $interviewer['nama_int'];
                                                     }
                                                 }
 
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($listOfInterviewers)) . "'>" . $defaultValue . "</td>";
-
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_in'] . "</td>";
-
                                                 echo "<td class='editable-text'>" . $row['keterangan_in'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasilIndepth'] . "</td>";
                                                 // Akhir Indepth
                                                 // Test Bidang
                                                 echo "<td class='editable-datetime'>" . $row['tanggalTesBidang'] . "</td>";
-                                                echo "<td class='editable-datetime'></td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['bersedia', 'tidak bersedia', 'reschedule', 'pilih'])) . "'>" . $row['konfirmasi_kehadiran_tb'] . "</td>";
                                                 echo "<td class='editable-text'>" . $row['nilaiTesBidang1'] . "</td>";
 
                                                 $interviewer_id = $row['korektor1'];
@@ -305,7 +320,7 @@ include 'komponen/koneksi.php';
                                                 while ($interviewer = $result_interviewer->fetch_assoc()) {
                                                     $listOfInterviewers1[] = $interviewer['nama_int'];
 
-                                                    if ($interviewer['id_int'] == $interviewer_id) {
+                                                    if ($interviewer['nama_int'] == $interviewer_id) {
                                                         $defaultValue1 = $interviewer['nama_int'];
                                                     }
                                                 }
@@ -325,33 +340,27 @@ include 'komponen/koneksi.php';
                                                 while ($interviewer = $result_interviewer->fetch_assoc()) {
                                                     $listOfInterviewers2[] = $interviewer['nama_int'];
 
-                                                    if ($interviewer['id_int'] == $interviewer_id) {
+                                                    if ($interviewer['nama_int'] == $interviewer_id) {
                                                         $defaultValue2 = $interviewer['nama_int'];
                                                     }
                                                 }
 
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($listOfInterviewers2)) . "'>" . $defaultValue2 . "</td>";
-
-
-                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_tb'] . "</td>";
-
                                                 echo "<td class='editable-text'>" . $row['keterangan_tb'] . "</td>";
-
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_tb'] . "</td>";
-
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_tb'] . "</td>";
                                                 // Akhir Test Bidang
                                                 // Interview User
-                                                echo "<td>" . $row['tanggalInterviewUser'] . "</td>";
-                                                echo "<td>" . $row['konfirmasiKehadiran_iu'] . "</td>";
-                                                echo "<td>" . $row['dt'] . "</td>";
-                                                echo "<td>" . $row['ka'] . "</td>";
-                                                echo "<td>" . $row['pm'] . "</td>";
-                                                echo "<td>" . $row['pd'] . "</td>";
-                                                echo "<td>" . $row['bd'] . "</td>";
-                                                echo "<td>" . $row['ktb'] . "</td>";
-
-                                                echo "<td>" . $row['hasil_iu'] . "</td>";
-                                                echo "<td>" . $row['keterangan_iu'] . "</td>";
+                                                echo "<td class='editable-datetime'>" . $row['tanggalInterviewUser'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Bersedia', 'Tidak Bersedia', 'Reschedule'])) . "'>" . $row['konfirmasiKehadiran_iu'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['dt'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['ka'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['pm'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['pd'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['bd'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['ktb'] . "</td>";
+                                                echo "<td class='editable-text'>" . $row['keterangan_iu'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_iu'] . "</td>";
 
                                                 $interviewer_ids = explode(',', $row['interviewer_iu']); // Memisahkan ID yang terpisah koma menjadi array
                                                 $interviewer_names = array();
@@ -373,17 +382,18 @@ include 'komponen/koneksi.php';
                                                 // Menggabungkan nama interviewer menjadi satu string dengan koma
                                                 $interviewer_names_string = implode(', ', $interviewer_names);
 
-                                                echo "<td>" . $interviewer_names_string . "</td>";
+                                                echo "<td>" . $interviewer_names_string . "</td>"; // multiple choice interviewer
+                                        
 
-                                                echo "<td>" . $row['pengumuman_iu'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Pilih', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_iu'] . "</td>";
+
                                                 // Akhir Interview User
-                                                // Alasan
-                                                echo "<td>" . $row['hasil_akhir'] . "</td>";
-                                                echo "<td>" . $row['alasan_tidak_lolos'] . "</td>";
-                                                // Akhir Alasan
-                                                // Etc
-                                                echo "<td>" . $row['spkwt'] . "</td>";
-                                                echo "<td>" . $row['onboard'] . "</td>";
+                                                // Hasil akhir
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Proses', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_akhir'] . "</td>";
+                                                echo "<td class='editable-text'>" . $row['alasan_tidak_lolos'] . "</td>";
+                                                echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
+                                                echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
+                                                // AKhir Hasil Akhir
                                                 echo "</tr>";
                                             }
                                         }
@@ -556,8 +566,7 @@ include 'komponen/koneksi.php';
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- Time -->
-    <script src="scripts/time.js"></script>
+
 
 
 
@@ -598,15 +607,17 @@ include 'komponen/koneksi.php';
             });
 
 
-            $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime', function () {
+            $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date', function () {
                 var cell = $(this);
 
                 // Check if the cell already contains an input, select, or datetime element
-                if (!cell.find('input, select, input[type="datetime-local"]').length) {
+                if (!cell.find('input, select, input[type="datetime-local"], input[type="date"]').length) {
                     if (cell.hasClass('editable-combobox')) {
                         createComboBox(cell);
                     } else if (cell.hasClass('editable-datetime')) {
                         createDateTimeInput(cell);
+                    } else if (cell.hasClass('editable-date')) {
+                        createDateInput(cell);
                     } else {
                         createTextInput(cell);
                     }
@@ -641,6 +652,10 @@ include 'komponen/koneksi.php';
                     updateData(cell);
                     updateDataWII(cell);
                     updateDataPsikotest(cell);
+                    updateDataIndepth(cell);
+                    updateDataTestBidang(cell);
+                    updateDataInterviewUser(cell);
+                    updateDataHasilAkhir(cell);
                 });
             }
 
@@ -656,6 +671,10 @@ include 'komponen/koneksi.php';
                     updateData(cell);
                     updateDataWII(cell);
                     updateDataPsikotest(cell);
+                    updateDataIndepth(cell);
+                    updateDataTestBidang(cell);
+                    updateDataInterviewUser(cell);
+                    updateDataHasilAkhir(cell);
                 });
 
                 input.on('keypress', function (e) {
@@ -664,6 +683,10 @@ include 'komponen/koneksi.php';
                         updateData(cell);
                         updateDataWII(cell);
                         updateDataPsikotest(cell);
+                        updateDataIndepth(cell);
+                        updateDataTestBidang(cell);
+                        updateDataInterviewUser(cell);
+                        updateDataHasilAkhir(cell);
                     }
                 });
             }
@@ -680,6 +703,10 @@ include 'komponen/koneksi.php';
                     updateData(cell);
                     updateDataWII(cell);
                     updateDataPsikotest(cell);
+                    updateDataIndepth(cell);
+                    updateDataTestBidang(cell);
+                    updateDataInterviewUser(cell);
+                    updateDataHasilAkhir(cell);
                 });
 
                 input.on('keypress', function (e) {
@@ -688,10 +715,45 @@ include 'komponen/koneksi.php';
                         updateData(cell);
                         updateDataWII(cell);
                         updateDataPsikotest(cell);
+                        updateDataIndepth(cell);
+                        updateDataTestBidang(cell);
+                        updateDataInterviewUser(cell);
+                        updateDataHasilAkhir(cell);
                     }
                 });
             }
 
+            function createDateInput(cell) {
+                var content = cell.text().trim();
+                cell.html('<input type="date" class="form-control" value="' + content + '">');
+
+                var input = cell.find('input');
+                input.focus();
+
+                input.on('blur', function () {
+                    cell.text(input.val());
+                    updateData(cell);
+                    updateDataWII(cell);
+                    updateDataPsikotest(cell);
+                    updateDataIndepth(cell);
+                    updateDataTestBidang(cell);
+                    updateDataInterviewUser(cell);
+                    updateDataHasilAkhir(cell);
+                });
+
+                input.on('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        cell.text(input.val());
+                        updateData(cell);
+                        updateDataWII(cell);
+                        updateDataPsikotest(cell);
+                        updateDataIndepth(cell);
+                        updateDataTestBidang(cell);
+                        updateDataInterviewUser(cell);
+                        updateDataHasilAkhir(cell);
+                    }
+                });
+            }
 
             function updateData(cell) {
                 var row = cell.closest('tr');
@@ -788,6 +850,146 @@ include 'komponen/koneksi.php';
                     }
                 });
             }
+            function updateDataIndepth(cell) {
+                var row = cell.closest('tr');
+                var idPelamar = row.find('td:eq(3)').text(); // Assuming the ID Pelamar is in the 4th column
+
+                // Prepare data to be sent to the server for Indepth
+                var dataIndepth = {
+                    id_pelamar: idPelamar,
+                    tanggal_indepth: row.find('td:eq(24)').text(), // Adjust the column index based on your actual structure
+                    konfirmasi_kehadiran_in: row.find('td:eq(25)').text(),
+                    KTB: row.find('td:eq(26)').text(),
+                    KPR: row.find('td:eq(27)').text(),
+                    Siker: row.find('td:eq(28)').text(),
+                    hasil_indepth: row.find('td:eq(32)').text(),
+                    interviewer_indepth: row.find('td:eq(29)').text(),
+                    pengumuman_in: row.find('td:eq(30)').text(),
+                    keterangan_in: row.find('td:eq(31)').text()
+                    // Add more fields as needed
+                };
+
+                // Send AJAX request to update data on the server for Indepth
+                $.ajax({
+                    url: '../controller/edit_indepth.php', // Replace with the actual path for Indepth
+                    type: 'POST',
+                    data: dataIndepth,
+                    success: function (response) {
+                        // Handle success
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        console.error(error);
+                    }
+                });
+            }
+
+            function updateDataTestBidang(cell) {
+                var row = cell.closest('tr');
+                var idPelamar = row.find('td:eq(3)').text(); // Assuming the ID Pelamar is in the 4th column
+
+                // Prepare data to be sent to the server for Test Bidang
+                var dataTestBidang = {
+                    id_pelamar: idPelamar,
+                    tanggal_tes_bidang: row.find('td:eq(33)').text(), // Adjust the column index based on your actual structure
+                    konfirmasi_kehadiran_tb: row.find('td:eq(34)').text(),
+                    nilai_tb1: row.find('td:eq(35)').text(),
+                    korektor1: row.find('td:eq(36)').text(),
+                    nilai_tb2: row.find('td:eq(37)').text(),
+                    korektor2: row.find('td:eq(38)').text(),
+                    keterangan: row.find('td:eq(39)').text(),
+                    pengumuman: row.find('td:eq(40)').text(),
+                    hasil: row.find('td:eq(41)').text(),
+                };
+
+                // Send AJAX request to update data on the server for Test Bidang
+                $.ajax({
+                    url: '../controller/edit_tesBidang.php', // Replace with the actual path for Test Bidang
+                    type: 'POST',
+                    data: dataTestBidang,
+                    success: function (response) {
+                        // Handle success
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        console.error(error);
+                    }
+                });
+            }
+
+
+            function updateDataInterviewUser(cell) {
+                var row = cell.closest('tr');
+                var idPelamar = row.find('td:eq(3)').text(); // Assuming the ID Pelamar is in the 4th column
+
+                // Prepare data to be sent to the server for Interview User
+                var dataInterviewUser = {
+                    id_pelamar: idPelamar,
+                    tanggal_interview_user: row.find('td:eq(42)').text(), // Adjust the column index based on your actual structure
+                    konfirmasi_kehadiran_iu: row.find('td:eq(43)').text(),
+                    dt: row.find('td:eq(44)').text(),
+                    ka: row.find('td:eq(45)').text(),
+                    pm: row.find('td:eq(46)').text(),
+                    pd: row.find('td:eq(47)').text(),
+                    bd: row.find('td:eq(48)').text(),
+                    ktb: row.find('td:eq(49)').text(),
+                    keterangan_iu: row.find('td:eq(50)').text(),
+                    pengumuman_iu: row.find('td:eq(51)').text(),
+                    interviewer_iu: row.find('td:eq(52)').text(),
+                    hasil_iu: row.find('td:eq(53)').text(),
+                    // Add more fields as needed
+                };
+
+                // Send AJAX request to update data on the server for Interview User
+                $.ajax({
+                    url: '../controller/edit_interview_user.php', // Replace with the actual path for Interview User
+                    type: 'POST',
+                    data: dataInterviewUser,
+                    success: function (response) {
+                        // Handle success
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        console.error(error);
+                    }
+                });
+            }
+
+            function updateDataHasilAkhir(cell) {
+                var row = cell.closest('tr');
+                var idPelamar = row.find('td:eq(3)').text(); // Assuming the ID Pelamar is in the 4th column
+
+                // Prepare data to be sent to the server for Hasil Akhir
+                var dataHasilAkhir = {
+                    id_pelamar: idPelamar,
+                    hasil_akhir: row.find('td:eq(54)').text(), // Adjust the column index based on your actual structure
+                    alasan_tidak_lolos: row.find('td:eq(55)').text(), // Adjust the column index based on your actual structure
+                    spkwt: row.find('td:eq(56)').text(), // Adjust the column index based on your actual structure
+                    onboard: row.find('td:eq(57)').text(), // Adjust the column index based on your actual structure
+                    // Add more fields as needed
+                };
+
+                // Send AJAX request to update data on the server for Hasil Akhir
+                $.ajax({
+                    url: '../controller/edit_hasilAkhir.php', // Replace with the actual path for Hasil Akhir
+                    type: 'POST',
+                    data: dataHasilAkhir,
+                    success: function (response) {
+                        // Handle success
+                        console.log(response);
+
+                        // You can add additional logic here if needed
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        console.error(error);
+                    }
+                });
+            }
+
 
 
             // Add a checkbox for row selection

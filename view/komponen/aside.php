@@ -4,7 +4,8 @@
             <span class="app-brand-logo demo">
 
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2"><img src="../assets/img/logo_main.png" alt="" srcset="" width="180px"></span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2"><img src="../assets/img/logo_main.png" alt=""
+                    srcset="" width="180px"></span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -16,14 +17,16 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item <?php if ($page == 'index') echo 'active'; ?>">
+        <li class="menu-item <?php if ($page == 'index')
+            echo 'active'; ?>">
             <a href="index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
         <!-- Device -->
-        <li class="menu-item  <?php if ($page == 'master') echo 'active'; ?>">
+        <li class="menu-item  <?php if ($page == 'master')
+            echo 'active'; ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Account Settings">Master</div>
@@ -51,10 +54,11 @@
             </ul>
         </li>
         <!-- Respon Kandidat -->
-        <li class="menu-item  <?php if ($page == 'respon_kandidat') echo 'active'; ?>">
+        <li class="menu-item  <?php if ($page == 'respon_kandidat')
+            echo 'active'; ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Account Settings">Respon Kandidat</div>
+                <div data-i18n="Account Settings">Master Pelamar</div>
             </a>
             <ul class="menu-sub">
 
@@ -78,14 +82,16 @@
             </ul>
         </li>
         <!-- Report -->
-        <li class="menu-item <?php if ($page == 'proses_rekrut') echo 'active'; ?>">
+        <li class="menu-item <?php if ($page == 'proses_rekrut')
+            echo 'active'; ?>">
             <a href="proses_rekrutmen.php" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-edit-alt"></i>
                 <div data-i18n="device">Proses Rekrutmen</div>
             </a>
         </li>
         <!-- User Mng -->
-        <li class="menu-item  <?php if ($page == 'user') echo 'active'; ?>">
+        <li class="menu-item  <?php if ($page == 'user')
+            echo 'active'; ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Account Settings">User</div>
@@ -108,7 +114,8 @@
             </ul>
         </li>
         <!-- Setting -->
-        <li class="menu-item <?php if ($page == 'setting') echo 'active'; ?>">
+        <li class="menu-item <?php if ($page == 'setting')
+            echo 'active'; ?>">
             <a href="user_setting.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cog"></i>
                 <div data-i18n="device">Setting</div>
