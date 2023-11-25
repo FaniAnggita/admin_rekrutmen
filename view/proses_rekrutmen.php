@@ -1062,8 +1062,6 @@ include 'komponen/koneksi.php';
                 // Clear the GET parameters from the URL
                 window.history.replaceState({}, document.title, window.location.pathname);
 
-                // Optionally, you can redirect to a new URL after form submission
-                // window.location.href = 'new_url.php';
             });
         });
     </script>

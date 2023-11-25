@@ -1,83 +1,59 @@
 <?php
 require_once '../koneksi/koneksi.php';
-
-// Enable error reporting for debugging
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Split the "selectedIdsInput" string into an array
-$selectedIdsArray = explode(", ", $_POST["selectedIdsInput"]);
-
-foreach ($selectedIdsArray as $id_pelamar) {
-    // Sanitize input data
-    $id_pelamar = mysqli_real_escape_string($conn, $id_pelamar);
-    $tanggal_seleksi = isset($_POST['tanggalseleksi']) ? mysqli_real_escape_string($conn, $_POST['tanggalseleksi']) : '';
-    $nilai_cv = isset($_POST['nilaiCv']) ? mysqli_real_escape_string($conn, $_POST['nilaiCv']) : '';
-    $nilai_kualifikasi = isset($_POST['nilaiKualifikasi']) ? mysqli_real_escape_string($conn, $_POST['nilaiKualifikasi']) : '';
-    $nilai_pengalaman = isset($_POST['nilaiPengalaman']) ? mysqli_real_escape_string($conn, $_POST['nilaiPengalaman']) : '';
-    $hasil = isset($_POST['hasil']) ? mysqli_real_escape_string($conn, $_POST['hasil']) : '';
-    $keterangan = isset($_POST['keterangan']) ? mysqli_real_escape_string($conn, $_POST['keterangan']) : '';
-
-    // Check if a record with the same id_pelamar exists
-    $check_sql = "SELECT id_administrasi FROM seleksi_administrasi WHERE id_pelamar = '$id_pelamar'";
-    $check_result = mysqli_query($conn, $check_sql);
-
-    if (!$check_result) {
-        die("Error checking existing record: " . mysqli_error($conn));
-    }
-
-    if (mysqli_num_rows($check_result) > 0) {
-        // Update the existing record if there are fields to update
-        $update_fields = [];
-        if (!empty($tanggal_seleksi))
-            $update_fields[] = "tanggal_seleksi = '$tanggal_seleksi'";
-        if (!empty($nilai_cv))
-            $update_fields[] = "nilai_cv = '$nilai_cv'";
-        if (!empty($nilai_kualifikasi))
-            $update_fields[] = "nilai_kualifikasi = '$nilai_kualifikasi'";
-        if (!empty($nilai_pengalaman))
-            $update_fields[] = "nilai_pengalaman = '$nilai_pengalaman'";
-        if (!empty($hasil))
-            $update_fields[] = "hasil_seleksi_adm = '$hasil'";
-        if (!empty($keterangan))
-            $update_fields[] = "keterangan_adm = '$keterangan'";
-
-        if (!empty($update_fields)) {
-            $update_sql = "UPDATE seleksi_administrasi SET " . implode(", ", $update_fields) . " WHERE id_pelamar = '$id_pelamar'";
-
-            echo "Update Query: " . $update_sql . "\n"; // Debugging line
-
-            $update_result = mysqli_query($conn, $update_sql);
-
-            if (!$update_result) {
-                die("Error updating data for ID $id_pelamar: " . mysqli_error($conn) . "\n");
-            }
-
-            echo "Data for ID $id_pelamar updated successfully\n";
-        } else {
-            echo "No fields to update for ID $id_pelamar\n";
-        }
-    } else {
-        // Insert a new record if there are values to insert
-        if (!empty($tanggal_seleksi) || !empty($nilai_cv) || !empty($nilai_kualifikasi) || !empty($nilai_pengalaman) || !empty($hasil) || !empty($keterangan)) {
-            $insert_sql = "INSERT INTO seleksi_administrasi (id_pelamar, tanggal_seleksi, nilai_cv, nilai_kualifikasi, nilai_pengalaman, hasil_seleksi_adm, keterangan_adm) VALUES ('$id_pelamar', '$tanggal_seleksi', '$nilai_cv', '$nilai_kualifikasi', '$nilai_pengalaman', '$hasil', '$keterangan')";
-
-            echo "Insert Query: " . $insert_sql . "\n"; // Debugging line
-
-            $insert_result = mysqli_query($conn, $insert_sql);
-
-            if (!$insert_result) {
-                die("Error inserting data for ID $id_pelamar: " . mysqli_error($conn) . "\n");
-            }
-
-            echo "Data for ID $id_pelamar inserted successfully\n";
-        } else {
-            echo "No values to insert for ID $id_pelamar\n";
-        }
-    }
-}
-
-// Close the database connection
-mysqli_close($conn);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+var_dump($_POST);
 exit;
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Extract data from the form
+    $selectedIdsString = $_POST['selectedIds'];
+
+    // Convert the selected IDs string to an array
+    $selectedIds = explode(',', $selectedIdsString);
+
+    // Iterate through the selected IDs and update data
+    foreach ($selectedIds as $id) {
+        // Sanitize and validate the ID
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if ($id !== false && $id > 0) {
+            // Assuming the form fields have names like 'nilai_cv', 'nilai_kualifikasi', etc.
+
+            $nilai_cv = $_POST['nilai_cv'];
+            $nilai_kualifikasi = $_POST['nilai_kualifikasi'];
+            $nilai_pengalaman = $_POST['nilai_pengalaman'];
+            $keterangan = $_POST['keterangan'];
+            $hasil_seleksi_adm = $_POST['hasil_seleksi_adm'];
+
+            // Prepare and execute the update query
+            $updateSql = "UPDATE seleksi_administrasi
+                          SET nilai_cv = '$nilai_cv',
+                              nilai_kualifikasi = '$nilai_kualifikasi',
+                              nilai_pengalaman = '$nilai_pengalaman',
+                              hasil_seleksi_adm = '$hasil_seleksi_adm',
+                              keterangan_adm = '$keterangan',
+                            
+                          WHERE id_pelamar = '$id'";
+
+            if ($conn->query($updateSql) === TRUE) {
+                // Success
+                echo json_encode(['status' => 'success', 'message' => 'Data updated successfully']);
+            } else {
+                // Error
+                echo json_encode(['status' => 'error', 'message' => 'Error updating data: ' . $conn->error]);
+            }
+        } else {
+            // Invalid ID
+            echo json_encode(['status' => 'error', 'message' => 'Invalid ID']);
+        }
+    }
+
+    // Close the database connection
+    $conn->close();
+} else {
+    // Return an error if the request method is not POST
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+}
 ?>

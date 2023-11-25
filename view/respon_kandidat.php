@@ -221,27 +221,6 @@ include 'komponen/koneksi.php';
         });
     </script>
 
-    <!-- <script>
-        document.addEventListener('change', function(event) {
-            if (event.target.classList.contains('rekomendasi-select')) {
-                var select = event.target;
-                var id = select.getAttribute('data-id');
-                var rekomendasi = select.value;
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'update.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        console.log('Data berhasil diperbarui!');
-                    }
-                };
-
-                var data = 'id=' + id + '&rekomendasi=' + rekomendasi;
-                xhr.send(data);
-            }
-        });
-    </script> -->
 
 
 </body>
