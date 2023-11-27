@@ -1,41 +1,91 @@
 <?php
 require_once '../koneksi/koneksi.php';
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_pelamar = $_POST['id_pelamar'];
-    $tanggalTesBidang = $_POST['tanggalTesBidang'];
-    $nilaiTesBidang1 = $_POST['nilaiTesBidang1'];
-    $korektor1 = $_POST['korektor1'];
-    $nilaiTesBidang2 = $_POST['nilaiTesBidang2'];
-    $korektor2 = $_POST['korektor2'];
-    $hasil = $_POST['hasil'];
-    $pengumuman = $_POST['pengumuman'];
-    $keterangan = $_POST['keterangan'];
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-    // Check if a record with the same id_pelamar exists
-    $check_sql = "SELECT id_tesbidang FROM seleksi_tesbidang WHERE id_pelamar = '$id_pelamar'";
-    $result = mysqli_query($conn, $check_sql);
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Extract data from the form
+    $selectedIdsString = $_POST['selectedIdsInputTesBidang'];
 
-    if (mysqli_num_rows($result) > 0) {
-        // Update the existing record
-        $update_sql = "UPDATE seleksi_tesbidang SET tanggalTesBidang = '$tanggalTesBidang', nilaiTesBidang1 = '$nilaiTesBidang1', korektor1 = '$korektor1', nilaiTesBidang2 = '$nilaiTesBidang2', korektor2 = '$korektor2', hasil_tb = '$hasil', pengumuman_tb = '$pengumuman', keterangan_tb = '$keterangan' WHERE id_pelamar = '$id_pelamar'";
+    // Convert the selected IDs string to an array
+    $selectedIds = explode(',', $selectedIdsString);
 
-        if (mysqli_query($conn, $update_sql)) {
-            echo "Data updated successfully";
+    // Iterate through the selected IDs and update or insert data
+    foreach ($selectedIds as $id) {
+        // Sanitize and validate the ID
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if ($id !== false && $id > 0) {
+            // Check if id_pelamar already exists in seleksi_tesbidang
+            $checkSql = "SELECT COUNT(*) as count FROM seleksi_tesbidang WHERE id_pelamar = '$id'";
+            $result = $conn->query($checkSql);
+
+            if ($result !== false) {
+                $row = $result->fetch_assoc();
+                $count = $row['count'];
+
+                // Extract data from the form
+                $tanggalTesBidang = $_POST['tanggalTesBidang'];
+                $konfirmasiKehadiran = $_POST['pengumuman']; // Assuming konfirmasi_kehadiran_tb is related to pengumuman
+                $nilaiTesBidang1 = $_POST['nilaiTesBidang1'];
+                $nilaiTesBidang2 = $_POST['nilaiTesBidang2'];
+                $pengumuman = $_POST['pengumuman'];
+                $keterangan = $_POST['keterangan'];
+                $hasil = $_POST['hasil'];
+
+                if ($count > 0) {
+                    // ID already exists, perform UPDATE
+                    $updateSql = "UPDATE seleksi_tesbidang SET";
+
+                    $updateSql .= isset($_POST['tanggalTesBidang']) && $_POST['tanggalTesBidang'] !== '' ? " tanggalTesBidang = '$tanggalTesBidang'," : '';
+                    $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " konfirmasi_kehadiran_tb = '$konfirmasiKehadiran'," : '';
+                    $updateSql .= isset($_POST['nilaiTesBidang1']) && $_POST['nilaiTesBidang1'] !== '' ? " nilaiTesBidang1 = '$nilaiTesBidang1'," : '';
+                    $updateSql .= isset($_POST['nilaiTesBidang2']) && $_POST['nilaiTesBidang2'] !== '' ? " nilaiTesBidang2 = '$nilaiTesBidang2'," : '';
+                    $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " hasil_tb = '$hasil'," : '';
+                    $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " pengumuman_tb = '$pengumuman'," : '';
+                    $updateSql .= isset($_POST['keterangan']) && $_POST['keterangan'] !== '' ? " keterangan_tb = '$keterangan'," : '';
+
+                    // Remove trailing comma
+                    $updateSql = rtrim($updateSql, ',');
+
+                    $updateSql .= " WHERE id_pelamar = '$id'";
+
+                    if ($conn->query($updateSql) === TRUE) {
+                        // Success
+                        echo ('Data updated successfully');
+                    } else {
+                        // Error
+                        echo ('Error updating data: ' . $conn->error);
+                    }
+                } else {
+                    // ID does not exist, perform INSERT
+                    $insertSql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, konfirmasi_kehadiran_tb, nilaiTesBidang1, nilaiTesBidang2, hasil_tb, pengumuman_tb, keterangan_tb)
+                                  VALUES ('$id', '$tanggalTesBidang', '$konfirmasiKehadiran', '$nilaiTesBidang1', '$nilaiTesBidang2', '$hasil', '$pengumuman', '$keterangan')";
+
+                    if ($conn->query($insertSql) === TRUE) {
+                        // Success
+                        echo ('Data inserted successfully');
+                    } else {
+                        // Error
+                        echo ('Error inserting data: ' . $conn->error);
+                    }
+                }
+            } else {
+                // Error in query
+                echo ('Error checking ID: ' . $conn->error);
+            }
         } else {
-            echo "Error updating data: " . mysqli_error($conn);
-        }
-    } else {
-        // Insert a new record
-        $insert_sql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil_tb, pengumuman_tb, keterangan_tb) VALUES ('$id_pelamar', '$tanggalTesBidang', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2', '$korektor2', '$hasil', '$pengumuman', '$keterangan')";
-
-        if (mysqli_query($conn, $insert_sql)) {
-            echo "Data inserted successfully";
-        } else {
-            echo "Error inserting data: " . mysqli_error($conn);
+            // Invalid ID
+            echo ('Invalid ID');
         }
     }
-}
 
-// Close the database connection
-mysqli_close($conn);
+    // Close the database connection
+    $conn->close();
+} else {
+    // Return an error if the request method is not POST
+    echo ('Invalid request method');
+}
+?>

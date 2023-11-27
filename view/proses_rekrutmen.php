@@ -80,17 +80,16 @@ include 'komponen/koneksi.php';
                                     <button type="button" class="btn btn-outline-primary" id="editButton"
                                         data-bs-toggle="modal" data-bs-target="#editModal">Administrasi</button>
                                     <button type="button" class="btn btn-outline-primary"
-                                        id="editButtonWII">WII</button>
+                                        id="editButtonWii">WII</button>
                                     <button type="button" class="btn btn-outline-primary"
                                         id="editButtonPsikotest">Psikotest</button>
                                     <button type="button" class="btn btn-outline-primary"
-                                        id="editButtonInDepth">Indepth</button>
+                                        id="editButtonIndepth">Indepth</button>
                                     <button type="button" class="btn btn-outline-primary" id="editButtonTesBidang">Tes
                                         Bidang</button>
                                     <button type="button" class="btn btn-outline-primary"
                                         id="editButtonInterviewUser">Interview User</button>
-                                    <button type="button" class="btn btn-outline-primary"
-                                        id="editButtonHasilAkhir">Hasil Akhir</button>
+
                                 </div>
 
                             </div>
@@ -227,7 +226,27 @@ include 'komponen/koneksi.php';
                                                 $tes = ($row['status'] == 1 ? 'text-danger' : '');
                                                 echo "<tr>";
                                                 echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "'></td>";
-                                                echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
+                                                // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
+                                                ?>
+                                                <td>
+                                                    <!-- Example single danger button -->
+                                                    <div class="btn-group dropup z-3">
+                                                        <button type="button" class="btn btn-danger dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Action
+                                                        </button>
+                                                        <ul class="dropdown-menu ">
+                                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                            <li>
+                                                                <hr class="dropdown-divider">
+                                                            </li>
+                                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <?php
                                                 echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['id'] . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['nama_lengkap'] . "</td>";
@@ -425,7 +444,7 @@ include 'komponen/koneksi.php';
                     </div>
 
                     <!-- Modal for Edit Form WII -->
-                    <div class="modal fade" id="editModalWII" tabindex="-1" aria-labelledby="editModalWiiLabel"
+                    <div class="modal fade" id="editModalWii" tabindex="-1" aria-labelledby="editModalWiiLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -457,7 +476,22 @@ include 'komponen/koneksi.php';
                             </div>
                         </div>
                     </div>
-
+                    <!-- Modal for Edit Form InDepth -->
+                    <div class="modal fade" id="editModalIndepth" tabindex="-1" aria-labelledby="editModalInDepthLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalInDepthLabel">Edit InDepth</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <?php include_once 'modal/modal_indepth.php'; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Modal for Edit Form Tes Bidang -->
                     <div class="modal fade" id="editModalTesBidang" tabindex="-1"
                         aria-labelledby="editModalTesBidangLabel" aria-hidden="true">
@@ -474,22 +508,7 @@ include 'komponen/koneksi.php';
                             </div>
                         </div>
                     </div>
-                    <!-- Modal for Edit Form InDepth -->
-                    <div class="modal fade" id="editModalInDepth" tabindex="-1" aria-labelledby="editModalInDepthLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalInDepthLabel">Edit InDepth</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <?php include_once 'modal/modal_indepth.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- Modal for Edit Form Interview User -->
                     <div class="modal fade" id="editModalInterviewUser" tabindex="-1"
                         aria-labelledby="editModalInterviewUserLabel" aria-hidden="true">
@@ -502,23 +521,6 @@ include 'komponen/koneksi.php';
                                 </div>
                                 <div class="modal-body">
                                     <?php include_once 'modal/modal_interview_user.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal for Edit Form Hasil Akhir -->
-                    <div class="modal fade" id="editModalHasilAkhir" tabindex="-1"
-                        aria-labelledby="editModalHasilAkhirLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalHasilAkhirLabel">Edit Hasil Akhir</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Adjust the form fields and IDs based on your actual structure -->
-                                    <?php include_once 'modal/modal_hasil_akhir.php'; ?>
                                 </div>
                             </div>
                         </div>
@@ -1042,20 +1044,160 @@ include 'komponen/koneksi.php';
 
                     $('#selectedIdsInput').val(selectedIdsString);
 
-                    // Dynamically set the value of the 'id_pelamar' input field
-                    var idPelamar = <?php echo json_encode($_GET['id_pelamar']); ?>;
+
                     $('#idPelamarInput').val(idPelamar);
 
                     $('#editModal').modal('show');
                 } else {
+
+                    alert('Please select at least one row to edit.');
+                }
+            }
+
+            $('#editButton').on('click', function () {
+                populateFormFields();
+            });
+
+            function populateFormWii() {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the fourth column
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    var selectedIdsString = selectedIds.join(',');
+
+                    $('#selectedIdsInputWii').val(selectedIdsString);
+
+
+
+                    $('#editModalWii').modal('show');
+                } else {
+
                     alert('Please select at least one row to edit.');
                 }
             }
 
             // Event handler for the "Edit" button
-            $('#editButton').on('click', function () {
-                populateFormFields();
+
+
+            $('#editButtonWii').on('click', function () {
+                populateFormWii();
             });
+
+            function populateFormPsikotest() {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the fourth column
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    var selectedIdsString = selectedIds.join(',');
+
+                    $('#selectedIdsInputPsikotest').val(selectedIdsString);
+
+
+
+                    $('#editModalPsikotest').modal('show');
+                } else {
+
+                    alert('Please select at least one row to edit.');
+                }
+            }
+
+            // Event handler for the "Edit" button
+
+
+            $('#editButtonPsikotest').on('click', function () {
+                populateFormPsikotest();
+            });
+
+            function populateFormIndepth() {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the fourth column
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    var selectedIdsString = selectedIds.join(',');
+
+                    $('#selectedIdsInputIndepth').val(selectedIdsString);
+
+
+
+                    $('#editModalIndepth').modal('show');
+                } else {
+
+                    alert('Please select at least one row to edit.');
+                }
+            }
+
+            // Event handler for the "Edit" button
+
+
+            $('#editButtonIndepth').on('click', function () {
+                populateFormIndepth();
+            });
+
+            function populateFormTesBidang() {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the fourth column
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    var selectedIdsString = selectedIds.join(',');
+
+                    $('#selectedIdsInputTesBidang').val(selectedIdsString);
+
+
+
+                    $('#editModalTesBidang').modal('show');
+                } else {
+
+                    alert('Please select at least one row to edit.');
+                }
+            }
+
+            // Event handler for the "Edit" button
+
+
+            $('#editButtonTesBidang').on('click', function () {
+                populateFormTesBidang();
+            });
+
+            function populateFormInterviewUser() {
+                var selectedIds = [];
+                $('.select-checkbox:checked').each(function () {
+                    var id = $(this).closest('tr').find('td:eq(3)').text(); // Assuming the ID is in the fourth column
+                    selectedIds.push(id);
+                });
+
+                if (selectedIds.length > 0) {
+                    var selectedIdsString = selectedIds.join(',');
+
+                    $('#selectedIdsInputInterviewUser').val(selectedIdsString);
+
+
+
+                    $('#editModalInterviewUser').modal('show');
+                } else {
+
+                    alert('Please select at least one row to edit.');
+                }
+            }
+
+            // Event handler for the "Edit" button
+
+
+            $('#editButtonInterviewUser').on('click', function () {
+                populateFormInterviewUser();
+            });
+
         });
     </script>
 

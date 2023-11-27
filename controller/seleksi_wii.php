@@ -1,43 +1,88 @@
 <?php
 require_once '../koneksi/koneksi.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_pelamar = $_POST['id_pelamar'];
-    $waktuInterview = $_POST['waktuInterview'];
-    $konfirmasiKehadiran = $_POST['konfirmasiKehadiran'];
-    $p = $_POST['p'];
-    $a = $_POST['a'];
-    $k = $_POST['k'];
-    $r = $_POST['r'];
-    $rating = $_POST['rating'];
-    $pengumuman = $_POST['pengumuman'];
-    $id_int = $_POST['id_int'];
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Extract data from the form
+    $selectedIdsString = $_POST['selectedIdsInputWii'];
 
-    // Check if a record with the same id_pelamar exists
-    $check_sql = "SELECT id_wii FROM seleksi_wii WHERE id_pelamar = '$id_pelamar'";
-    $result = mysqli_query($conn, $check_sql);
+    // Convert the selected IDs string to an array
+    $selectedIds = explode(',', $selectedIdsString);
 
-    if (mysqli_num_rows($result) > 0) {
-        // Update the existing record
-        $update_sql = "UPDATE seleksi_wii SET waktuInterview = '$waktuInterview', konfirmasiKehadiran_wii = '$konfirmasiKehadiran', p = '$p', a = '$a', k = '$k', r = '$r', rating_wii = '$rating', pengumuman_wii = '$pengumuman', interviewer_wii = '$id_int' WHERE id_pelamar = '$id_pelamar'";
+    // Iterate through the selected IDs and update or insert data
+    foreach ($selectedIds as $id) {
+        // Sanitize and validate the ID
+        $id = filter_var($id, FILTER_VALIDATE_INT);
 
-        if (mysqli_query($conn, $update_sql)) {
-            echo "Data updated successfully";
+        if ($id !== false && $id > 0) {
+            // Check if id_pelamar already exists in seleksi_wii
+            $checkSql = "SELECT COUNT(*) as count FROM seleksi_wii WHERE id_pelamar = '$id'";
+            $result = $conn->query($checkSql);
+
+            if ($result !== false) {
+                $row = $result->fetch_assoc();
+                $count = $row['count'];
+
+                // Extract data from the form
+                $waktuInterview = isset($_POST['waktuInterview']) ? $_POST['waktuInterview'] : '';
+                $konfirmasiKehadiran = isset($_POST['konfirmasiKehadiran']) ? $_POST['konfirmasiKehadiran'] : '';
+                $p = isset($_POST['p']) ? $_POST['p'] : '';
+                $a = isset($_POST['a']) ? $_POST['a'] : '';
+                $k = isset($_POST['k']) ? $_POST['k'] : '';
+                $r = isset($_POST['r']) ? $_POST['r'] : '';
+                $pengumuman = isset($_POST['pengumuman']) ? $_POST['pengumuman'] : '';
+                $rating = isset($_POST['rating']) ? $_POST['rating'] : '';
+
+                if ($count > 0) {
+                    // ID already exists, perform UPDATE
+                    $updateSql = "UPDATE seleksi_wii SET
+                                  waktuInterview = " . ($waktuInterview !== '' ? "'$waktuInterview'" : "NULL") . ",
+                                  konfirmasiKehadiran_wii = " . ($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL") . ",
+                                  p = " . ($p !== '' ? "'$p'" : "NULL") . ",
+                                  a = " . ($a !== '' ? "'$a'" : "NULL") . ",
+                                  k = " . ($k !== '' ? "'$k'" : "NULL") . ",
+                                  r = " . ($r !== '' ? "'$r'" : "NULL") . ",
+                                  rating_wii = " . ($rating !== '' ? "'$rating'" : "NULL") . ",
+                                  pengumuman_wii = " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . "
+                                  WHERE id_pelamar = '$id'";
+
+                    if ($conn->query($updateSql) === TRUE) {
+                        // Success
+                        echo ('Data updated successfully');
+                    } else {
+                        // Error
+                        echo ('Error updating data: ' . $conn->error);
+                    }
+                } else {
+                    // ID does not exist, perform INSERT
+                    $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii)
+                                  VALUES ('$id', " . ($waktuInterview !== '' ? "'$waktuInterview'" : "NULL") . ", " . ($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL") . ", " . ($p !== '' ? "'$p'" : "NULL") . ", " . ($a !== '' ? "'$a'" : "NULL") . ", " . ($k !== '' ? "'$k'" : "NULL") . ", " . ($r !== '' ? "'$r'" : "NULL") . ", " . ($rating !== '' ? "'$rating'" : "NULL") . ", " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . ")";
+
+                    if ($conn->query($insertSql) === TRUE) {
+                        // Success
+                        echo ('Data inserted successfully');
+                    } else {
+                        // Error
+                        echo ('Error inserting data: ' . $conn->error);
+                    }
+                }
+            } else {
+                // Error in query
+                echo ('Error checking ID: ' . $conn->error);
+            }
         } else {
-            echo "Error updating data: " . mysqli_error($conn);
-        }
-    } else {
-        // Insert a new record
-        $insert_sql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, interviewer_wii) VALUES ('$id_pelamar', '$waktuInterview', '$konfirmasiKehadiran', '$p', '$a', '$k', '$r', '$rating', '$pengumuman', '$id_int')";
-
-        if (mysqli_query($conn, $insert_sql)) {
-            echo "Data inserted successfully";
-        } else {
-            echo "Error inserting data: " . mysqli_error($conn);
+            // Invalid ID
+            echo ('Invalid ID');
         }
     }
-}
 
-// Close the database connection
-mysqli_close($conn);
+    // Close the database connection
+    $conn->close();
+} else {
+    // Return an error if the request method is not POST
+    echo ('Invalid request method');
+}
+?>
