@@ -1,5 +1,5 @@
 <?php
-$page = 'master';
+$page = 'user';
 include 'komponen/header.php';
 include 'komponen/koneksi.php';
 ?>
@@ -32,39 +32,32 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Tambah User</h5>
-                                <a href="user_management.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i> Tambah</a>
+                                <a href="user_management.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i>
+                                    Tambah</a>
                             </div>
 
 
                             <div class="card-body">
                                 <form id="add_user">
                                     <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="name">NIK</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-id-card"></i></span>
+                                                <input type="text" class="form-control" id="nik" name="nik"
+                                                    aria-label="John Doe" aria-describedby="nik" autocomplete="off"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="name">Name</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="name" name="name" aria-label="John Doe" aria-describedby="name" autocomplete="off" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="gender">Gender</label>
-                                        <div class="col-sm-10">
-                                            <div class="input-group input-group-merge">
-                                                <span class="input-group-text"><i class="bx bx-male"></i></span>
-                                                <select id="gender" name="gender" class="form-select" required>
-                                                    <option value="1">Male</option>
-                                                    <option value="2">Female</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="dob">Date of Birth</label>
-                                        <div class="col-sm-10">
-                                            <div class="input-group input-group-merge">
-                                                <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                                                <input type="date" class="form-control" id="dob" name="dob" required>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    aria-label="John Doe" aria-describedby="name" autocomplete="off"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +66,8 @@ include 'komponen/koneksi.php';
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                                <input type="email" class="form-control" id="email" name="email" autocomplete="off" required>
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +76,8 @@ include 'komponen/koneksi.php';
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="password" class="form-control" id="password" name="password" autocomplete="off" required>
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +86,8 @@ include 'komponen/koneksi.php';
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="password" class="form-control" id="copassword" name="copassword" autocomplete="off" required>
+                                                <input type="password" class="form-control" id="copassword"
+                                                    name="copassword" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
@@ -101,15 +97,17 @@ include 'komponen/koneksi.php';
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-cog"></i></span>
                                                 <select id="role" name="role" class="form-select" required>
-                                                    <option value="2">Home User</option>
                                                     <option value="1">Admin</option>
+                                                    <option value="2">Kadiv</option>
+                                                    <option value="3">Manager</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-sm-10">
-                                            <button type="button" class="btn btn-primary" id="submitButton">Send</button>
+                                            <button type="button" class="btn btn-primary"
+                                                id="submitButton">Send</button>
                                         </div>
                                     </div>
                                 </form>
@@ -188,7 +186,7 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#myTable').DataTable();
         });
     </script>

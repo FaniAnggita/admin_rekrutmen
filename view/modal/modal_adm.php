@@ -4,10 +4,7 @@
         <label for="selectedIdsInput" class="form-label">ID Terpilih</label>
         <input type="text" class="form-control" id="selectedIdsInput" name="selectedIdsInput" readonly>
     </div>
-    <div class="col-md-4">
-        <label for="tanggalseleksi" class="form-label">Tanggal Seleksi Administrasi</label>
-        <input type="date" class="form-control" id="tanggalseleksi" name="tanggalseleksi">
-    </div>
+
     <div class="col-md-4">
         <label for="nilaiCv" class="form-label">Penilaian CV</label>
         <select id="nilaiCv" class="form-select" name="nilai_cv">

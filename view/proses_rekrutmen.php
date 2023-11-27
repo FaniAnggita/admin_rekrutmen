@@ -227,7 +227,7 @@ include 'komponen/koneksi.php';
                                                 $tes = ($row['status'] == 1 ? 'text-danger' : '');
                                                 echo "<tr>";
                                                 echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "'></td>";
-                                                echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-danger btn-sm'><i class='bx bx-edit-alt'></i></a></td>";
+                                                echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
                                                 echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['id'] . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['nama_lengkap'] . "</td>";
@@ -1056,18 +1056,8 @@ include 'komponen/koneksi.php';
             $('#editButton').on('click', function () {
                 populateFormFields();
             });
-
-            // Event handler for form submission
-            $('#form1').submit(function () {
-                // Clear the GET parameters from the URL
-                window.history.replaceState({}, document.title, window.location.pathname);
-
-            });
         });
     </script>
-
-
-
 
 
 </body>
