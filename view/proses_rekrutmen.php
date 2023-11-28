@@ -229,22 +229,33 @@ include 'komponen/koneksi.php';
                                                 // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
                                                 ?>
                                                 <td>
-                                                    <!-- Example single danger button -->
-                                                    <div class="btn-group dropup z-3">
+
+                                                    <div class="btn-group btn-group-sm dropup"
+                                                        style="position: relative; z-index: 1000;">
                                                         <button type="button" class="btn btn-danger dropdown-toggle"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Action
+                                                            <i class='fa-solid fa-envelope'></i>
                                                         </button>
-                                                        <ul class="dropdown-menu ">
-                                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                                            <li>
-                                                                <hr class="dropdown-divider">
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=wii"
+                                                                    target="_blank">WII</a>
                                                             </li>
-                                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=psikotest"
+                                                                    target="_blank">Psikotest</a></li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=indepth"
+                                                                    target="_blank">Indepth</a></li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=tesbidang"
+                                                                    target="_blank">Test Bidang</a></li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=interviewuser"
+                                                                    target="_blank">Interview User</a></li>
                                                         </ul>
                                                     </div>
+
                                                 </td>
                                                 <?php
                                                 echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
