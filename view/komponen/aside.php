@@ -106,8 +106,8 @@
 
 
                 <li class="menu-item">
-                    <a href="lowongan.php" class="menu-link">
-                        <div data-i18n="tidak lolos">User Management</div>
+                    <a href="user_management.php" class="menu-link">
+                        <div data-i18n="">User Management</div>
                     </a>
                 </li>
 

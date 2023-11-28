@@ -33,7 +33,7 @@ include 'komponen/koneksi.php';
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Tambah User</h5>
                                 <a href="user_management.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i>
-                                    Tambah</a>
+                                    Manajemen User</a>
                             </div>
 
 
@@ -161,9 +161,6 @@ include 'komponen/koneksi.php';
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- Time -->
-    <script src="scripts/time.js"></script>
-
 
 
 
@@ -185,12 +182,38 @@ include 'komponen/koneksi.php';
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
+
+
     <script>
         $(document).ready(function () {
-            $('#myTable').DataTable();
+            // Handle form submission
+            $("#submitButton").click(function () {
+                // Gather form data
+                var formData = {
+                    nik: $("#nik").val(),
+                    name: $("#name").val(),
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                    copassword: $("#copassword").val(),
+                    role: $("#role").val()
+                };
+
+                // Send AJAX request to the backend
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/save_user.php", // Change this to the actual path of your PHP file
+                    data: formData,
+                    success: function (response) {
+                        // Handle the response from the server (e.g., display a message)
+                        alert(response);
+                    },
+                    error: function () {
+                        alert("Error saving user data.");
+                    }
+                });
+            });
         });
     </script>
-
 
 </body>
 

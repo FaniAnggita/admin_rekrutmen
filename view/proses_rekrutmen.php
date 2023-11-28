@@ -230,10 +230,10 @@ include 'komponen/koneksi.php';
                                                 ?>
                                                 <td>
 
-                                                    <div class="btn-group btn-group-sm dropup"
-                                                        style="position: relative; z-index: 1000;">
-                                                        <button type="button" class="btn btn-danger dropdown-toggle"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <div class="btn-group btn-group-sm dropup position-static">
+                                                        <button type=" button" class="btn btn-danger dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"
+                                                            data-boundary="window" id="dropdown-button">
                                                             <i class='fa-solid fa-envelope'></i>
                                                         </button>
                                                         <ul class="dropdown-menu">
@@ -605,7 +605,12 @@ include 'komponen/koneksi.php';
 
     <!-- Add DataTables Editable plugin -->
     <script src="extensions/editable/bootstrap-table-editable.js"></script>
-
+    <!-- Include DataTables Buttons JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script>
         $(document).ready(function () {
             var table = $('#deviceTable').DataTable({
@@ -617,6 +622,12 @@ include 'komponen/koneksi.php';
                 scrollY: true,
                 scrollX: true,
                 select: true,
+                dom: 'Blfrtip',
+                buttons: [
+                    'excelHtml5',
+                ],
+                lengthMenu: [10, 25, 50, 100], // Specify the available page lengths
+                pageLength: 10 // Set the initial page length
             });
 
 
@@ -1211,7 +1222,16 @@ include 'komponen/koneksi.php';
 
         });
     </script>
-
+    <script>
+        $('#dropdown-button').click(function () {
+            dropDownFixPosition($('#dropdown-button'), $('.dropdown-menu'));
+        });
+        function dropDownFixPosition(button, dropdown) {
+            var dropDownTop = button.offset().top + button.outerHeight();
+            dropdown.css('top', dropDownTop + "px");
+            dropdown.css('left', button.offset().left + "px");
+        }
+    </script>
 
 </body>
 

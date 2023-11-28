@@ -79,10 +79,11 @@
   <!-- Summernote JS -->
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-  <script src="https://cdn.datatables.net/buttons/2.3.0/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.3.0/js/buttons.print.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.0/css/buttons.dataTables.min.css">
+
+  <!-- Include DataTables Buttons CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+
 
   <style>
     table {
@@ -114,6 +115,19 @@
     td.editable input {
       width: 100%;
       box-sizing: border-box;
+    }
+
+    .table-responsive,
+    .dataTables_scrollBody {
+      overflow: visible !important;
+    }
+
+    .table-responsive-disabled .dataTables_scrollBody {
+      overflow: hidden !important;
+    }
+
+    .dropdown-menu {
+      position: fixed;
     }
   </style>
 

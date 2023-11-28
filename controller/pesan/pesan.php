@@ -38,13 +38,14 @@ function konversiBulan($bulan)
 }
 
 $id_pelamar = $_GET['id'];
-$sql = "SELECT * FROM pelamar2 WHERE id = $id_pelamar";
+$sql = "SELECT * FROM pelamar2 JOIN posisi USING(kode_ps) WHERE id = $id_pelamar  LIMIT 1";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
 echo $row['id'] . " - " . $row['nama_lengkap'] . " - " . $row['kode_ps'];
 $nama_pelamar = $row['nama_lengkap'];
 $gender = $row['gender'] == 'Laki-Laki' ? 'saudara' : 'saudari';
 $phone = '+62 882-9347-7565';
+$kode_ps = $row['nama_ps'];
 echo $_GET['pesan'];
 
 $waktu_sekarang = new DateTime();
@@ -101,6 +102,30 @@ if ($_GET['pesan'] == 'wii') {
     *HRD*
     *PT PUSTAKA INSAN MADANI*
     ";
+
+    if ($kode_ps == 'Marketing Area') {
+        $teks = "
+        Selamat siang,
+
+        Kami HRD PT Pustaka Insan Madani menginformasikan kepada  $gender *$nama_pelamar* bahwa kami akan mengadakan proses seleksi pada Tahap I.
+
+        Pada tahap ini sdra/sdri dapat membuat video perkenalan diri semenarik mungkin dengan memperhatikan beberapa hal.
+
+        Ketentuan video yang dibuat sebagai berikut :
+        1. Durasi : maksimal 5 menit
+        2. Isi : Perkenalan diri (bebas)
+        3. Format pengiriman : Nama_Posisi yang dilamar
+        4. Batas pengumpulan video : () pukul () WIB
+        5. Diharapkan mengenakan pakaian rapi 
+
+        Link upload video :
+        https://docs.google.com/forms/d/e/1FAIpQLSeWrpCexapxViKZbdPpQ4O4qgFHDyPhmi0AgfeYj3wH1MQQnA/viewform
+
+        Apabila sdra/sdri berkenan untuk mengikuti proses seleksi di tahap ini, silakan dapat konfirmasi dengan format berikut: Nama_Bersedia 
+
+        Demikian informasi dari kami, apabila terdapat hal yang belum jelas silakan dapat menghubungi kami. Terima kasih
+        ";
+    }
 
     $teks = urlencode($teks);
     header("Location: https://api.whatsapp.com/send?phone=$phone&text=$teks");
