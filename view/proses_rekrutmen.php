@@ -183,7 +183,7 @@ include 'komponen/koneksi.php';
 
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style="position: static;">
                                         <?php
 
                                         // Ambil data dari database dan tampilkan dalam tabel
@@ -225,15 +225,15 @@ include 'komponen/koneksi.php';
 
                                                 $tes = ($row['status'] == 1 ? 'text-danger' : '');
                                                 echo "<tr>";
-                                                echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "'></td>";
+                                                echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "' style='position: absolute; z-index: 9;'></td>";
                                                 // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
                                                 ?>
-                                                <td>
+                                                <td style="position: absolute; z-index: 10;">
 
-                                                    <div class="btn-group btn-group-sm dropup position-static">
+                                                    <div class="btn-group btn-group-sm dropend">
                                                         <button type=" button" class="btn btn-danger dropdown-toggle"
                                                             data-bs-toggle="dropdown" aria-expanded="false"
-                                                            data-boundary="window" id="dropdown-button">
+                                                            data-boundary="viewport" id="dropdown-button">
                                                             <i class='fa-solid fa-envelope'></i>
                                                         </button>
                                                         <ul class="dropdown-menu">
@@ -1223,14 +1223,30 @@ include 'komponen/koneksi.php';
         });
     </script>
     <script>
-        $('#dropdown-button').click(function () {
-            dropDownFixPosition($('#dropdown-button'), $('.dropdown-menu'));
+        (document).on('shown.bs.dropdown', '.table-responsive', function (e) {
+            // The .dropdown container
+            var $container = $(e.target);
+
+            // Find the actual .dropdown-menu
+            var $dropdown = $container.find('.dropdown-menu');
+            if ($dropdown.length) {
+                // Save a reference to it, so we can find it after we've attached it to the body
+                $container.data('dropdown-menu', $dropdown);
+            } else {
+                $dropdown = $container.data('dropdown-menu');
+            }
+
+            $dropdown.css('top', ($container.offset().top + $container.outerHeight()) + 'px');
+            $dropdown.css('left', $container.offset().left + 'px');
+            $dropdown.css('position', 'absolute');
+            $dropdown.css('display', 'block');
+            $dropdown.appendTo('body');
         });
-        function dropDownFixPosition(button, dropdown) {
-            var dropDownTop = button.offset().top + button.outerHeight();
-            dropdown.css('top', dropDownTop + "px");
-            dropdown.css('left', button.offset().left + "px");
-        }
+
+        $(document).on('hide.bs.dropdown', '.table-responsive', function (e) {
+            // Hide the dropdown menu bound to this button
+            $(e.target).data('dropdown-menu').css('display', 'none');
+        });
     </script>
 
 </body>

@@ -198,6 +198,12 @@ include 'komponen/koneksi.php';
                     role: $("#role").val()
                 };
 
+                // Check if password and confirm password match
+                if (formData.password !== formData.copassword) {
+                    alert("Password and Confirm Password do not match.");
+                    return; // Stop further execution
+                }
+
                 // Send AJAX request to the backend
                 $.ajax({
                     type: "POST",
@@ -214,6 +220,7 @@ include 'komponen/koneksi.php';
             });
         });
     </script>
+
 
 </body>
 

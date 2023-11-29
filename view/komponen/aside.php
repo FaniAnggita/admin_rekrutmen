@@ -116,7 +116,7 @@
         <!-- Setting -->
         <li class="menu-item <?php if ($page == 'setting')
             echo 'active'; ?>">
-            <a href="user_setting.php" class="menu-link">
+            <a href="setting.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cog"></i>
                 <div data-i18n="device">Setting</div>
             </a>

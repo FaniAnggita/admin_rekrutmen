@@ -116,19 +116,6 @@
       width: 100%;
       box-sizing: border-box;
     }
-
-    .table-responsive,
-    .dataTables_scrollBody {
-      overflow: visible !important;
-    }
-
-    .table-responsive-disabled .dataTables_scrollBody {
-      overflow: hidden !important;
-    }
-
-    .dropdown-menu {
-      position: fixed;
-    }
   </style>
 
 </head>

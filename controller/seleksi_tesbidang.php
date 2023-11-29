@@ -54,7 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($conn->query($updateSql) === TRUE) {
                         // Success
-                        echo ('Data updated successfully');
+                        echo '<script>';
+                        echo 'alert("Data berhasil disimpan");';
+                        echo 'window.location.href = "../view/proses_rekrutmen.php";';
+                        echo '</script>';
                     } else {
                         // Error
                         echo ('Error updating data: ' . $conn->error);
@@ -66,7 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($conn->query($insertSql) === TRUE) {
                         // Success
-                        echo ('Data inserted successfully');
+                        echo '<script>';
+                        echo 'alert("Data berhasil disimpan");';
+                        echo 'window.location.href = "../view/proses_rekrutmen.php";';
+                        echo '</script>';
                     } else {
                         // Error
                         echo ('Error inserting data: ' . $conn->error);

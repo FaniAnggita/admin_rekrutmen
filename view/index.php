@@ -214,7 +214,7 @@ if ($resultRekomendasi->num_rows > 0) {
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
                     <h6 class="mb-0">Laporan Proses Rekrutmen</h6>
-                    <a href="#" class="btn btn-primary btn-sm" id="showModal">Cetak <i class="bx bx-printer"></i></a>
+                    <!-- <a href="#" class="btn btn-primary btn-sm" id="showModal">Cetak <i class="bx bx-printer"></i></a> -->
 
                   </div>
                   <div class="card-body table-responsive">
@@ -297,7 +297,7 @@ if ($resultRekomendasi->num_rows > 0) {
                     ";
 
                         $result = $conn->query($sql);
-                        $i = 0;
+                        $i = 1;
                         if ($result->num_rows > 0) {
                           while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
@@ -412,11 +412,22 @@ if ($resultRekomendasi->num_rows > 0) {
   <!-- DataTables JavaScript -->
   <script type="text/javascript" charset="utf8"
     src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 
   <script>
     $(document).ready(function () {
       $('.table').DataTable({
         scrollX: true,
+        dom: 'Blfrtip',
+        buttons: [
+          'excelHtml5',
+        ],
+        lengthMenu: [10, 25, 50, 100], // Specify the available page lengths
+        pageLength: 10 // Set the initial page length
       });
     });
   </script>

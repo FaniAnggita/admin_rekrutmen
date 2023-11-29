@@ -1,3 +1,48 @@
+<?php
+include 'komponen/koneksi.php';
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Include database connection file
+
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+
+  // SQL query to check user credentials
+  $sql = "SELECT * FROM `users` WHERE `email` = '$email' LIMIT 1";
+  $result = mysqli_query($conn, $sql);
+
+  if ($result) {
+    // Check if a user with the given email exists
+    if (mysqli_num_rows($result) == 1) {
+      $user = mysqli_fetch_assoc($result);
+
+      // Verify password
+      if (password_verify($password, $user["password"])) {
+        // Password is correct, user is authenticated
+        // You can set session variables or perform other actions here
+        header("Location: index.php");
+      } else {
+        // Password is incorrect
+        echo '<script>';
+        echo 'alert("Password salah!");';
+        echo '</script>';
+      }
+    } else {
+      echo '<script>';
+      echo 'alert("User tidak ditemukan!");';
+      echo '</script>';
+    }
+  } else {
+    // Error in the SQL query
+    echo "Error: " . mysqli_error($conn);
+  }
+
+  // Close the database conn
+  mysqli_close($conn);
+}
+?>
+
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
@@ -77,8 +122,8 @@
 
                 <h3 class="card-title text-center mb-4">Rekrutmen PIM</h3>
                 <!-- form -->
-                <form method="post" onsubmit="handleSubmit(event)">
-                  <div class="row mb-3">
+                <form method="post">
+                  <div class=" row mb-3">
                     <label class="col-sm-3 col-form-label" for="email">Email</label>
                     <div class="col-sm-9">
                       <div class="input-group input-group-merge">
