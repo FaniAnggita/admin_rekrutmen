@@ -624,7 +624,12 @@ include 'komponen/koneksi.php';
                 select: true,
                 dom: 'Blfrtip',
                 buttons: [
-                    'excelHtml5',
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':gt(2):lt(51)' // Columns from index 3 to 53
+                        }
+                    }
                 ],
                 lengthMenu: [10, 25, 50, 100], // Specify the available page lengths
                 pageLength: 10 // Set the initial page length
