@@ -60,16 +60,22 @@ include 'komponen/koneksi.php';
                                         </div>
                                     </div>
                                     <div class="col-lg-6 d-flex justify-content-end">
-                                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
-                                            data-bs-target="#modalFilterGeneric">
-                                            <i class="fa-solid fa-filter"></i> Filter Tanggal Lamaran
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modalFilterProses">
-                                            <i class="fa-solid fa-filter"></i> Filter Proses
-                                        </button>
                                         <?php include_once 'modal/modal_filter_generic.php'; ?>
                                         <?php include_once 'modal/modal_filter_proses.php'; ?>
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-filter"></i> Filter
+                                            </a>
+
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item " href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modalFilterGeneric">Tanggal Lamaran</a></li>
+                                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#modalFilterProses">Proses</a></li>
+
+                                            </ul>
+                                        </div>
                                     </div>
 
                                 </div>

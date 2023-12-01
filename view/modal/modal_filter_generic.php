@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <?php include_once 'modal/modal_adm.php'; ?>
+
                 <form class="row g-3">
                     <div class="col-md-4">
                         <label for="start_date" class="form-label">Tanggal Awal

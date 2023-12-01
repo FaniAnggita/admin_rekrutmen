@@ -214,8 +214,11 @@ if ($resultRekomendasi->num_rows > 0) {
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
                     <h6 class="mb-0">Laporan Proses Rekrutmen</h6>
-                    <!-- <a href="#" class="btn btn-primary btn-sm" id="showModal">Cetak <i class="bx bx-printer"></i></a> -->
-
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                      data-bs-target="#modalFilterDashboard">
+                      <i class="fa-solid fa-filter"></i> Filter
+                    </button>
+                    <?php include_once 'modal/modal_filter_dashboard.php'; ?>
                   </div>
                   <div class="card-body table-responsive">
                     <table class="table table-bordered text-center">
@@ -260,7 +263,6 @@ if ($resultRekomendasi->num_rows > 0) {
                       </thead>
                       <tbody>
                         <?php
-
                         // Ambil data dari database dan tampilkan dalam tabel
                         $sql = "SELECT
                           p.kode_ps,
@@ -300,6 +302,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         $i = 1;
                         if ($result->num_rows > 0) {
                           while ($row = $result->fetch_assoc()) {
+
                             echo "<tr>";
                             echo "<td>" . $i . "</td>";
                             echo "<td>" . $row['nama_ps'] . "</td>";
@@ -334,6 +337,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         }
                         ?>
                       </tbody>
+
                     </table>
                   </div>
                 </div>

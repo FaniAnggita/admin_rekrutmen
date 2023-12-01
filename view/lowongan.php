@@ -68,7 +68,6 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['nama_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 echo "<td>" . $row['penempatan'] . "</td>";
-
                                                 ?>
                                                 <td>
                                                     <p class="text-center">
@@ -88,7 +87,6 @@ include 'komponen/koneksi.php';
                                                 </td>
                                                 <td>
                                                     <p class="text-center">
-
                                                         <button class="btn btn-sm btn-outline-primary" type="button"
                                                             data-bs-toggle="collapse" data-bs-target="#collKual"
                                                             aria-expanded="false" aria-controls="collKual">
