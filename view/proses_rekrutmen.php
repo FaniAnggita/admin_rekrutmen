@@ -26,17 +26,6 @@ include 'komponen/koneksi.php';
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="card">
-                            <!-- HTML untuk toast -->
-                            <div id="myToast" class="toast" style="display:none;">
-                                <div class="toast-header">
-                                    <strong class="me-auto">Toast Header</strong>
-                                    <button type="button" class="btn-close" onclick="hideToast()"></button>
-                                </div>
-                                <div class="toast-body" id="toastMessage"></div>
-                            </div>
-
-                        </div>
 
                         <!-- Basic Bootstrap Table -->
                         <div class="card">
@@ -46,78 +35,79 @@ include 'komponen/koneksi.php';
                             </div>
 
 
-                            <div class="card-body justify-content-center ">
-                                <form action="" method="get" class="row">
-                                    <div class="form-group col-3">
-                                        <label for="start_date">Tanggal Awal Lamaran:</label>
-                                        <input type="date" id="start_date" class="form-control" name="start_date"
-                                            value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <label for="end_date">Tanggal Akhir Lamaran:</label>
-                                        <input type="date" id="end_date" class="form-control" name="end_date"
-                                            value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <label for="status" class="form-label">Status</label>
-                                        <select id="status" class="form-select" name="status">
-                                            <option value="">Semua</option>
-                                            <option value="Proses">Diproses</option>
-                                            <option value="Lolos">Lolos</option>
-                                            <option value="Tidak Lolos">Tidak Lolos</option>
-                                        </select>
-                                    </div>
+                            <!-- <div class="card-body justify-content-center ">
+                               
+                            </div> -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="btn-group btn-group-sm" role="group"
+                                            aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-primary" id="editButton"
+                                                data-bs-toggle="modal" data-bs-target="#editModal">Administrasi</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonWii">WII</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonPsikotest">Psikotest</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonIndepth">Indepth</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonTesBidang">Tes
+                                                Bidang</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonInterviewUser">Interview User</button>
 
-
-                                    <div class="form-group col-3">
-                                        <button type="submit" class="btn btn-primary mt-4 w-100">Cari</button>
+                                        </div>
                                     </div>
-                                </form>
-                            </div>
-
-                            <div class="card-body d-flex justify-content-center">
-                                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                    <button type="button" class="btn btn-outline-primary" id="editButton"
-                                        data-bs-toggle="modal" data-bs-target="#editModal">Administrasi</button>
-                                    <button type="button" class="btn btn-outline-primary"
-                                        id="editButtonWii">WII</button>
-                                    <button type="button" class="btn btn-outline-primary"
-                                        id="editButtonPsikotest">Psikotest</button>
-                                    <button type="button" class="btn btn-outline-primary"
-                                        id="editButtonIndepth">Indepth</button>
-                                    <button type="button" class="btn btn-outline-primary" id="editButtonTesBidang">Tes
-                                        Bidang</button>
-                                    <button type="button" class="btn btn-outline-primary"
-                                        id="editButtonInterviewUser">Interview User</button>
+                                    <div class="col-lg-6 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
+                                            data-bs-target="#modalFilterGeneric">
+                                            <i class="fa-solid fa-filter"></i> Filter Tanggal Lamaran
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalFilterProses">
+                                            <i class="fa-solid fa-filter"></i> Filter Proses
+                                        </button>
+                                        <?php include_once 'modal/modal_filter_generic.php'; ?>
+                                        <?php include_once 'modal/modal_filter_proses.php'; ?>
+                                    </div>
 
                                 </div>
+                                <!-- Button trigger modal -->
 
                             </div>
+
+
                             <div class="card-body table-responsive">
 
                                 <table id="deviceTable" class="table display table-sm table-bordered table-striped">
                                     <thead>
-                                        <tr class="text-center">
-                                            <th colspan="5"></th>
-                                            <th colspan="6" class="table-warning">Administrasi</th>
-                                            <th colspan="9" class="table-info">WII</th>
-                                            <th colspan="4" class="table-success">Psikotest</th>
-                                            <th colspan="9" class="table-danger">Indepth</th>
-                                            <th colspan="9" class="table-primary">Tes Bidang</th>
-                                            <th colspan="12" class="table-warning">Interview User</th>
+                                        <tr style="font-size: 12px;">
+                                            <th colspan="7"></th>
+                                            <th colspan="6" class="table-warning text-center">Administrasi</th>
+                                            <th colspan="9" class="table-info text-center">WII</th>
+                                            <th colspan="4" class="table-success text-center">Psikotest</th>
+                                            <th colspan="9" class="table-danger text-center">Indepth</th>
+                                            <th colspan="9" class="table-primary text-center">Tes Bidang</th>
+                                            <th colspan="12" class="table-warning text-center">Interview User</th>
                                             <th colspan="4"></th>
                                         </tr>
-                                        <tr class="text-center fw-bold">
+                                        <tr class="text-center" style="font-size: 12px;">
                                             <th><input type="checkbox" id="select-all"></th>
-                                            <th class="table-danger">Aksi</th>
-                                            <th class="table-primary">Tanggal Daftar</th>
-                                            <th class="table-primary">ID Pelamar</th>
-                                            <th class="table-primary">Nama Lengkap</th>
+                                            <th class="table-danger"></th>
+                                            <th class="table-primary">Tgl Daftar</th>
+                                            <th class="table-primary">Kd. Ps</th>
+                                            <th class="table-primary">Pos. Refer</th>
+                                            <th class="table-primary">Kd. Plmr</th>
+                                            <th class="table-primary">Nama</th>
                                             <!-- Administrasi -->
                                             <th class="table-warning not-editable">Dokumen</th>
-                                            <th class="table-warning editable-combobox">Nilai CV</th>
-                                            <th class="table-warning editable-combobox">Nilai Kualifikasi</th>
-                                            <th class="table-warning editable-combobox">Nilai Pengalaman</th>
+                                            <th class="table-warning editable-combobox" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Nilai CV">CV</th>
+                                            <th class="table-warning editable-combobox" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Nilai kualifikasi">Klf</th>
+                                            <th class="table-warning editable-combobox" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Nilai Pengalaman">Pgl</th>
                                             <th class="table-warning not-editable">Hasil</th>
                                             <th class="table-warning">Keterangan</th>
                                             <!-- Akhir Administrasi -->
@@ -183,7 +173,7 @@ include 'komponen/koneksi.php';
 
                                         </tr>
                                     </thead>
-                                    <tbody style="position: static;">
+                                    <tbody>
                                         <?php
 
                                         // Ambil data dari database dan tampilkan dalam tabel
@@ -224,41 +214,50 @@ include 'komponen/koneksi.php';
                                             while ($row = $result->fetch_assoc()) {
 
                                                 $tes = ($row['status'] == 1 ? 'text-danger' : '');
-                                                echo "<tr>";
+                                                echo "<tr style='line-height: 25px;'>";
                                                 echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "' style='position: absolute; z-index: 9;'></td>";
                                                 // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
                                                 ?>
-                                                <td style="position: absolute; z-index: 10;">
+                                                <td>
 
-                                                    <div class="btn-group btn-group-sm dropend">
-                                                        <button type=" button" class="btn btn-danger dropdown-toggle"
-                                                            data-bs-toggle="dropdown" aria-expanded="false"
-                                                            data-boundary="viewport" id="dropdown-button">
-                                                            <i class='fa-solid fa-envelope'></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=wii"
-                                                                    target="_blank">WII</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=psikotest"
-                                                                    target="_blank">Psikotest</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=indepth"
-                                                                    target="_blank">Indepth</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=tesbidang"
-                                                                    target="_blank">Test Bidang</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=interviewuser"
-                                                                    target="_blank">Interview User</a></li>
-                                                        </ul>
+                                                    <p>
+                                                        <button class="btn btn-danger btn-xs" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2"
+                                                            aria-expanded="false" aria-controls="multiCollapseExample2"> <i
+                                                                class='fa-solid fa-envelope'></i></button>
+                                                    </p>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                                                <div class="card card-body">
+                                                                    <ul>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=wii"
+                                                                                target="_blank">WII</a>
+                                                                        </li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=psikotest"
+                                                                                target="_blank">Psikotest</a></li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=indepth"
+                                                                                target="_blank">Indepth</a></li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=tesbidang"
+                                                                                target="_blank">Test Bidang</a></li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=interviewuser"
+                                                                                target="_blank">Interview User</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                 </td>
                                                 <?php
                                                 echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
+                                                echo "<td class='not-editable'>" . $row['kode_ps'] . "</td>";
+                                                echo "<td class='editable-text'>" . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['id'] . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['nama_lengkap'] . "</td>";
 
@@ -602,9 +601,11 @@ include 'komponen/koneksi.php';
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+
 
     <!-- Add DataTables Editable plugin -->
-    <script src="extensions/editable/bootstrap-table-editable.js"></script>
+    <!-- <script src="extensions/editable/bootstrap-table-editable.js"></script> -->
     <!-- Include DataTables Buttons JS -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -612,15 +613,18 @@ include 'komponen/koneksi.php';
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script>
+
         $(document).ready(function () {
             var table = $('#deviceTable').DataTable({
                 fixedColumns: {
-                    left: 5
+                    left: 7,
                 },
+
+                responsive: true,
                 paging: true,
                 scrollCollapse: true,
-                scrollY: true,
                 scrollX: true,
+                scrollY: 300,
                 select: true,
                 dom: 'Blfrtip',
                 buttons: [
@@ -631,10 +635,16 @@ include 'komponen/koneksi.php';
                         }
                     }
                 ],
-                lengthMenu: [10, 25, 50, 100], // Specify the available page lengths
-                pageLength: 10 // Set the initial page length
+                lengthMenu: [5, 10, 25, 50, 100], // Specify the available page lengths
+                pageLength: 10,// Set the initial page length
+                orderCellsTop: true,
+                autoWidth: true,
+
             });
 
+            // Remove the first row after DataTable initialization
+            var firstRow = table.row(':eq(0)');
+            firstRow.remove().draw();
 
             $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date', function () {
                 var cell = $(this);
@@ -1038,8 +1048,8 @@ include 'komponen/koneksi.php';
             // Create select inputs for each column
             table.columns().every(function () {
                 var column = this;
-                if (column.index() !== 0) {
-                    var select = $('<br><select class="w-100 form-select-sm"><option value=""></option></select>')
+                if (column.index() !== 0 && column.index() !== 1) {
+                    var select = $('<br><select class="w-100 form-control form-control-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -1227,32 +1237,7 @@ include 'komponen/koneksi.php';
 
         });
     </script>
-    <script>
-        (document).on('shown.bs.dropdown', '.table-responsive', function (e) {
-            // The .dropdown container
-            var $container = $(e.target);
 
-            // Find the actual .dropdown-menu
-            var $dropdown = $container.find('.dropdown-menu');
-            if ($dropdown.length) {
-                // Save a reference to it, so we can find it after we've attached it to the body
-                $container.data('dropdown-menu', $dropdown);
-            } else {
-                $dropdown = $container.data('dropdown-menu');
-            }
-
-            $dropdown.css('top', ($container.offset().top + $container.outerHeight()) + 'px');
-            $dropdown.css('left', $container.offset().left + 'px');
-            $dropdown.css('position', 'absolute');
-            $dropdown.css('display', 'block');
-            $dropdown.appendTo('body');
-        });
-
-        $(document).on('hide.bs.dropdown', '.table-responsive', function (e) {
-            // Hide the dropdown menu bound to this button
-            $(e.target).data('dropdown-menu').css('display', 'none');
-        });
-    </script>
 
 </body>
 

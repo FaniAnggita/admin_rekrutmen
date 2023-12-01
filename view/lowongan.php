@@ -32,7 +32,8 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Lowongan</h5>
-                                <a href="add_lowongan.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i> Tambah</a>
+                                <a href="add_lowongan.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i>
+                                    Tambah</a>
                             </div>
 
 
@@ -67,10 +68,45 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['nama_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 echo "<td>" . $row['penempatan'] . "</td>";
-                                                echo "<td>" . $row['deskripsi'] . "</td>";
-                                                echo "<td>" . $row['kualifikasi'] . "</td>";
+
+                                                ?>
+                                                <td>
+                                                    <p class="text-center">
+                                                        <button class="btn btn-sm btn-outline-primary" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                                            aria-expanded="false" aria-controls="collapseExample">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                    </p>
+                                                    <div class="collapse" id="collapseExample">
+                                                        <div class="card card-body">
+                                                            <?php
+                                                            echo $row['deskripsi'];
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-center">
+
+                                                        <button class="btn btn-sm btn-outline-primary" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collKual"
+                                                            aria-expanded="false" aria-controls="collKual">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                    </p>
+                                                    <div class="collapse" id="collKual">
+                                                        <div class="card card-body">
+                                                            <?php
+                                                            echo $row['kualifikasi'];
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <?php
+
                                                 echo "<td>" . $row['tenggat_daftar'] . "</td>";
-                                                echo  $row['status'] == 1 ? '<td> Dibuka </td>'  : '<td> Ditutup </td>';
+                                                echo $row['status'] == 1 ? '<td> Dibuka </td>' : '<td> Ditutup </td>';
 
                                                 echo '   <td>
                                                 <div class="dropdown">
@@ -173,7 +209,7 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#myTable').DataTable();
         });
     </script>

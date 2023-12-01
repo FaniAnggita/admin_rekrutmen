@@ -32,7 +32,8 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Posisi</h5>
-                                <a href="add_posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i> Tambah</a>
+                                <a href="add_posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i>
+                                    Tambah</a>
                             </div>
 
 
@@ -61,23 +62,35 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['kode_ps'] . "</td>";
                                                 echo "<td>" . $row['nama_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
-                                                echo '
+                                                ?>
                                                 <td>
-                                                <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                    <div class="btn-group btn-group-sm dropend">
+                                                        <button type=" button" class="btn btn-danger dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"
+                                                            data-boundary="viewport" id="dropdown-button">
+                                                            <i class='fa-solid fa-envelope'></i>
                                                         </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="edit_interviewer.php?"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                            <form  method="post" action=""> 
-                                                                <input type="text" id="uid" name="uid" value="" hidden/>
-                                                                <button type="submit" class="btn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
-                                                            
-                                                        </div>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=wii"
+                                                                    target="_blank">WII</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=psikotest"
+                                                                    target="_blank">Psikotest</a></li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=indepth"
+                                                                    target="_blank">Indepth</a></li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=tesbidang"
+                                                                    target="_blank">Test Bidang</a></li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=interviewuser"
+                                                                    target="_blank">Interview User</a></li>
+                                                        </ul>
                                                     </div>
                                                 </td>
-                                                ';
+                                                <?php
                                                 echo "</tr>";
                                             }
                                         } else {
@@ -163,7 +176,7 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#myTable').DataTable();
         });
     </script>

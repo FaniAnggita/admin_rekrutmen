@@ -83,10 +83,10 @@
   <!-- Include DataTables Buttons CSS -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
-
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css">
 
   <style>
-    table {
+    /* table {
       margin: 0 auto;
       width: 100%;
       clear: both;
@@ -115,6 +115,32 @@
     td.editable input {
       width: 100%;
       box-sizing: border-box;
+      
+    } */
+    #deviceTable {
+      table-layout: auto !important;
+    }
+
+    #deviceTable th,
+    #deviceTable td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overf low: ellipsis;
+    }
+
+
+    .dropdown-menu {
+      overflow: overlay !important;
+      overflow-x: overlay !important;
+      overflow-y: overlay !important;
+    }
+
+    .btn-group-xs>.btn,
+    .btn-xs {
+      padding: 1px 5px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
     }
   </style>
 
