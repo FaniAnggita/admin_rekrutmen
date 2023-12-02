@@ -53,6 +53,15 @@
 
             </ul>
         </li>
+
+        <!-- Report -->
+        <li class="menu-item <?php if ($page == 'proses_rekrut')
+            echo 'active'; ?>">
+            <a href="proses_rekrutmen.php" class="menu-link ">
+                <i class="menu-icon tf-icons bx bx-edit-alt"></i>
+                <div data-i18n="device">Proses Rekrutmen</div>
+            </a>
+        </li>
         <!-- Respon Kandidat -->
         <li class="menu-item  <?php if ($page == 'respon_kandidat')
             echo 'active'; ?>">
@@ -81,14 +90,6 @@
 
             </ul>
         </li>
-        <!-- Report -->
-        <li class="menu-item <?php if ($page == 'proses_rekrut')
-            echo 'active'; ?>">
-            <a href="proses_rekrutmen.php" class="menu-link ">
-                <i class="menu-icon tf-icons bx bx-edit-alt"></i>
-                <div data-i18n="device">Proses Rekrutmen</div>
-            </a>
-        </li>
         <!-- User Mng -->
         <li class="menu-item  <?php if ($page == 'user')
             echo 'active'; ?>">
@@ -113,6 +114,7 @@
 
             </ul>
         </li>
+
         <!-- Setting -->
         <li class="menu-item <?php if ($page == 'setting')
             echo 'active'; ?>">

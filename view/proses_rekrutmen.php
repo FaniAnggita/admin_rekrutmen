@@ -60,22 +60,12 @@ include 'komponen/koneksi.php';
                                         </div>
                                     </div>
                                     <div class="col-lg-6 d-flex justify-content-end">
-                                        <?php include_once 'modal/modal_filter_generic.php'; ?>
-                                        <?php include_once 'modal/modal_filter_proses.php'; ?>
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa-solid fa-filter"></i> Filter
-                                            </a>
+                                        <?php include_once 'modal/modal_proses_rekrutmen.php'; ?>
+                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalFilterProsesRekrutmen">
+                                            <i class="fa-solid fa-filter"></i> Filter
+                                        </button>
 
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item " href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#modalFilterGeneric">Tanggal Lamaran</a></li>
-                                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#modalFilterProses">Proses</a></li>
-
-                                            </ul>
-                                        </div>
                                     </div>
 
                                 </div>
@@ -90,7 +80,7 @@ include 'komponen/koneksi.php';
                                     <thead>
                                         <tr style="font-size: 12px;">
                                             <th colspan="7"></th>
-                                            <th colspan="6" class="table-warning text-center">Administrasi</th>
+                                            <th colspan="7" class="table-warning text-center">Administrasi</th>
                                             <th colspan="9" class="table-info text-center">WII</th>
                                             <th colspan="4" class="table-success text-center">Psikotest</th>
                                             <th colspan="9" class="table-danger text-center">Indepth</th>
@@ -107,13 +97,14 @@ include 'komponen/koneksi.php';
                                             <th class="table-primary">Kd. Plmr</th>
                                             <th class="table-primary">Nama</th>
                                             <!-- Administrasi -->
-                                            <th class="table-warning not-editable">Dokumen</th>
-                                            <th class="table-warning editable-combobox" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" data-bs-title="Nilai CV">CV</th>
-                                            <th class="table-warning editable-combobox" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" data-bs-title="Nilai kualifikasi">Klf</th>
-                                            <th class="table-warning editable-combobox" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" data-bs-title="Nilai Pengalaman">Pgl</th>
+                                            <th class="table-warning">Tgl. Adm</th>
+                                            <th class="table-warning">Dokumen</th>
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Nilai CV">CV</th>
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Nilai kualifikasi">Klf</th>
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Nilai Pengalaman">Pgl</th>
                                             <th class="table-warning not-editable">Hasil</th>
                                             <th class="table-warning">Keterangan</th>
                                             <!-- Akhir Administrasi -->
@@ -124,8 +115,10 @@ include 'komponen/koneksi.php';
                                             <th class="table-info">A</th>
                                             <th class="table-info">K</th>
                                             <th class="table-info">R</th>
+                                            <th class="table-info">Platform Loker</th>
+                                            <th class="table-info">Akun Platform</th>
                                             <th class="table-info">Interviewer</th>
-                                            <th class="table-info">Rating</th>
+                                            <th class="table-info">Hasil</th>
                                             <th class="table-info">Pengumuman</th>
                                             <!-- Akhir WII -->
                                             <!-- Psikotest -->
@@ -228,13 +221,15 @@ include 'komponen/koneksi.php';
 
                                                     <p>
                                                         <button class="btn btn-danger btn-xs" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#multiCollapseExample2<?php echo $row['id']; ?>"
                                                             aria-expanded="false" aria-controls="multiCollapseExample2"> <i
                                                                 class='fa-solid fa-envelope'></i></button>
                                                     </p>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                                            <div class="collapse multi-collapse"
+                                                                id="multiCollapseExample2<?php echo $row['id']; ?>">
                                                                 <div class="card card-body">
                                                                     <ul>
                                                                         <li><a class="btn"
@@ -264,10 +259,11 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
                                                 echo "<td class='not-editable'>" . $row['kode_ps'] . "</td>";
                                                 echo "<td class='editable-text'>" . "</td>";
-                                                echo "<td class='$tes not-editable'>" . $row['id'] . "</td>";
+                                                echo "<td class='$tes not-editable'>" . $row['kode_pelamar'] . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['nama_lengkap'] . "</td>";
 
                                                 // Administrasi
+                                                echo "<td class='editable-datetime'>" . $row['waktuInterview'] . "</td>";
                                                 echo "<td class='not-editable'><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
                                                 $options = ['1', '0', 'pilih'];
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_cv'] . "</td>";
@@ -284,6 +280,8 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['a'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['k'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['1', '0', 'pilih'])) . "'>" . $row['r'] . "</td>";
+                                                echo "<td class='not-editable'>" . $row['informasi_lowongan'] . "</td>";
+                                                echo "<td class='editable-text'>" . "</td>";
                                                 $interviewer_id = $row['interviewer_wii'];
                                                 $sql_interviewer = "SELECT id_int, nama_int FROM interviewer";
                                                 $result_interviewer = $conn->query($sql_interviewer);
@@ -311,7 +309,6 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Bersedia', 'Tidak Bersedia', 'pilih'])) . "'>" . $row['konfirmasiKehadiran'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Sudah', 'Belum', 'pilih'])) . "'>" . $row['pengumuman_psikotest'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Lolos', 'Tidak Lolos', 'pilih'])) . "'>" . $row['rating_psikotest'] . "</td>";
-
                                                 // Akhir Psikotest
                                         
                                                 // Indepth
