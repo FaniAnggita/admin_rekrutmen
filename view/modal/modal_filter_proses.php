@@ -31,7 +31,7 @@
                             <option value="Psikotest">Psikotest</option>
                             <option value="Indepth">Indepth</option>
                             <option value="Tes Bidang">Tes Bidang</option>
-                            <option value="Tes Bidang">Tes Bidang</option>
+                            <option value="Tes Bidang">Interview User</option>
                         </select>
                     </div>
 

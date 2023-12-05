@@ -45,6 +45,8 @@ include 'komponen/koneksi.php';
                                             <th>Kode Posisi</th>
                                             <th>Nama Posisi</th>
                                             <th>Max. Usia Pelamar</th>
+                                            <th>Jumlah Pelamar</th>
+                                            <th>Status Posisi</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -62,35 +64,25 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['kode_ps'] . "</td>";
                                                 echo "<td>" . $row['nama_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
-                                                ?>
-                                                <td>
-                                                    <div class="btn-group btn-group-sm dropend">
-                                                        <button type=" button" class="btn btn-danger dropdown-toggle"
-                                                            data-bs-toggle="dropdown" aria-expanded="false"
-                                                            data-boundary="viewport" id="dropdown-button">
-                                                            <i class='fa-solid fa-envelope'></i>
+                                                echo "<td>" . $row['jumlah_pelamar'] . "</td>";
+                                                echo "<td>" . $row['status_posisi'] . "</td>";
+
+                                                echo '   <td>
+                                                <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=wii"
-                                                                    target="_blank">WII</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=psikotest"
-                                                                    target="_blank">Psikotest</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=indepth"
-                                                                    target="_blank">Indepth</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=tesbidang"
-                                                                    target="_blank">Test Bidang</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=interviewuser"
-                                                                    target="_blank">Interview User</a></li>
-                                                        </ul>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="edit_lowongan.php?"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                            <form  method="post" action=""> 
+                                                                <input type="text" id="uid" name="uid" value="" hidden/>
+                                                                <button type="submit" class="btn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</button>
+                                                            </form>
+                                                            
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <?php
+                                                ';
                                                 echo "</tr>";
                                             }
                                         } else {
@@ -174,6 +166,7 @@ include 'komponen/koneksi.php';
 
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         $(document).ready(function () {

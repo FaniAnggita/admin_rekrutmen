@@ -45,7 +45,7 @@ include 'komponen/koneksi.php';
                                             <th>Kode Posisi</th>
                                             <th>Nama Posisi</th>
                                             <th>Max. Usia Pelamar</th>
-                                            <th>Penempatan</th>
+                                            <!-- <th>Penempatan</th> -->
                                             <th>Deskripsi</th>
                                             <th>Kualifikasi</th>
                                             <th>Tenggat Pendaftaran</th>
@@ -67,7 +67,7 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['kode_ps'] . "</td>";
                                                 echo "<td>" . $row['nama_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
-                                                echo "<td>" . $row['penempatan'] . "</td>";
+                                                //    echo "<td>" . $row['penempatan'] . "</td>";
                                                 ?>
                                                 <td>
                                                     <p class="text-center">
@@ -105,23 +105,27 @@ include 'komponen/koneksi.php';
 
                                                 echo "<td>" . $row['tenggat_daftar'] . "</td>";
                                                 echo $row['status'] == 1 ? '<td> Dibuka </td>' : '<td> Ditutup </td>';
-
-                                                echo '   <td>
-                                                <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                ?>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="edit_interviewer.php?"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                            <form  method="post" action=""> 
-                                                                <input type="text" id="uid" name="uid" value="" hidden/>
-                                                                <button type="submit" class="btn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</button>
+                                                            <a class="dropdown-item"
+                                                                href="edit_lowongan.php?id_lowongan=<?php echo $row['id_lowongan']; ?>"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                            <form method="post" action="">
+                                                                <input type="text" id="uid" name="uid" value="" hidden />
+                                                                <button type="submit" class="btn dropdown-item"><i
+                                                                        class="bx bx-trash me-1"></i>Delete</button>
                                                             </form>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </td>
-                                                ';
+                                                <?php
                                                 echo "</tr>";
                                             }
                                         } else {

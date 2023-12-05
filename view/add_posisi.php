@@ -32,7 +32,8 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Tambah Posisi/Jabatan</h5>
-                                <a href="posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-left-arrow-alt"></i> Kembali</a>
+                                <a href="posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-left-arrow-alt"></i>
+                                    Kembali</a>
                             </div>
 
                             <div class="card-body">
@@ -42,7 +43,8 @@ include 'komponen/koneksi.php';
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="text" class="form-control" id="kode_ps" name="kode_ps" aria-describedby="kode_ps" required>
+                                                <input type="text" class="form-control" id="kode_ps" name="kode_ps"
+                                                    aria-describedby="kode_ps" required>
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +53,9 @@ include 'komponen/koneksi.php';
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="nama_ps" name="nama_ps" aria-label="John Doe" aria-describedby="nama_ps" autocomplete="on" required>
+                                                <input type="text" class="form-control" id="nama_ps" name="nama_ps"
+                                                    aria-label="John Doe" aria-describedby="nama_ps" autocomplete="on"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -60,11 +64,37 @@ include 'komponen/koneksi.php';
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="max_usia" name="max_usia" aria-label="John Doe" aria-describedby="max_usia" autocomplete="on" required>
+                                                <input type="text" class="form-control" id="max_usia" name="max_usia"
+                                                    aria-label="John Doe" aria-describedby="max_usia" autocomplete="on"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="jumlah_pelamar">Jumlah
+                                            Pelamar</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-user"></i></span>
+                                                <input type="number" class="form-control" id="jumlah_pelamar"
+                                                    name="jumlah_pelamar" aria-label="John Doe"
+                                                    aria-describedby="jumlah_pelamar" autocomplete="on" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="status_posisi">Status Posisi</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i
+                                                        class="bx bx-question-mark"></i></span>
+                                                <select id="status_posisi" class="form-select" name="status_posisi">
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row justify-content-end">
                                         <div class="col-sm-10">
                                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -138,9 +168,9 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Form 1 submission
-            $("#tambah").submit(function(event) {
+            $("#tambah").submit(function (event) {
                 event.preventDefault();
 
                 var formData = $(this).serialize();
@@ -149,11 +179,11 @@ include 'komponen/koneksi.php';
                     type: "POST",
                     url: "../controller/tambah_posisi.php", // Replace with the path to your PHP script
                     data: formData,
-                    success: function(response) {
+                    success: function (response) {
                         alert(response); // Display the response from the server
                         // You can redirect or perform other actions as needed.
                     },
-                    error: function() {
+                    error: function () {
                         alert("Error while submitting Form 1");
                     }
                 });

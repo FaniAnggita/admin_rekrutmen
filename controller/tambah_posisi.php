@@ -6,6 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $kode_ps = $_POST['kode_ps'];
     $nama_ps = $_POST['nama_ps'];
     $max_usia = $_POST['max_usia'];
+    $jumlah_pelamar = $_POST['jumlah_pelamar'];
+    $status_posisi = $_POST['status_posisi'];
 
     // Check if a record with the same nik exists
     $check_sql = "SELECT kode_ps FROM posisi WHERE kode_ps = '$kode_ps'";
@@ -15,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Kode posisi telah digunakan!";
     } else {
         // Insert a new record
-        $insert_sql = "INSERT INTO posisi (kode_ps, nama_ps, max_usia) VALUES ('$kode_ps', '$nama_ps', '$max_usia')";
+        $insert_sql = "INSERT INTO posisi (kode_ps, nama_ps, max_usia, jumlah_pelamar, status_posisi) VALUES ('$kode_ps', '$nama_ps', '$max_usia', '$jumlah_pelamar', ' $status_posisi')";
 
         if (mysqli_query($conn, $insert_sql)) {
             echo "Data inserted successfully";

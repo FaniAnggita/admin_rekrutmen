@@ -1,63 +1,42 @@
 <!-- Modal -->
-<div class="modal  fade" id="modalFilterProsesRekrutmen" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal  fade" id="modalFilterProses" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Filter Tanggal Lamaran</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Filter Proses</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <form class="row g-3">
+                    <div class="col-md-4">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" class="form-select" name="status">
+                            <option value="">Pilih</option>
+                            <option value="Administrasi">Administrasi</option>
+                            <option value="WII">WII</option>
+                            <option value="Psikotest">Psikotest</option>
+                            <option value="Indepth">Indepth</option>
+                            <option value="Tes Bidang">Tes Bidang</option>
+                            <option value="Interview User">Interview User</option>
+                        </select>
+                    </div>
 
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                aria-controls="flush-collapseOne">
-                                Accordion Item #1
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                                demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion
-                                body.</div>
-                        </div>
+                    <div class="col-md-4">
+                        <label for="start_date" class="form-label">Tanggal Awal
+                            Lamaran:</label>
+                        <input type="date" id="start_date" class="form-control" name="start_date"
+                            value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
                     </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
-                                Accordion Item #2
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                                demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion
-                                body. Let's imagine this being filled with some actual content.</div>
-                        </div>
+                    <div class="col-md-4">
+                        <label for="end_date" class="form-label">Tanggal Akhir
+                            Lamaran:</label>
+                        <input type="date" id="end_date" class="form-control" name="end_date"
+                            value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
                     </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                aria-controls="flush-collapseThree">
-                                Accordion Item #3
-                            </button>
-                        </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                                demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion
-                                body. Nothing more exciting happening here in terms of content, but just filling up the
-                                space to make it look, at least at first glance, a bit more representative of how this
-                                would look in a real-world application.</div>
-                        </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Cari</button>
                     </div>
-                </div>
+                </form>
             </div>
 
         </div>

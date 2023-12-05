@@ -62,7 +62,7 @@ include 'komponen/koneksi.php';
                                     <div class="col-lg-6 d-flex justify-content-end">
                                         <?php include_once 'modal/modal_proses_rekrutmen.php'; ?>
                                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modalFilterProsesRekrutmen">
+                                            data-bs-target="#modalFilterProses">
                                             <i class="fa-solid fa-filter"></i> Filter
                                         </button>
 
@@ -81,7 +81,7 @@ include 'komponen/koneksi.php';
                                         <tr style="font-size: 12px;">
                                             <th colspan="7"></th>
                                             <th colspan="7" class="table-warning text-center">Administrasi</th>
-                                            <th colspan="9" class="table-info text-center">WII</th>
+                                            <th colspan="11" class="table-info text-center">WII</th>
                                             <th colspan="4" class="table-success text-center">Psikotest</th>
                                             <th colspan="9" class="table-danger text-center">Indepth</th>
                                             <th colspan="9" class="table-primary text-center">Tes Bidang</th>
@@ -91,7 +91,7 @@ include 'komponen/koneksi.php';
                                         <tr class="text-center" style="font-size: 12px;">
                                             <th><input type="checkbox" id="select-all"></th>
                                             <th class="table-danger"></th>
-                                            <th class="table-primary">Tgl Daftar</th>
+                                            <th class="table-primary">Tgl. Daftar</th>
                                             <th class="table-primary">Kd. Ps</th>
                                             <th class="table-primary">Pos. Refer</th>
                                             <th class="table-primary">Kd. Plmr</th>
@@ -422,7 +422,85 @@ include 'komponen/koneksi.php';
                                                 // Akhir Interview User
                                                 // Hasil akhir
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['Proses', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_akhir'] . "</td>";
-                                                echo "<td class='editable-text'>" . $row['alasan_tidak_lolos'] . "</td>";
+                                                ?>
+                                                <td>
+                                                    <?php
+                                                    if ($row['hasil_akhir'] === 'Tidak Lolos') {
+                                                        //    Administrasi
+                                                        if ($row['hasil_seleksi_adm'] == 'tidak lolos') {
+                                                            if ($row['nilai_cv'] === '0') {
+                                                                echo 'CV';
+                                                            }
+                                                            if ($row['nilai_kualifikasi'] === '0') {
+                                                                echo ', Kualifikasi';
+                                                            }
+                                                            if ($row['nilai_pengalaman'] === '0') {
+                                                                echo ', Pengalaman';
+                                                            }
+                                                        }
+
+                                                        // WII
+                                                        if ($row['rating_wii'] == 'tidak lolos') {
+                                                            if ($row['p'] === '0') {
+                                                                echo 'P';
+                                                            }
+                                                            if ($row['a'] === '0') {
+                                                                echo 'A';
+                                                            }
+                                                            if ($row['k'] === '0') {
+                                                                echo 'K';
+                                                            }
+                                                            if ($row['r'] === '0') {
+                                                                echo 'R';
+                                                            }
+                                                        }
+
+                                                        // Psikotest
+                                                        if ($row['rating_psikotest'] == 'tidak lolos') {
+                                                            echo 'Psikotest';
+                                                        }
+
+                                                        // Indepth 
+                                                        if ($row['hasilIndepth'] == 'tidak lolos') {
+                                                            if ($row['KTB'] === '0') {
+                                                                echo 'KTB';
+                                                            }
+                                                            if ($row['KPR'] === '0') {
+                                                                echo 'KPR';
+                                                            }
+                                                            if ($row['Siker'] === '0') {
+                                                                echo 'Siker';
+                                                            }
+                                                        }
+
+                                                        // INterviewer User
+                                                        if ($row['hasil_iu'] == 'tidak lolos') {
+                                                            if ($row['dt'] === '0') {
+                                                                echo 'dt';
+                                                            }
+                                                            if ($row['ka'] === '0') {
+                                                                echo 'ka';
+                                                            }
+                                                            if ($row['pm'] === '0') {
+                                                                echo 'pm';
+                                                            }
+                                                            if ($row['pd'] === '0') {
+                                                                echo 'pd';
+                                                            }
+                                                            if ($row['bd'] === '0') {
+                                                                echo 'bd';
+                                                            }
+                                                            if ($row['ktb'] === '0') {
+                                                                echo 'ktb';
+                                                            }
+                                                        }
+
+                                                        // Interview User
+                                            
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <?php
                                                 echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
                                                 echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
                                                 // AKhir Hasil Akhir
@@ -627,17 +705,17 @@ include 'komponen/koneksi.php';
                 paging: true,
                 scrollCollapse: true,
                 scrollX: true,
-                scrollY: 300,
+                scrollY: 450,
                 select: true,
                 dom: 'Blfrtip',
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: ':gt(2):lt(51)' // Columns from index 3 to 53
-                        }
-                    }
-                ],
+                // buttons: [
+                //     {
+                //         extend: 'excelHtml5',
+                //         exportOptions: {
+                //             columns: ':gt(2):lt(51)' // Columns from index 3 to 53
+                //         }
+                //     }
+                // ],
                 lengthMenu: [5, 10, 25, 50, 100], // Specify the available page lengths
                 pageLength: 10,// Set the initial page length
                 orderCellsTop: true,
@@ -645,9 +723,6 @@ include 'komponen/koneksi.php';
 
             });
 
-            // Remove the first row after DataTable initialization
-            var firstRow = table.row(':eq(0)');
-            firstRow.remove().draw();
 
             $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date', function () {
                 var cell = $(this);
@@ -1148,8 +1223,6 @@ include 'komponen/koneksi.php';
             }
 
             // Event handler for the "Edit" button
-
-
             $('#editButtonPsikotest').on('click', function () {
                 populateFormPsikotest();
             });
@@ -1232,8 +1305,6 @@ include 'komponen/koneksi.php';
             }
 
             // Event handler for the "Edit" button
-
-
             $('#editButtonInterviewUser').on('click', function () {
                 populateFormInterviewUser();
             });
