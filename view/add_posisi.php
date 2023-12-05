@@ -4,7 +4,7 @@ include 'komponen/header.php';
 include 'komponen/koneksi.php';
 ?>
 
-<body onload="startTime()">
+<body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">

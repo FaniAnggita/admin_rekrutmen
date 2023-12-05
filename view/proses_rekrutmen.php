@@ -61,9 +61,13 @@ include 'komponen/koneksi.php';
                                     </div>
                                     <div class="col-lg-6 d-flex justify-content-end">
                                         <?php include_once 'modal/modal_proses_rekrutmen.php'; ?>
-                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
                                             data-bs-target="#modalFilterProses">
                                             <i class="fa-solid fa-filter"></i> Filter
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger " data-bs-toggle="modal"
+                                            data-bs-target="#modalFilterProses">
+                                            <i class="fa-solid fa-print"></i> Export
                                         </button>
 
                                     </div>
@@ -218,7 +222,6 @@ include 'komponen/koneksi.php';
                                                 // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
                                                 ?>
                                                 <td>
-
                                                     <p>
                                                         <button class="btn btn-danger btn-xs" type="button"
                                                             data-bs-toggle="collapse"
@@ -261,7 +264,6 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-text'>" . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['kode_pelamar'] . "</td>";
                                                 echo "<td class='$tes not-editable'>" . $row['nama_lengkap'] . "</td>";
-
                                                 // Administrasi
                                                 echo "<td class='editable-datetime'>" . $row['waktuInterview'] . "</td>";
                                                 echo "<td class='not-editable'><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
@@ -707,7 +709,7 @@ include 'komponen/koneksi.php';
                 scrollX: true,
                 scrollY: 450,
                 select: true,
-                dom: 'Blfrtip',
+                //  dom: 'Blfrtip',
                 // buttons: [
                 //     {
                 //         extend: 'excelHtml5',
