@@ -66,23 +66,27 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 echo "<td>" . $row['jumlah_pelamar'] . "</td>";
                                                 echo "<td>" . $row['status_posisi'] . "</td>";
-
-                                                echo '   <td>
-                                                <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                ?>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="edit_lowongan.php?"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                            <form  method="post" action=""> 
-                                                                <input type="text" id="uid" name="uid" value="" hidden/>
-                                                                <button type="submit" class="btn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</button>
+                                                            <a class="dropdown-item"
+                                                                href="form_edit_posisi.php?id_posisi=<?php echo $row['id_ps']; ?>"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                            <form method="post" action="">
+                                                                <input type="text" id="uid" name="uid" value="" hidden />
+                                                                <button type="submit" class="btn dropdown-item"><i
+                                                                        class="bx bx-trash me-1"></i>Delete</button>
                                                             </form>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </td>
-                                                ';
+                                                <?php
                                                 echo "</tr>";
                                             }
                                         } else {

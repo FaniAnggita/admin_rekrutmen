@@ -3,7 +3,20 @@ $page = 'master';
 include 'komponen/header.php';
 include 'komponen/koneksi.php';
 
-$id_lowongan = $_GET['id_lowongan'];
+// Assuming you have a connection to the database ($conn)
+$id_lowongan_to_edit = $_GET['id_lowongan']; // You may need to sanitize this input
+
+// Fetch data based on id_lowongan
+$sql = "SELECT * FROM lowongan_baru WHERE id_lowongan = '$id_lowongan_to_edit'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Assuming you only expect one row, as `id_lowongan` should be unique
+    $existingData = $result->fetch_assoc();
+} else {
+    // Handle the case where no data is found for the given id_lowongan
+    echo "No data found for id_lowongan: $id_lowongan_to_edit";
+}
 
 ?>
 
@@ -40,8 +53,10 @@ $id_lowongan = $_GET['id_lowongan'];
                         </div>
 
                         <div class="card-body">
-                            <form id="edit" method="post">
-                                <div class="row mb-3">
+                            <form id="editForm" method="post">
+                                <input type="text" id="id_lowongan" name="id_lowongan"
+                                    value="<?php echo $id_lowongan_to_edit; ?>" hidden>
+                                <div class=" row mb-3">
                                     <label class="col-sm-2 col-form-label" for="kode_ps">Posisi</label>
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
@@ -49,12 +64,14 @@ $id_lowongan = $_GET['id_lowongan'];
                                             <select id="kode_ps" class="form-select" name="kode_ps">
                                                 <?php
                                                 // Ambil data dari database dan tampilkan dalam tabel
-                                                $sql = "SELECT * FROM posisi";
-                                                $result = $conn->query($sql);
+                                                $sql_posisi = "SELECT * FROM posisi";
+                                                $result_posisi = $conn->query($sql_posisi);
 
-                                                if ($result->num_rows > 0) {
-                                                    while ($row = $result->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row['kode_ps']; ?>">
+                                                if ($result_posisi->num_rows > 0) {
+                                                    while ($row = $result_posisi->fetch_assoc()) {
+                                                        $selected = ($row['kode_ps'] == $existingData['kode_ps']) ? 'selected' : '';
+                                                        ?>
+                                                        <option value="<?php echo $row['kode_ps']; ?>" <?php echo $selected; ?>>
                                                             <?php echo $row['nama_ps']; ?>
                                                         </option>
                                                     <?php }
@@ -62,7 +79,6 @@ $id_lowongan = $_GET['id_lowongan'];
                                             </select>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="row mb-3">
@@ -73,18 +89,19 @@ $id_lowongan = $_GET['id_lowongan'];
                                             <span class="input-group-text"><i class="bx bx-calendar"></i></span>
                                             <input type="date" class="form-control" id="tenggat_daftar"
                                                 name="tenggat_daftar" aria-label="John Doe"
-                                                aria-describedby="tenggat_daftar" autocomplete="on" required>
+                                                aria-describedby="tenggat_daftar" autocomplete="on"
+                                                value="<?php echo $existingData['tenggat_daftar']; ?>" required>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="deskripsi">Deskripsi</label>
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
-
                                             <!-- Add the TinyMCE textarea for 'deskripsi' -->
                                             <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
-                                                required></textarea>
+                                                required><?php echo $existingData['deskripsi']; ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -93,28 +110,29 @@ $id_lowongan = $_GET['id_lowongan'];
                                     <label class="col-sm-2 col-form-label" for="kualifikasi">Kualifikasi</label>
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
-
                                             <!-- Add the TinyMCE textarea for 'kualifikasi' -->
                                             <textarea class="form-control" id="kualifikasi" name="kualifikasi" rows="5"
-                                                required></textarea>
+                                                required><?php echo $existingData['kualifikasi']; ?></textarea>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="status">Status</label>
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class="bx bx-question-mark"></i></span>
                                             <select id="status" class="form-select" name="status">
-                                                <option value="1">Dibuka</option>
-                                                <option value="0">Ditutup</option>
+                                                <option value="1" <?php echo ($existingData['status'] == '1') ? 'selected' : ''; ?>>Dibuka</option>
+                                                <option value="0" <?php echo ($existingData['status'] == '0') ? 'selected' : ''; ?>>Ditutup</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
-                                        <button type="button" onclick="submitForm()">Simpan</button>
+                                        <button type="button" onclick="submitEditForm()">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -209,26 +227,25 @@ $id_lowongan = $_GET['id_lowongan'];
     </script>
 
     <script>
-        function submitForm() {
+        function submitEditForm() {
+            var id_lowongan = document.getElementById('id_lowongan').value;
             var kode_ps = document.getElementById('kode_ps').value;
-            var penempatan = document.getElementById('penempatan').value;
             var tenggat_daftar = document.getElementById('tenggat_daftar').value;
-            var deskripsi = tinymce.get('deskripsi').getContent(); // For TinyMCE content
-            var kualifikasi = tinymce.get('kualifikasi').getContent(); // For TinyMCE content
+            var deskripsi = tinymce.get('deskripsi').getContent();
+            var kualifikasi = tinymce.get('kualifikasi').getContent();
             var status = document.getElementById('status').value;
 
             var data = {
+                id_lowongan: id_lowongan,
                 kode_ps: kode_ps,
-                penempatan: penempatan,
                 tenggat_daftar: tenggat_daftar,
                 deskripsi: deskripsi,
                 kualifikasi: kualifikasi,
                 status: status
-                // Add other form fields here...
             };
 
             var xhr = new XMLHttpRequest();
-            var url = '../controller/edit_lowongan.php'; // Replace with your PHP script
+            var url = '../controller/edit_lowongan.php'; // Adjust the URL based on your file structure
 
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -249,6 +266,7 @@ $id_lowongan = $_GET['id_lowongan'];
             xhr.send(JSON.stringify(data));
         }
     </script>
+
 
 
 

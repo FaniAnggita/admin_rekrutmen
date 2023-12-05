@@ -114,7 +114,7 @@ include 'komponen/koneksi.php';
                                                         </button>
                                                         <div class="dropdown-menu">
                                                             <a class="dropdown-item"
-                                                                href="edit_lowongan.php?id_lowongan=<?php echo $row['id_lowongan']; ?>"><i
+                                                                href="form_edit_lowongan.php?id_lowongan=<?php echo $row['id_lowongan']; ?>"><i
                                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
                                                             <form method="post" action="">
                                                                 <input type="text" id="uid" name="uid" value="" hidden />
