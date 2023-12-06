@@ -7,26 +7,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                <form class="row g-3">
+                <form class="row g-3" action="" method="post">
                     <div class="col-md-6">
-                        <label for="start_date" class="form-label">Tanggal Awal
-                            Lamaran:</label>
+                        <label for="start_date" class="form-label">Tanggal Awal Lamaran:</label>
                         <input type="date" id="start_date" class="form-control" name="start_date"
-                            value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
+                            value="<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>">
                     </div>
                     <div class="col-md-6">
-                        <label for="end_date" class="form-label">Tanggal Akhir
-                            Lamaran:</label>
+                        <label for="end_date" class="form-label">Tanggal Akhir Lamaran:</label>
                         <input type="date" id="end_date" class="form-control" name="end_date"
-                            value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
+                            value="<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>">
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Cari</button>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>

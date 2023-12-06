@@ -65,7 +65,7 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['nama_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 echo "<td>" . $row['jumlah_pelamar'] . "</td>";
-                                                echo "<td>" . $row['status_posisi'] . "</td>";
+                                                echo $row['status_posisi'] == 1 ? '<td> Dibuka </td>' : '<td> Ditutup </td>';
                                                 ?>
                                                 <td>
                                                     <div class="dropdown">

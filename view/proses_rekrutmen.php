@@ -65,11 +65,13 @@ include 'komponen/koneksi.php';
                                             data-bs-target="#modalFilterProses">
                                             <i class="fa-solid fa-filter"></i> Filter
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-danger " data-bs-toggle="modal"
-                                            data-bs-target="#modalFilterProses">
+                                        <!-- <a href="../controller/cetak_laporan_rekrutmen.php"
+                                            class="btn btn-sm btn-danger " target="_blank">
                                             <i class="fa-solid fa-print"></i> Export
-                                        </button>
-
+                                        </a> -->
+                                        <button onclick="exportToExcel()" class="btn btn-sm btn-danger "
+                                            target="_blank">
+                                            <i class="fa-solid fa-print"></i> Export</button>
                                     </div>
 
                                 </div>
@@ -109,8 +111,11 @@ include 'komponen/koneksi.php';
                                                 data-bs-title="Nilai kualifikasi">Klf</th>
                                             <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
                                                 data-bs-title="Nilai Pengalaman">Pgl</th>
-                                            <th class="table-warning not-editable">Hasil</th>
-                                            <th class="table-warning">Keterangan</th>
+                                            <th class="table-warning not-editable" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Hasil Seleksi Administrasi">Hasil
+                                            </th>
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Keterangan Seleksi Administrasi">Keterangan</th>
                                             <!-- Akhir Administrasi -->
                                             <!-- WII -->
                                             <th class="table-info">Waktu WII</th>
@@ -1312,6 +1317,34 @@ include 'komponen/koneksi.php';
             });
 
         });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <script>
+        function exportToExcel() {
+            // Get table element
+            var table = document.getElementById('deviceTable');
+
+            // Generate an array of arrays containing the table data
+            var data = [];
+            for (var i = 0; i < table.rows.length; i++) {
+                var rowData = [];
+                for (var j = 0; j < table.rows[i].cells.length; j++) {
+                    rowData.push(table.rows[i].cells[j].textContent);
+                }
+                data.push(rowData);
+            }
+
+            // Create a new workbook and add a worksheet
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.aoa_to_sheet(data);
+
+            // Add the worksheet to the workbook
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'data_rekrutmen.xlsx');
+        }
+
     </script>
 
 
