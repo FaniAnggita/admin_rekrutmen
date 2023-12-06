@@ -195,26 +195,44 @@ include 'komponen/koneksi.php';
                                                 LEFT JOIN pelamar_lolos pls ON pl.id = pls.id_pelamar";
 
                                         // Periksa apakah ada filter tanggal yang disetel
-                                        if (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] != '' && $_GET['end_date'] != '') {
-                                            $start_date = $_GET['start_date'];
-                                            $end_date = $_GET['end_date'];
+                                        if (isset($_POST['start_date']) && isset($_POST['end_date']) && $_POST['start_date'] != '' && $_POST['end_date'] != '') {
+                                            $start_date = $_POST['start_date'];
+                                            $end_date = $_POST['end_date'];
+                                            $status = $_POST['status'];
+                                            $kondisi = '';
+
+                                            if ($status == 'Administrasi') {
+                                                $kondisi = 'sa.tanggal_administrasi';
+                                            } elseif ($status == 'WII') {
+                                                $kondisi = 'sw.waktuInterview';
+                                            } elseif ($status == 'Psikotest') {
+                                                $kondisi = 'sp.tanggalPsikotest';
+                                            } elseif ($status == 'Indepth') {
+                                                $kondisi = 'si.tanggalIndepth';
+                                            } elseif ($status == 'Tes Bidang') {
+                                                $kondisi = 'st.tanggalTesBidang';
+                                            } elseif ($status == 'Interview User') {
+                                                $kondisi = 'sin.tanggalInterviewUser';
+                                            } else {
+                                                $kondisi = 'sin.tanggalInterviewUser';
+                                            }
 
                                             // Tambahkan kondisi tanggal ke query SQL
-                                            $sql .= " WHERE pl.time BETWEEN '$start_date' AND '$end_date'";
+                                            $sql .= " WHERE $kondisi BETWEEN '$start_date' AND '$end_date'";
                                         }
 
-                                        // Periksa apakah ada filter status yang disetel
-                                        if (isset($_GET['status']) && $_GET['status'] != '') {
-                                            $status = $_GET['status'];
-
-                                            // Tambahkan kondisi status ke query SQL
-                                            if (strpos($sql, 'WHERE') !== false) {
-                                                $sql .= " AND pl.status_hasil_akhir = '$status'";
-                                            } else {
-                                                $sql .= " WHERE pl.status_hasil_akhir = '$status'";
-                                            }
-                                        }
-
+                                        // // Periksa apakah ada filter status yang disetel
+                                        // if (isset($_POST['status']) && $_POST['status'] != '') {
+                                        //     $status = $_POST['status'];
+                                        
+                                        //     // Tambahkan kondisi status ke query SQL
+                                        //     if (strpos($sql, 'WHERE') !== false) {
+                                        //         $sql .= " AND pl.status_hasil_akhir = '$status'";
+                                        //     } else {
+                                        //         $sql .= " WHERE pl.status_hasil_akhir = '$status'";
+                                        //     }
+                                        // }
+                                        
 
                                         $result = $conn->query($sql);
 
@@ -432,81 +450,85 @@ include 'komponen/koneksi.php';
                                                 ?>
                                                 <td>
                                                     <?php
+                                                    $errorMessages = array();
+
                                                     if ($row['hasil_akhir'] === 'Tidak Lolos') {
-                                                        //    Administrasi
+                                                        // Administrasi
                                                         if ($row['hasil_seleksi_adm'] == 'tidak lolos') {
                                                             if ($row['nilai_cv'] === '0') {
-                                                                echo 'CV';
+                                                                $errorMessages[] = 'CV';
                                                             }
                                                             if ($row['nilai_kualifikasi'] === '0') {
-                                                                echo ', Kualifikasi';
+                                                                $errorMessages[] = 'Kualifikasi';
                                                             }
                                                             if ($row['nilai_pengalaman'] === '0') {
-                                                                echo ', Pengalaman';
+                                                                $errorMessages[] = 'Pengalaman';
                                                             }
                                                         }
 
                                                         // WII
                                                         if ($row['rating_wii'] == 'tidak lolos') {
                                                             if ($row['p'] === '0') {
-                                                                echo 'P';
+                                                                $errorMessages[] = 'P';
                                                             }
                                                             if ($row['a'] === '0') {
-                                                                echo 'A';
+                                                                $errorMessages[] = 'A';
                                                             }
                                                             if ($row['k'] === '0') {
-                                                                echo 'K';
+                                                                $errorMessages[] = 'K';
                                                             }
                                                             if ($row['r'] === '0') {
-                                                                echo 'R';
+                                                                $errorMessages[] = 'R';
                                                             }
                                                         }
 
                                                         // Psikotest
                                                         if ($row['rating_psikotest'] == 'tidak lolos') {
-                                                            echo 'Psikotest';
+                                                            $errorMessages[] = 'Psikotest';
                                                         }
 
-                                                        // Indepth 
+                                                        // Indepth
                                                         if ($row['hasilIndepth'] == 'tidak lolos') {
                                                             if ($row['KTB'] === '0') {
-                                                                echo 'KTB';
+                                                                $errorMessages[] = 'KTB';
                                                             }
                                                             if ($row['KPR'] === '0') {
-                                                                echo 'KPR';
+                                                                $errorMessages[] = 'KPR';
                                                             }
                                                             if ($row['Siker'] === '0') {
-                                                                echo 'Siker';
+                                                                $errorMessages[] = 'Siker';
                                                             }
                                                         }
 
-                                                        // INterviewer User
+                                                        // Interviewer User
                                                         if ($row['hasil_iu'] == 'tidak lolos') {
                                                             if ($row['dt'] === '0') {
-                                                                echo 'dt';
+                                                                $errorMessages[] = 'dt';
                                                             }
                                                             if ($row['ka'] === '0') {
-                                                                echo 'ka';
+                                                                $errorMessages[] = 'ka';
                                                             }
                                                             if ($row['pm'] === '0') {
-                                                                echo 'pm';
+                                                                $errorMessages[] = 'pm';
                                                             }
                                                             if ($row['pd'] === '0') {
-                                                                echo 'pd';
+                                                                $errorMessages[] = 'pd';
                                                             }
                                                             if ($row['bd'] === '0') {
-                                                                echo 'bd';
+                                                                $errorMessages[] = 'bd';
                                                             }
                                                             if ($row['ktb'] === '0') {
-                                                                echo 'ktb';
+                                                                $errorMessages[] = 'ktb';
                                                             }
                                                         }
-
-                                                        // Interview User
-                                            
                                                     }
+
+                                                    // Display error messages
+                                                    echo implode(', ', $errorMessages);
                                                     ?>
                                                 </td>
+
+
                                                 <?php
                                                 echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
                                                 echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
