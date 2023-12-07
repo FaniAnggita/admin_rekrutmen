@@ -32,7 +32,8 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Tambah User</h5>
-                                <a href="user_management.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i>
+                                <a href="user_management.php" class="btn btn-danger btn-sm"> <i
+                                        class="bx bx-left-arrow-alt"></i>
                                     Manajemen User</a>
                             </div>
 

@@ -42,8 +42,10 @@ include 'komponen/koneksi.php';
                                             <th>ID</th>
                                             <th>NIK</th>
                                             <th>Nama</th>
+                                            <th>Email</th>
                                             <th>Password</th>
                                             <th>Role</th>
+                                            <!-- <th>Aksi</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,25 +55,46 @@ include 'komponen/koneksi.php';
                                         $sql = "SELECT * FROM users";
                                         $result = $conn->query($sql);
 
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
+                                        if($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
-                                                echo "<td>" . $row['id'] . "</td>";
-                                                echo "<td>" . $row['nik'] . "</td>";
-                                                echo "<td>" . $row['name'] . "</td>";
-                                                echo "<td>" . $row['password'] . "</td>";
+                                                echo "<td>".$row['id']."</td>";
+                                                echo "<td>".$row['nik']."</td>";
+                                                echo "<td>".$row['name']."</td>";
+                                                echo "<td>".$row['email']."</td>";
+                                                echo "<td>".$row['password']."</td>";
                                                 echo "<td>";
 
-                                                if ($row['role'] == '1') {
+                                                if($row['role'] == '1') {
                                                     echo 'Admin';
-                                                } elseif ($row['role'] == '2') {
+                                                } elseif($row['role'] == '2') {
                                                     echo 'Kadiv';
                                                 } else {
                                                     echo 'Manager';
                                                 }
 
                                                 echo "</td>";
+                                                ?>
+                                                <!-- <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="form_edit_user.php?nik=<?php echo $row['nik']; ?>"><i
+                                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                            <form method="post" action="">
+                                                                <input type="text" id="uid" name="uid" value="" hidden />
+                                                                <button type="submit" class="btn dropdown-item"><i
+                                                                        class="bx bx-trash me-1"></i>Delete</button>
+                                                            </form>
 
+                                                        </div>
+                                                    </div>
+                                                </td> -->
+                                                <?php
                                                 echo "</tr>";
                                             }
                                         } else {

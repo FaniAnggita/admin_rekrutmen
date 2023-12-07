@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract data from the form
     $selectedIdsString = $_POST['selectedIdsInput'];
 
@@ -13,23 +13,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedIds = explode(',', $selectedIdsString);
 
     // Iterate through the selected IDs and update or insert data
-    foreach ($selectedIds as $id) {
+    foreach($selectedIds as $id) {
         // Sanitize and validate the ID
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
-        if ($id !== false && $id > 0) {
+        if($id !== false && $id > 0) {
             // Check if id_pelamar already exists in seleksi_administrasi
-            $checkSql = "SELECT COUNT(*) as count FROM seleksi_administrasi WHERE id_pelamar = '$id'";
+            $checkSql = "SELECT COUNT(*) as count FROM seleksi_administrasi WHERE kode_pelamar = '$id'";
             $result = $conn->query($checkSql);
 
-            if ($result !== false) {
+            if($result !== false) {
                 $row = $result->fetch_assoc();
                 $count = $row['count'];
 
-                if ($count > 0) {
+                if($count > 0) {
                     // ID already exists, perform UPDATE
                     $updateSql = "UPDATE seleksi_administrasi SET";
-
+                    $updateSql .= isset($_POST['tanggal_administrasi']) && $_POST['tanggal_administrasi'] !== '' ? " tanggal_administrasi = '{$_POST['tanggal_administrasi']}'," : '';
                     $updateSql .= isset($_POST['nilai_cv']) && $_POST['nilai_cv'] !== '' ? " nilai_cv = '{$_POST['nilai_cv']}'," : '';
                     $updateSql .= isset($_POST['nilai_kualifikasi']) && $_POST['nilai_kualifikasi'] !== '' ? " nilai_kualifikasi = '{$_POST['nilai_kualifikasi']}'," : '';
                     $updateSql .= isset($_POST['nilai_pengalaman']) && $_POST['nilai_pengalaman'] !== '' ? " nilai_pengalaman = '{$_POST['nilai_pengalaman']}'," : '';
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $updateSql .= " WHERE id_pelamar = '$id'";
 
-                    if ($conn->query($updateSql) === TRUE) {
+                    if($conn->query($updateSql) === TRUE) {
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';
@@ -49,25 +49,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo '</script>';
                     } else {
                         // Error
-                        echo ('Error updating data: ' . $conn->error);
+                        echo ('Error updating data: '.$conn->error);
                     }
                 } else {
                     // ID does not exist, perform INSERT
                     $insertSql = "INSERT INTO seleksi_administrasi (id_pelamar,";
 
-                    if (isset($_POST['nilai_cv']) && $_POST['nilai_cv'] !== '') {
+                    if(isset($_POST['nilai_cv']) && $_POST['nilai_cv'] !== '') {
                         $insertSql .= " nilai_cv,";
                     }
-                    if (isset($_POST['nilai_kualifikasi']) && $_POST['nilai_kualifikasi'] !== '') {
+                    if(isset($_POST['nilai_kualifikasi']) && $_POST['nilai_kualifikasi'] !== '') {
                         $insertSql .= " nilai_kualifikasi,";
                     }
-                    if (isset($_POST['nilai_pengalaman']) && $_POST['nilai_pengalaman'] !== '') {
+                    if(isset($_POST['nilai_pengalaman']) && $_POST['nilai_pengalaman'] !== '') {
                         $insertSql .= " nilai_pengalaman,";
                     }
-                    if (isset($_POST['keterangan']) && $_POST['keterangan'] !== '') {
+                    if(isset($_POST['keterangan']) && $_POST['keterangan'] !== '') {
                         $insertSql .= " keterangan_adm,";
                     }
-                    if (isset($_POST['hasil_seleksi_adm']) && $_POST['hasil_seleksi_adm'] !== '') {
+                    if(isset($_POST['hasil_seleksi_adm']) && $_POST['hasil_seleksi_adm'] !== '') {
                         $insertSql .= " hasil_seleksi_adm,";
                     }
 
@@ -76,19 +76,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $insertSql .= ") VALUES ('$id',";
 
-                    if (isset($_POST['nilai_cv']) && $_POST['nilai_cv'] !== '') {
+                    if(isset($_POST['nilai_cv']) && $_POST['nilai_cv'] !== '') {
                         $insertSql .= " '{$_POST['nilai_cv']}',";
                     }
-                    if (isset($_POST['nilai_kualifikasi']) && $_POST['nilai_kualifikasi'] !== '') {
+                    if(isset($_POST['nilai_kualifikasi']) && $_POST['nilai_kualifikasi'] !== '') {
                         $insertSql .= " '{$_POST['nilai_kualifikasi']}',";
                     }
-                    if (isset($_POST['nilai_pengalaman']) && $_POST['nilai_pengalaman'] !== '') {
+                    if(isset($_POST['nilai_pengalaman']) && $_POST['nilai_pengalaman'] !== '') {
                         $insertSql .= " '{$_POST['nilai_pengalaman']}',";
                     }
-                    if (isset($_POST['keterangan']) && $_POST['keterangan'] !== '') {
+                    if(isset($_POST['keterangan']) && $_POST['keterangan'] !== '') {
                         $insertSql .= " '{$_POST['keterangan']}',";
                     }
-                    if (isset($_POST['hasil_seleksi_adm']) && $_POST['hasil_seleksi_adm'] !== '') {
+                    if(isset($_POST['hasil_seleksi_adm']) && $_POST['hasil_seleksi_adm'] !== '') {
                         $insertSql .= " '{$_POST['hasil_seleksi_adm']}',";
                     }
 
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $insertSql .= ")";
 
-                    if ($conn->query($insertSql) === TRUE) {
+                    if($conn->query($insertSql) === TRUE) {
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';
@@ -105,12 +105,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo '</script>';
                     } else {
                         // Error
-                        echo ('Error inserting data: ' . $conn->error);
+                        echo ('Error inserting data: '.$conn->error);
                     }
                 }
             } else {
                 // Error in query
-                echo ('Error checking ID: ' . $conn->error);
+                echo ('Error checking ID: '.$conn->error);
             }
         } else {
             // Invalid ID

@@ -142,6 +142,12 @@
       line-height: 1.5;
       border-radius: 3px;
     }
+
+    table.dataTable tbody th,
+    table.dataTable tbody td {
+      padding: 0 10px;
+      /* e.g. change 8x to 4px here */
+    }
   </style>
 
 </head>

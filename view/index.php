@@ -2,6 +2,9 @@
 $page = 'index';
 include 'komponen/header.php';
 include 'komponen/koneksi.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Grafik menampilkan jumlah pelamar berdarkan posisi
 $sql = "SELECT kode_ps, COUNT(*) AS jumlah_pelamar FROM pelamar2 GROUP BY kode_ps ORDER BY jumlah_pelamar LIMIT 5";
@@ -9,10 +12,10 @@ $result = $conn->query($sql);
 
 $chartData = array('categories' => array(), 'data' => array());
 
-if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
+if($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
     array_push($chartData['categories'], $row["kode_ps"]);
-    array_push($chartData['data'], (int) $row["jumlah_pelamar"]);
+    array_push($chartData['data'], (int)$row["jumlah_pelamar"]);
   }
 } else {
   echo "0 results";
@@ -32,12 +35,12 @@ $labelMapping = array(
   "choose" => "Diproses"
 );
 
-if ($resultRekomendasi->num_rows > 0) {
-  while ($row = $resultRekomendasi->fetch_assoc()) {
+if($resultRekomendasi->num_rows > 0) {
+  while($row = $resultRekomendasi->fetch_assoc()) {
     // Mengubah label sesuai mapping
     $label = $labelMapping[$row["rekomendasi"]];
     array_push($chartDataRekomendasi['categories'], $label);
-    array_push($chartDataRekomendasi['data'], (int) $row["jumlah_pelamar"]);
+    array_push($chartDataRekomendasi['data'], (int)$row["jumlah_pelamar"]);
   }
 } else {
   echo "0 results";
@@ -95,7 +98,7 @@ if ($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if ($result) {
+                          if($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_posisi'];
@@ -128,7 +131,7 @@ if ($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if ($result) {
+                          if($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_pelamar'];
@@ -160,7 +163,7 @@ if ($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if ($result) {
+                          if($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_pelamar'];
@@ -192,7 +195,7 @@ if ($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if ($result) {
+                          if($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_pelamar'];
@@ -224,8 +227,8 @@ if ($resultRekomendasi->num_rows > 0) {
                     <table class="table table-bordered text-center">
                       <thead>
                         <tr>
-                          <th colspan="5"></th>
-                          <th colspan="5">Seleksi Administrasi</th>
+                          <th colspan="6"></th>
+                          <th colspan="4">Seleksi Administrasi</th>
                           <th colspan="4">Walk in Interview</th>
                           <th colspan="5">Psikotest</th>
                           <th colspan="4">Wawancara HRD</th>
@@ -265,122 +268,133 @@ if ($resultRekomendasi->num_rows > 0) {
                         <?php
                         // Ambil data dari database dan tampilkan dalam tabel
                         // Filter tanggal
-                        if (isset($_POST['start_date']) && isset($_POST['end_date']) && $_POST['start_date'] != '' && $_POST['end_date'] != '') {
+                        if(isset($_POST['start_date']) && isset($_POST['end_date']) && $_POST['start_date'] != '' && $_POST['end_date'] != '') {
                           $start_date = $_POST['start_date'];
                           $end_date = $_POST['end_date'];
 
                           // Tambahkan kondisi tanggal ke query SQL
-                          $sql = "SELECT
-                          p.kode_ps,
-                          posisi.nama_ps, posisi.jumlah_pelamar,
-                          COUNT(CASE WHEN sa.hasil_seleksi_adm = 'lolos' THEN 1 END) AS jumlah_lolos_admin,
-                          COUNT(CASE WHEN sa.hasil_seleksi_adm = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_admin,
-                          COUNT(CASE WHEN sa.hasil_seleksi_adm = 'pilih' THEN 1 END) AS jumlah_pilih_admin,
-                          COUNT(CASE WHEN sw.rating_wii = 'lolos' THEN 1 END) AS jumlah_lolos_wii,
-                          COUNT(CASE WHEN sw.rating_wii = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_wii,
-                          COUNT(CASE WHEN sw.rating_wii = 'pilih' THEN 1 END) AS jumlah_pilih_wii,
-                          COUNT(CASE WHEN sp.rating_psikotest = 'lolos' THEN 1 END) AS jumlah_lolos_psikotest,
-                          COUNT(CASE WHEN sp.rating_psikotest = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_psikotest,
-                          COUNT(CASE WHEN sp.rating_psikotest = 'pilih' THEN 1 END) AS jumlah_pilih_psikotest,
-                          COUNT(CASE WHEN si.hasilIndepth = 'lolos' THEN 1 END) AS jumlah_lolos_indepth,
-                          COUNT(CASE WHEN si.hasilIndepth = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_indepth,
-                          COUNT(CASE WHEN si.hasilIndepth = 'pilih' THEN 1 END) AS jumlah_pilih_indepth,
-                          COUNT(CASE WHEN st.hasil_tb = 'lolos' THEN 1 END) AS jumlah_lolos_tesbidang,
-                          COUNT(CASE WHEN st.hasil_tb = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_tesbidang,
-                          COUNT(CASE WHEN st.hasil_tb = 'pilih' THEN 1 END) AS jumlah_pilih_tesbidang,
-                          COUNT(CASE WHEN sin.hasil_iu = 'lolos' THEN 1 END) AS jumlah_lolos_interviewuser,
-                          COUNT(CASE WHEN sin.hasil_iu = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_interviewuser,
-                          COUNT(CASE WHEN sin.hasil_iu = 'pilih' THEN 1 END) AS jumlah_pilih_interviewuser
-                          FROM
-                              pelamar2 p
-                          LEFT JOIN seleksi_administrasi sa ON p.id = sa.id_pelamar
-                          LEFT JOIN seleksi_wii sw ON p.id = sw.id_pelamar
-                          LEFT JOIN seleksi_psikotest sp ON p.id = sp.id_pelamar
-                          LEFT JOIN seleksi_indepth si ON p.id = si.id_pelamar
-                          LEFT JOIN seleksi_tesbidang st ON p.id = st.id_pelamar
-                          LEFT JOIN seleksi_interviewuser sin ON p.id = sin.id_pelamar
-                          LEFT JOIN posisi ON p.kode_ps = posisi.kode_ps
+                          $sql = "SELECT posisi.nama_ps, posisi.jumlah_pelamar, pelamar2.kode_ps, 
+                          COUNT(*) as total_pelamar,
+                          SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_administrasi,
+                          SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_administrasi,
+                          SUM(CASE WHEN seleksi_wii.rating_wii = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_wii,
+                          SUM(CASE WHEN seleksi_wii.rating_wii = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_wii,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_psikotest,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_psikotest,
+                          SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_indepth,
+                          SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_indepth,
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_interviewuser,
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_interviewuser
+                          FROM pelamar2
+                          JOIN posisi ON pelamar2.kode_ps = posisi.kode_ps
+                          LEFT JOIN seleksi_administrasi ON pelamar2.kode_pelamar = seleksi_administrasi.id_pelamar
+                          LEFT JOIN seleksi_wii ON pelamar2.kode_pelamar = seleksi_wii.id_pelamar
+                          LEFT JOIN seleksi_psikotest ON pelamar2.kode_pelamar = seleksi_psikotest.id_pelamar
+                          LEFT JOIN seleksi_indepth ON pelamar2.kode_pelamar = seleksi_indepth.id_pelamar
+                          LEFT JOIN seleksi_interviewuser ON pelamar2.kode_pelamar = seleksi_interviewuser.id_pelamar
                           WHERE
-                              p.time BETWEEN '$start_date' AND '$end_date'
-                          GROUP BY
-                              p.kode_ps;";
+                              pelamar2.time BETWEEN '$start_date' AND '$end_date'
+                          GROUP BY pelamar2.kode_ps";
+
                         } else {
                           // Query tanpa filter tanggal
-                          $sql = "SELECT
-                          p.kode_ps,
-                          posisi.nama_ps, posisi.jumlah_pelamar,
-                          COUNT(CASE WHEN sa.hasil_seleksi_adm = 'lolos' THEN 1 END) AS jumlah_lolos_admin,
-                          COUNT(CASE WHEN sa.hasil_seleksi_adm = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_admin,
-                          COUNT(CASE WHEN sa.hasil_seleksi_adm = 'pilih' THEN 1 END) AS jumlah_pilih_admin,
-                          COUNT(CASE WHEN sw.rating_wii = 'lolos' THEN 1 END) AS jumlah_lolos_wii,
-                          COUNT(CASE WHEN sw.rating_wii = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_wii,
-                          COUNT(CASE WHEN sw.rating_wii = 'pilih' THEN 1 END) AS jumlah_pilih_wii,
-                          COUNT(CASE WHEN sp.rating_psikotest = 'lolos' THEN 1 END) AS jumlah_lolos_psikotest,
-                          COUNT(CASE WHEN sp.rating_psikotest = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_psikotest,
-                          COUNT(CASE WHEN sp.rating_psikotest = 'pilih' THEN 1 END) AS jumlah_pilih_psikotest,
-                          COUNT(CASE WHEN si.hasilIndepth = 'lolos' THEN 1 END) AS jumlah_lolos_indepth,
-                          COUNT(CASE WHEN si.hasilIndepth = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_indepth,
-                          COUNT(CASE WHEN si.hasilIndepth = 'pilih' THEN 1 END) AS jumlah_pilih_indepth,
-                          COUNT(CASE WHEN st.hasil_tb = 'lolos' THEN 1 END) AS jumlah_lolos_tesbidang,
-                          COUNT(CASE WHEN st.hasil_tb = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_tesbidang,
-                          COUNT(CASE WHEN st.hasil_tb = 'pilih' THEN 1 END) AS jumlah_pilih_tesbidang,
-                          COUNT(CASE WHEN sin.hasil_iu = 'lolos' THEN 1 END) AS jumlah_lolos_interviewuser,
-                          COUNT(CASE WHEN sin.hasil_iu = 'tidak lolos' THEN 1 END) AS jumlah_tidak_lolos_interviewuser,
-                          COUNT(CASE WHEN sin.hasil_iu = 'pilih' THEN 1 END) AS jumlah_pilih_interviewuser
-                        FROM
-                            pelamar2 p
-                        LEFT JOIN seleksi_administrasi sa ON p.id = sa.id_pelamar
-                        LEFT JOIN seleksi_wii sw ON p.id = sw.id_pelamar
-                        LEFT JOIN seleksi_psikotest sp ON p.id = sp.id_pelamar
-                        LEFT JOIN seleksi_indepth si ON p.id = si.id_pelamar
-                        LEFT JOIN seleksi_tesbidang st ON p.id = st.id_pelamar
-                        LEFT JOIN seleksi_interviewuser sin ON p.id = sin.id_pelamar
-                        LEFT JOIN posisi ON p.kode_ps = posisi.kode_ps
-                        GROUP BY
-                            p.kode_ps";
+                          $sql = "SELECT posisi.nama_ps, posisi.jumlah_pelamar, pelamar2.kode_ps, 
+                          COUNT(*) as total_pelamar,
+                          SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_administrasi,
+                          SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_administrasi,
+                          SUM(CASE WHEN seleksi_wii.rating_wii = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_wii,
+                          SUM(CASE WHEN seleksi_wii.rating_wii = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_wii,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_psikotest,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_psikotest,
+                          SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_indepth,
+                          SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_indepth,
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_interviewuser,
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_interviewuser
+                          FROM pelamar2
+                          JOIN posisi ON pelamar2.kode_ps = posisi.kode_ps
+                          LEFT JOIN seleksi_administrasi ON pelamar2.kode_pelamar = seleksi_administrasi.id_pelamar
+                          LEFT JOIN seleksi_wii ON pelamar2.kode_pelamar = seleksi_wii.id_pelamar
+                          LEFT JOIN seleksi_psikotest ON pelamar2.kode_pelamar = seleksi_psikotest.id_pelamar
+                          LEFT JOIN seleksi_indepth ON pelamar2.kode_pelamar = seleksi_indepth.id_pelamar
+                          LEFT JOIN seleksi_interviewuser ON pelamar2.kode_pelamar = seleksi_interviewuser.id_pelamar
+                          GROUP BY pelamar2.kode_ps;";
                         }
 
                         $result = $conn->query($sql);
 
                         $i = 1;
-                        if ($result->num_rows > 0) {
-                          while ($row = $result->fetch_assoc()) {
+                        $total_jumlah_lolos_admin = 0;
+                        $total_jumlah_tidak_lolos_admin = 0;
+                        $total_jumlah_pilih_admin = 0;
+                        if($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) {
 
                             echo "<tr>";
-                            echo "<td>" . $i . "</td>";
-                            echo "<td>" . $row['nama_ps'] . "</td>";
-                            echo "<td>" . $row['kode_ps'] . "</td>";
+                            echo "<td>".$i."</td>";
+                            echo "<td>".$row['nama_ps']."</td>";
+                            echo "<td>".$row['kode_ps']."</td>";
                             echo "<td>  PIM </td>";
-                            echo "<td>" . $row['jumlah_pelamar'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_admin'] + $row['jumlah_tidak_lolos_admin'] + $row['jumlah_pilih_admin'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_admin'] . "</td>";
-                            echo "<td>" . $row['jumlah_tidak_lolos_admin'] . "</td>";
-                            echo "<td>" . $row['jumlah_pilih_admin'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_admin'] + $row['jumlah_tidak_lolos_admin'] + $row['jumlah_pilih_admin'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_wii'] . "</td>";
-                            echo "<td>" . $row['jumlah_tidak_lolos_wii'] . "</td>";
-                            echo "<td>" . $row['jumlah_pilih_wii'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_wii'] + $row['jumlah_tidak_lolos_wii'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_psikotest'] . "</td>";
-                            echo "<td>" . $row['jumlah_tidak_lolos_psikotest'] . "</td>";
-                            echo "<td>" . $row['jumlah_pilih_psikotest'] . "</td>";
+                            echo "<td>".$row['jumlah_pelamar']."</td>";
+                            echo "<td>".$row['total_pelamar']."</td>";
+                            echo "<td>".$row['jumlah_lolos_administrasi']."</td>";
+                            echo "<td>".$row['jumlah_tidak_lolos_administrasi']."</td>";
                             echo "<td> - </td>";
-                            echo "<td>" . $row['jumlah_lolos_psikotest'] + $row['jumlah_tidak_lolos_psikotest'] + $row['jumlah_pilih_psikotest'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_indepth'] . "</td>";
-                            echo "<td>" . $row['jumlah_tidak_lolos_indepth'] . "</td>";
-                            echo "<td>" . $row['jumlah_pilih_indepth'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_indepth'] + $row['jumlah_tidak_lolos_indepth'] + $row['jumlah_pilih_indepth'] . "</td>";
-                            echo "<td>" . $row['jumlah_pilih_tesbidang'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_interviewuser'] . "</td>";
-                            echo "<td>" . $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
-                            echo "<td>" . $row['jumlah_lolos_interviewuser'] + $row['jumlah_tidak_lolos_interviewuser'] + $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
+                            echo "<td>".$row['jumlah_lolos_administrasi'] + $row['jumlah_tidak_lolos_administrasi']."</td>";
+                            echo "<td>".$row['jumlah_lolos_wii']."</td>";
+                            echo "<td>".$row['jumlah_tidak_lolos_wii']."</td>";
+                            echo "<td> - </td>";
+                            echo "<td>".$row['jumlah_lolos_wii'] + $row['jumlah_tidak_lolos_wii']."</td>";
+                            echo "<td>".$row['jumlah_lolos_psikotest']."</td>";
+                            echo "<td>".$row['jumlah_tidak_lolos_psikotest']."</td>";
+                            echo "<td> - </td>";
+                            echo "<td> - </td>";
+                            echo "<td>".$row['jumlah_lolos_psikotest'] + $row['jumlah_tidak_lolos_psikotest']."</td>";
+                            echo "<td>".$row['jumlah_lolos_indepth']."</td>";
+                            echo "<td>".$row['jumlah_tidak_lolos_indepth']."</td>";
+                            echo "<td>-</td>";
+                            echo "<td>".$row['jumlah_lolos_indepth'] + $row['jumlah_tidak_lolos_indepth']."</td>";
+                            echo "<td>".$row['jumlah_lolos_interviewuser']."</td>";
+                            echo "<td>".$row['jumlah_tidak_lolos_interviewuser']."</td>";
+                            echo "<td>-</td>";
+                            echo "<td>".$row['jumlah_lolos_interviewuser'] + $row['jumlah_tidak_lolos_interviewuser']."</td>";
+
+                            // hitung total
+                            $total_jumlah_lolos_admin += $row['total_pelamar'];
                             echo "</tr>";
                             $i++;
                           }
                         }
                         ?>
                       </tbody>
-
+                      <tfoot>
+                        <tr>
+                          <td colspan="5"></td>
+                          <td>
+                            <?php echo $total_jumlah_lolos_admin; ?>
+                          </td>
+                          <td>Lolos</td>
+                          <td>Tidak Lolos</td>
+                          <td>Belum Diseleksi</td>
+                          <td>Total</td>
+                          <td>Lolos</td>
+                          <td>Tidak Lolos</td>
+                          <td>Belum Dijadwalkan</td>
+                          <td>Total</td>
+                          <td>Lolos</td>
+                          <td>Tidak Lolos</td>
+                          <td>Dalam Proses</td>
+                          <td>Tidak Psikotest</td>
+                          <td>Total</td>
+                          <td>Lolos</td>
+                          <td>Tidak Lolos</td>
+                          <td>Belum Dijadwalkan</td>
+                          <td>Total</td>
+                          <td>Lolos</td>
+                          <td>Tidak Lolos</td>
+                          <td>Belum Dijadwalkan</td>
+                          <td>Total</td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
@@ -470,10 +484,11 @@ if ($resultRekomendasi->num_rows > 0) {
       $('.table').DataTable({
 
         fixedColumns: {
-          left: 5,
+          left: 3,
         },
 
         scrollX: true,
+        scrollY: 450,
         dom: 'Blfrtip',
         buttons: [
           'excelHtml5',
