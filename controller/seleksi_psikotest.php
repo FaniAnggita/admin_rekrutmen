@@ -14,8 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Iterate through the selected IDs and update or insert data
     foreach ($selectedIds as $id) {
+
         // Sanitize and validate the ID
-        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $id = filter_var($id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ($id !== false && $id > 0) {
             // Check if id_pelamar already exists in seleksi_psikotest

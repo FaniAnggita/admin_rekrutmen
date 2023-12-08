@@ -1,10 +1,10 @@
 <form class="row g-3" id="form1" action="../controller/seleksi_indepth.php" method="post">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <label for="selectedIdsInputIndepth" class="form-label">ID</label>
         <input type="id" class="form-control" id="selectedIdsInputIndepth" name="selectedIdsInputIndepth" readonly>
     </div>
 
-    <input type="number" name="id_pelamar" value="<?php echo $_GET['id_pelamar']; ?>" hidden>
+
     <div class="col-md-4">
         <label for="tanggalIndepth" class="form-label">Tanggal Indepth</label>
         <input type="date" class="form-control" id="tanggalIndepth" name="tanggalIndepth">
@@ -49,8 +49,6 @@
             <option value="0">Tidak Lolos</option>
         </select>
     </div>
-
-
     <div class="col-md-4">
         <label for="pengumuman" class="form-label">Pengumuman</label>
         <select id="pengumuman" class="form-select" name="pengumuman">
@@ -63,6 +61,28 @@
     <div class="col-md-4">
         <label for="keterangan" class="form-label">Keterangan</label>
         <input type="text" class="form-control" id="keterangan" name="keterangan">
+    </div>
+    <div class="col-md-4">
+        <?php
+        // Fetch distinct values for the "Interviewer" field
+        $sql = "SELECT nama_int FROM interviewer";
+        $result = $conn->query($sql);
+
+        // Store distinct values in an array
+        $interviewerOptions = [];
+        while ($row = $result->fetch_assoc()) {
+            $interviewerOptions[] = $row['nama_int'];
+        }
+        ?>
+        <label for="interviewer_indepth" class="form-label">Interviewer</label>
+        <select id="interviewer_indepth" class="form-select" name="interviewer_indepth">
+            <option value="">Choose...</option>
+            <?php foreach ($interviewerOptions as $option): ?>
+                <option value="<?php echo $option; ?>">
+                    <?php echo $option; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
     <div class=" col-md-4">
         <label for="hasil" class="form-label">Hasil</label>

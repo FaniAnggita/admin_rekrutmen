@@ -8,13 +8,13 @@
     </div>
     <div class="col-md-4">
         <label for="tanggalPsikotest" class="form-label">Tanggal Psikotest</label>
-        <input type="date" class="form-control" id="tanggalPsikotest" name="tanggalPsikotest">
+        <input type="datetime-local" class="form-control" id="tanggalPsikotest" name="tanggalPsikotest">
     </div>
     <div class=" col-md-4">
         <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
         <select id="konfirmasiKehadiran" class="form-select" name="konfirmasiKehadiran">
             <option value="">Choose...</option>
-            <option value="bersedia">>Bersedia</option>
+            <option value="bersedia">Bersedia</option>
             <option value="tidak bersedia">Tidak Bersedia</option>
             <option value="reschedule">Reschedule</option>
         </select>

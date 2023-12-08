@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Iterate through the selected IDs and update or insert data
     foreach ($selectedIds as $id) {
         // Sanitize and validate the ID
-        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $id = filter_var($id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ($id !== false && $id > 0) {
             // Check if id_pelamar already exists in seleksi_interviewuser
@@ -38,11 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pengumuman = $_POST['pengumuman'];
                 $keterangan = $_POST['keterangan'];
                 $hasil = $_POST['hasil'];
+                // Extract interviewer names and store as a comma-separated string
+                $interviewers = implode(',', $_POST['interviewers']);
 
                 if ($count > 0) {
                     // ID already exists, perform UPDATE
                     $updateSql = "UPDATE seleksi_interviewuser SET";
-
                     $updateSql .= isset($_POST['tanggalIntUser']) && $_POST['tanggalIntUser'] !== '' ? " tanggalInterviewUser = '$tanggalInterviewUser'," : '';
                     $updateSql .= isset($_POST['konfirmasiKehadiran']) && $_POST['konfirmasiKehadiran'] !== '' ? " konfirmasiKehadiran_iu = '$konfirmasiKehadiran'," : '';
                     $updateSql .= isset($_POST['dt']) && $_POST['dt'] !== '' ? " dt = '$dt'," : '';
@@ -54,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " hasil_iu = '$hasil'," : '';
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " pengumuman_iu = '$pengumuman'," : '';
                     $updateSql .= isset($_POST['keterangan']) && $_POST['keterangan'] !== '' ? " keterangan_iu = '$keterangan'," : '';
+                    $updateSql .= " interviewer_iu = '$interviewers'";
 
                     // Remove trailing comma
                     $updateSql = rtrim($updateSql, ',');
@@ -72,11 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran_iu, dt, ka, pm, pd, bd, ktb, hasil_iu, pengumuman_iu, keterangan_iu)
-                                  VALUES ('$id', '$tanggalInterviewUser', '$konfirmasiKehadiran', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$hasil', '$pengumuman', '$keterangan')";
-
+                    $insertSql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran_iu, dt, ka, pm, pd, bd, ktb, hasil_iu, pengumuman_iu, keterangan_iu, interviewer_iu)
+                                 VALUES ('$id', '$tanggalInterviewUser', '$konfirmasiKehadiran', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$hasil', '$pengumuman', '$keterangan', '$interviewers')";
                     if ($conn->query($insertSql) === TRUE) {
-                        // Success
+
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';

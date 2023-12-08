@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Iterate through the selected IDs and update or insert data
     foreach ($selectedIds as $id) {
         // Sanitize and validate the ID
-        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $id = filter_var($id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ($id !== false && $id > 0) {
             // Check if id_pelamar already exists in seleksi_indepth
@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $Siker = isset($_POST['Siker']) ? $_POST['Siker'] : '';
                 $pengumuman = isset($_POST['pengumuman']) ? $_POST['pengumuman'] : '';
                 $keterangan = isset($_POST['keterangan']) ? $_POST['keterangan'] : '';
+                $interviewer_indepth = isset($_POST['interviewer_indepth']) ? $_POST['interviewer_indepth'] : '';
                 $hasil = isset($_POST['hasil']) ? $_POST['hasil'] : '';
 
                 if ($count > 0) {
@@ -47,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateSql .= !empty($Siker) ? " Siker = '$Siker'," : '';
                     $updateSql .= !empty($pengumuman) ? " pengumuman_in = '$pengumuman'," : '';
                     $updateSql .= !empty($keterangan) ? " keterangan_in = '$keterangan'," : '';
+                    $updateSql .= !empty($interviewer_indepth) ? " interviewerIndepth = '$interviewer_indepth'," : '';
                     $updateSql .= !empty($hasil) ? " hasilIndepth = '$hasil'," : '';
 
                     // Remove trailing comma
@@ -66,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_indepth (id_pelamar, tanggalIndepth, konfirmasiKehadiran_in, KTB, KPR, Siker, pengumuman_in, keterangan_in, hasilIndepth)
-                                  VALUES ('$id', '$tanggalIndepth', '$konfirmasiKehadiran', '$KTB', '$KPR', '$Siker', '$pengumuman', '$keterangan', '$hasil')";
+                    $insertSql = "INSERT INTO seleksi_indepth (id_pelamar, interviewerIndepth, tanggalIndepth, konfirmasiKehadiran_in, KTB, KPR, Siker, pengumuman_in, keterangan_in, hasilIndepth)
+                                  VALUES ('$id', '$interviewer_indepth', '$tanggalIndepth', '$konfirmasiKehadiran', '$KTB', '$KPR', '$Siker', '$pengumuman', '$keterangan', '$hasil')";
 
                     if ($conn->query($insertSql) === TRUE) {
                         // Success

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Iterate through the selected IDs and update or insert data
     foreach ($selectedIds as $id) {
         // Sanitize and validate the ID
-        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $id = filter_var($id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ($id !== false && $id > 0) {
             // Check if id_pelamar already exists in seleksi_tesbidang
@@ -30,7 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $tanggalTesBidang = $_POST['tanggalTesBidang'];
                 $konfirmasiKehadiran = $_POST['pengumuman']; // Assuming konfirmasi_kehadiran_tb is related to pengumuman
                 $nilaiTesBidang1 = $_POST['nilaiTesBidang1'];
+                $korektor1 = $_POST['korektor1'];
                 $nilaiTesBidang2 = $_POST['nilaiTesBidang2'];
+                $korektor2 = $_POST['korektor2'];
                 $pengumuman = $_POST['pengumuman'];
                 $keterangan = $_POST['keterangan'];
                 $hasil = $_POST['hasil'];
@@ -42,7 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateSql .= isset($_POST['tanggalTesBidang']) && $_POST['tanggalTesBidang'] !== '' ? " tanggalTesBidang = '$tanggalTesBidang'," : '';
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " konfirmasi_kehadiran_tb = '$konfirmasiKehadiran'," : '';
                     $updateSql .= isset($_POST['nilaiTesBidang1']) && $_POST['nilaiTesBidang1'] !== '' ? " nilaiTesBidang1 = '$nilaiTesBidang1'," : '';
+                    $updateSql .= isset($_POST['korektor1']) && $_POST['korektor1'] !== '' ? " korektor1 = '$korektor1'," : '';
                     $updateSql .= isset($_POST['nilaiTesBidang2']) && $_POST['nilaiTesBidang2'] !== '' ? " nilaiTesBidang2 = '$nilaiTesBidang2'," : '';
+                    $updateSql .= isset($_POST['korektor2']) && $_POST['korektor2'] !== '' ? " korektor2 = '$korektor2'," : '';
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " hasil_tb = '$hasil'," : '';
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " pengumuman_tb = '$pengumuman'," : '';
                     $updateSql .= isset($_POST['keterangan']) && $_POST['keterangan'] !== '' ? " keterangan_tb = '$keterangan'," : '';
@@ -64,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, konfirmasi_kehadiran_tb, nilaiTesBidang1, nilaiTesBidang2, hasil_tb, pengumuman_tb, keterangan_tb)
-                                  VALUES ('$id', '$tanggalTesBidang', '$konfirmasiKehadiran', '$nilaiTesBidang1', '$nilaiTesBidang2', '$hasil', '$pengumuman', '$keterangan')";
+                    $insertSql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, konfirmasi_kehadiran_tb, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil_tb, pengumuman_tb, keterangan_tb)
+                                  VALUES ('$id', '$tanggalTesBidang', '$konfirmasiKehadiran', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2','$korektor2', '$hasil', '$pengumuman', '$keterangan')";
 
                     if ($conn->query($insertSql) === TRUE) {
                         // Success

@@ -1,10 +1,19 @@
+<?php
+include 'komponen/koneksi.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
 <form class="row g-3" id="form1" action="../controller/seleksi_administrasi.php" method="post">
 
     <div class="col-md-4">
         <label for="selectedIdsInput" class="form-label">ID Terpilih</label>
         <input type="text" class="form-control" id="selectedIdsInput" name="selectedIdsInput" readonly>
     </div>
-
+    <div class="col-md-4">
+        <label for="tanggal_administrasi" class="form-label">Tanggal Administrasi</label>
+        <input type="datetime-local" class="form-control" id="tanggal_administrasi" name="tanggal_administrasi">
+    </div>
     <div class="col-md-4">
         <label for="nilaiCv" class="form-label">Penilaian CV</label>
         <select id="nilaiCv" class="form-select" name="nilai_cv">

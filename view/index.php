@@ -12,10 +12,10 @@ $result = $conn->query($sql);
 
 $chartData = array('categories' => array(), 'data' => array());
 
-if($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
     array_push($chartData['categories'], $row["kode_ps"]);
-    array_push($chartData['data'], (int)$row["jumlah_pelamar"]);
+    array_push($chartData['data'], (int) $row["jumlah_pelamar"]);
   }
 } else {
   echo "0 results";
@@ -35,12 +35,12 @@ $labelMapping = array(
   "choose" => "Diproses"
 );
 
-if($resultRekomendasi->num_rows > 0) {
-  while($row = $resultRekomendasi->fetch_assoc()) {
+if ($resultRekomendasi->num_rows > 0) {
+  while ($row = $resultRekomendasi->fetch_assoc()) {
     // Mengubah label sesuai mapping
     $label = $labelMapping[$row["rekomendasi"]];
     array_push($chartDataRekomendasi['categories'], $label);
-    array_push($chartDataRekomendasi['data'], (int)$row["jumlah_pelamar"]);
+    array_push($chartDataRekomendasi['data'], (int) $row["jumlah_pelamar"]);
   }
 } else {
   echo "0 results";
@@ -98,7 +98,7 @@ if($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if($result) {
+                          if ($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_posisi'];
@@ -131,7 +131,7 @@ if($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if($result) {
+                          if ($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_pelamar'];
@@ -163,7 +163,7 @@ if($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if($result) {
+                          if ($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_pelamar'];
@@ -195,7 +195,7 @@ if($resultRekomendasi->num_rows > 0) {
                           // Eksekusi query
                           $result = $conn->query($query);
 
-                          if($result) {
+                          if ($result) {
                             // Ambil hasil perhitungan
                             $row = $result->fetch_assoc();
                             $totalPosisi = $row['total_pelamar'];
@@ -268,7 +268,7 @@ if($resultRekomendasi->num_rows > 0) {
                         <?php
                         // Ambil data dari database dan tampilkan dalam tabel
                         // Filter tanggal
-                        if(isset($_POST['start_date']) && isset($_POST['end_date']) && $_POST['start_date'] != '' && $_POST['end_date'] != '') {
+                        if (isset($_POST['start_date']) && isset($_POST['end_date']) && $_POST['start_date'] != '' && $_POST['end_date'] != '') {
                           $start_date = $_POST['start_date'];
                           $end_date = $_POST['end_date'];
 
@@ -326,37 +326,37 @@ if($resultRekomendasi->num_rows > 0) {
                         $total_jumlah_lolos_admin = 0;
                         $total_jumlah_tidak_lolos_admin = 0;
                         $total_jumlah_pilih_admin = 0;
-                        if($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) {
+                        if ($result->num_rows > 0) {
+                          while ($row = $result->fetch_assoc()) {
 
                             echo "<tr>";
-                            echo "<td>".$i."</td>";
-                            echo "<td>".$row['nama_ps']."</td>";
-                            echo "<td>".$row['kode_ps']."</td>";
+                            echo "<td>" . $i . "</td>";
+                            echo "<td>" . $row['nama_ps'] . "</td>";
+                            echo "<td>" . $row['kode_ps'] . "</td>";
                             echo "<td>  PIM </td>";
-                            echo "<td>".$row['jumlah_pelamar']."</td>";
-                            echo "<td>".$row['total_pelamar']."</td>";
-                            echo "<td>".$row['jumlah_lolos_administrasi']."</td>";
-                            echo "<td>".$row['jumlah_tidak_lolos_administrasi']."</td>";
+                            echo "<td>" . $row['jumlah_pelamar'] . "</td>";
+                            echo "<td>" . $row['total_pelamar'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos_administrasi'] . "</td>";
+                            echo "<td>" . $row['jumlah_tidak_lolos_administrasi'] . "</td>";
                             echo "<td> - </td>";
-                            echo "<td>".$row['jumlah_lolos_administrasi'] + $row['jumlah_tidak_lolos_administrasi']."</td>";
-                            echo "<td>".$row['jumlah_lolos_wii']."</td>";
-                            echo "<td>".$row['jumlah_tidak_lolos_wii']."</td>";
+                            echo "<td>" . $row['jumlah_lolos_administrasi'] + $row['jumlah_tidak_lolos_administrasi'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos_wii'] . "</td>";
+                            echo "<td>" . $row['jumlah_tidak_lolos_wii'] . "</td>";
                             echo "<td> - </td>";
-                            echo "<td>".$row['jumlah_lolos_wii'] + $row['jumlah_tidak_lolos_wii']."</td>";
-                            echo "<td>".$row['jumlah_lolos_psikotest']."</td>";
-                            echo "<td>".$row['jumlah_tidak_lolos_psikotest']."</td>";
+                            echo "<td>" . $row['jumlah_lolos_wii'] + $row['jumlah_tidak_lolos_wii'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos_psikotest'] . "</td>";
+                            echo "<td>" . $row['jumlah_tidak_lolos_psikotest'] . "</td>";
                             echo "<td> - </td>";
                             echo "<td> - </td>";
-                            echo "<td>".$row['jumlah_lolos_psikotest'] + $row['jumlah_tidak_lolos_psikotest']."</td>";
-                            echo "<td>".$row['jumlah_lolos_indepth']."</td>";
-                            echo "<td>".$row['jumlah_tidak_lolos_indepth']."</td>";
+                            echo "<td>" . $row['jumlah_lolos_psikotest'] + $row['jumlah_tidak_lolos_psikotest'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos_indepth'] . "</td>";
+                            echo "<td>" . $row['jumlah_tidak_lolos_indepth'] . "</td>";
                             echo "<td>-</td>";
-                            echo "<td>".$row['jumlah_lolos_indepth'] + $row['jumlah_tidak_lolos_indepth']."</td>";
-                            echo "<td>".$row['jumlah_lolos_interviewuser']."</td>";
-                            echo "<td>".$row['jumlah_tidak_lolos_interviewuser']."</td>";
+                            echo "<td>" . $row['jumlah_lolos_indepth'] + $row['jumlah_tidak_lolos_indepth'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos_interviewuser'] . "</td>";
+                            echo "<td>" . $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
                             echo "<td>-</td>";
-                            echo "<td>".$row['jumlah_lolos_interviewuser'] + $row['jumlah_tidak_lolos_interviewuser']."</td>";
+                            echo "<td>" . $row['jumlah_lolos_interviewuser'] + $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
 
                             // hitung total
                             $total_jumlah_lolos_admin += $row['total_pelamar'];
@@ -488,7 +488,6 @@ if($resultRekomendasi->num_rows > 0) {
         },
 
         scrollX: true,
-        scrollY: 450,
         dom: 'Blfrtip',
         buttons: [
           'excelHtml5',

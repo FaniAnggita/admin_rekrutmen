@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Check if the form is submitted
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract data from the form
     $selectedIdsString = $_POST['selectedIdsInputWii'];
 
@@ -13,16 +13,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedIds = explode(',', $selectedIdsString);
 
     // Iterate through the selected IDs and update or insert data
-    foreach($selectedIds as $id) {
+    foreach ($selectedIds as $id) {
         // Sanitize and validate the ID
-        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $id = filter_var($id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if($id !== false && $id > 0) {
+        if ($id !== false && $id > 0) {
             // Check if id_pelamar already exists in seleksi_wii
             $checkSql = "SELECT COUNT(*) as count FROM seleksi_wii WHERE id_pelamar = '$id'";
             $result = $conn->query($checkSql);
 
-            if($result !== false) {
+            if ($result !== false) {
                 $row = $result->fetch_assoc();
                 $count = $row['count'];
 
@@ -33,25 +33,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $a = isset($_POST['a']) ? $_POST['a'] : '';
                 $k = isset($_POST['k']) ? $_POST['k'] : '';
                 $r = isset($_POST['r']) ? $_POST['r'] : '';
+                $interviewer_wii = isset($_POST['interviewer_wii']) ? $_POST['interviewer_wii'] : '';
                 $akun_platform = isset($_POST['akun_platform']) ? $_POST['akun_platform'] : '';
                 $pengumuman = isset($_POST['pengumuman']) ? $_POST['pengumuman'] : '';
                 $rating = isset($_POST['rating']) ? $_POST['rating'] : '';
 
-                if($count > 0) {
+                if ($count > 0) {
                     // ID already exists, perform UPDATE
                     $updateSql = "UPDATE seleksi_wii SET
-                                  waktuInterview = ".($waktuInterview !== '' ? "'$waktuInterview'" : "NULL").",
-                                  konfirmasiKehadiran_wii = ".($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL").",
-                                  p = ".($p !== '' ? "'$p'" : "NULL").",
-                                  a = ".($a !== '' ? "'$a'" : "NULL").",
-                                  k = ".($k !== '' ? "'$k'" : "NULL").",
-                                  r = ".($r !== '' ? "'$r'" : "NULL").",
-                                  akun_platform = ".($akun_platform !== '' ? "'$akun_platform'" : "NULL").",
-                                  rating_wii = ".($rating !== '' ? "'$rating'" : "NULL").",
-                                  pengumuman_wii = ".($pengumuman !== '' ? "'$pengumuman'" : "NULL")."
+                                  waktuInterview = " . ($waktuInterview !== '' ? "'$waktuInterview'" : "NULL") . ",
+                                  konfirmasiKehadiran_wii = " . ($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL") . ",
+                                  p = " . ($p !== '' ? "'$p'" : "NULL") . ",
+                                  a = " . ($a !== '' ? "'$a'" : "NULL") . ",
+                                  k = " . ($k !== '' ? "'$k'" : "NULL") . ",
+                                  r = " . ($r !== '' ? "'$r'" : "NULL") . ",
+                                  akun_platform = " . ($akun_platform !== '' ? "'$akun_platform'" : "NULL") . ",
+                                  interviewer_wii = " . ($interviewer_wii !== '' ? "'$interviewer_wii'" : "NULL") . ",
+                                  rating_wii = " . ($rating !== '' ? "'$rating'" : "NULL") . ",
+                                  pengumuman_wii = " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . "
                                   WHERE id_pelamar = '$id'";
 
-                    if($conn->query($updateSql) === TRUE) {
+                    if ($conn->query($updateSql) === TRUE) {
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';
@@ -59,14 +61,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo '</script>';
                     } else {
                         // Error
-                        echo ('Error updating data: '.$conn->error);
+                        echo ('Error updating data: ' . $conn->error);
                     }
                 } else {
                     // ID does not exist, perform INSERT
                     $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, akun_platform)
-                                  VALUES ('$id', ".($waktuInterview !== '' ? "'$waktuInterview'" : "NULL").", ".($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL").", ".($p !== '' ? "'$p'" : "NULL").", ".($a !== '' ? "'$a'" : "NULL").", ".($k !== '' ? "'$k'" : "NULL").", ".($r !== '' ? "'$r'" : "NULL").", ".($rating !== '' ? "'$rating'" : "NULL").", ".($pengumuman !== '' ? "'$pengumuman'" : "NULL").", ".($akun_platform !== '' ? "'$akun_platform'" : "NULL").")";
+                                  VALUES ('$id', " . ($waktuInterview !== '' ? "'$waktuInterview'" : "NULL") . ", " . ($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL") . ", " . ($p !== '' ? "'$p'" : "NULL") . ", " . ($a !== '' ? "'$a'" : "NULL") . ", " . ($k !== '' ? "'$k'" : "NULL") . ", " . ($r !== '' ? "'$r'" : "NULL") . ", " . ($rating !== '' ? "'$rating'" : "NULL") . ", " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . ", " . ($akun_platform !== '' ? "'$akun_platform'" : "NULL") . ", " . ($interviewer_wii !== '' ? "'$interviewer_wii'" : "NULL") . ")";
 
-                    if($conn->query($insertSql) === TRUE) {
+                    if ($conn->query($insertSql) === TRUE) {
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';
@@ -74,12 +76,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo '</script>';
                     } else {
                         // Error
-                        echo ('Error inserting data: '.$conn->error);
+                        echo ('Error inserting data: ' . $conn->error);
                     }
                 }
             } else {
                 // Error in query
-                echo ('Error checking ID: '.$conn->error);
+                echo ('Error checking ID: ' . $conn->error);
             }
         } else {
             // Invalid ID

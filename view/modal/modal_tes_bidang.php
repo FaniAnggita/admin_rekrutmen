@@ -12,12 +12,54 @@
         <label for="nilaiTesBidang1" class="form-label">Nilai Tes Bidang 1</label>
         <input type="number" class="form-control" id="nilaiTesBidang1" name="nilaiTesBidang1">
     </div>
+    <div class="col-md-4">
+        <?php
+        // Fetch distinct values for the "Interviewer" field
+        $sql = "SELECT nama_int FROM interviewer";
+        $result = $conn->query($sql);
 
+        // Store distinct values in an array
+        $interviewerOptions = [];
+        while ($row = $result->fetch_assoc()) {
+            $interviewerOptions[] = $row['nama_int'];
+        }
+        ?>
+        <label for="korektor1" class="form-label">Korektor 1</label>
+        <select id="korektor1" class="form-select" name="korektor1">
+            <option value="">Choose...</option>
+            <?php foreach ($interviewerOptions as $option): ?>
+                <option value="<?php echo $option; ?>">
+                    <?php echo $option; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
     <div class="col-md-4">
         <label for="nilaiTesBidang2" class="form-label">Nilai Tes Bidang 2</label>
         <input type="number" class="form-control" id="nilaiTesBidang2" name="nilaiTesBidang2">
     </div>
+    <div class="col-md-4">
+        <?php
+        // Fetch distinct values for the "Interviewer" field
+        $sql = "SELECT nama_int FROM interviewer";
+        $result = $conn->query($sql);
 
+        // Store distinct values in an array
+        $interviewerOptions = [];
+        while ($row = $result->fetch_assoc()) {
+            $interviewerOptions[] = $row['nama_int'];
+        }
+        ?>
+        <label for="korektor2" class="form-label">Korektor 2</label>
+        <select id="korektor2" class="form-select" name="korektor2">
+            <option value="">Choose...</option>
+            <?php foreach ($interviewerOptions as $option): ?>
+                <option value="<?php echo $option; ?>">
+                    <?php echo $option; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
     <div class="col-md-4">
         <label for="pengumuman" class="form-label">Pengumuman</label>
