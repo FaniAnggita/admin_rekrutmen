@@ -23,13 +23,13 @@
 
                     <div class="col-md-4">
                         <label for="start_date" class="form-label">Tanggal Awal
-                            Lamaran:</label>
+                            :</label>
                         <input type="date" id="start_date" class="form-control" name="start_date"
                             value="<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>">
                     </div>
                     <div class="col-md-4">
                         <label for="end_date" class="form-label">Tanggal Akhir
-                            Lamaran:</label>
+                            :</label>
                         <input type="date" id="end_date" class="form-control" name="end_date"
                             value="<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>">
                     </div>

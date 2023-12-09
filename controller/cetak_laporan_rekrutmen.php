@@ -34,7 +34,7 @@ require_once '../koneksi/koneksi.php';
                 <th>Nama</th>
                 <!-- Administrasi -->
                 <th>Tgl. Adm</th>
-                <th>Dokumen</th>
+
                 <th>CV</th>
                 <th>Klf</th>
                 <th> Pgl</th>
@@ -110,13 +110,13 @@ require_once '../koneksi/koneksi.php';
 
             // Ambil data dari database dan tampilkan dalam tabel
             $sql = "SELECT * FROM pelamar2 pl
-                                                LEFT JOIN seleksi_administrasi sa ON  pl.id = sa.id_pelamar
-                                                LEFT JOIN seleksi_wii sw ON pl.id = sw.id_pelamar
-                                                LEFT JOIN seleksi_psikotest sp ON pl.id = sp.id_pelamar
-                                                LEFT JOIN seleksi_indepth si ON pl.id = si.id_pelamar
-                                                LEFT JOIN seleksi_tesbidang st ON pl.id = st.id_pelamar
-                                                LEFT JOIN seleksi_interviewuser sin ON pl.id = sin.id_pelamar
-                                                LEFT JOIN pelamar_lolos pls ON pl.id = pls.id_pelamar";
+                                                LEFT JOIN seleksi_administrasi sa ON  pl.kode_pelamar = sa.id_pelamar
+                                                LEFT JOIN seleksi_wii sw ON pl.kode_pelamar = sw.id_pelamar
+                                                LEFT JOIN seleksi_psikotest sp ON pl.kode_pelamar = sp.id_pelamar
+                                                LEFT JOIN seleksi_indepth si ON pl.kode_pelamar = si.id_pelamar
+                                                LEFT JOIN seleksi_tesbidang st ON pl.kode_pelamar = st.id_pelamar
+                                                LEFT JOIN seleksi_interviewuser sin ON pl.kode_pelamar = sin.id_pelamar
+                                                LEFT JOIN pelamar_lolos pls ON pl.kode_pelamar = pls.id_pelamar";
 
 
 
@@ -140,7 +140,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='$tes not-editable'>" . $row['nama_lengkap'] . "</td>";
                     // Administrasi
                     echo "<td class='editable-datetime'>" . $row['waktuInterview'] . "</td>";
-                    echo "<td class='not-editable'><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
+
                     $options = ['1', '0', 'pilih'];
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_cv'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_kualifikasi'] . "</td>";

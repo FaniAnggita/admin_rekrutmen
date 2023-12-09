@@ -277,14 +277,20 @@ if ($resultRekomendasi->num_rows > 0) {
                           COUNT(*) as total_pelamar,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_administrasi,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_administrasi,
+                          SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'blm seleksi' THEN 1 ELSE 0 END) as jumlah_belum_seleksi_administrasi,
                           SUM(CASE WHEN seleksi_wii.rating_wii = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_wii,
                           SUM(CASE WHEN seleksi_wii.rating_wii = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_wii,
+                          SUM(CASE WHEN seleksi_wii.rating_wii = 'blm dijadwalkan' THEN 1 ELSE 0 END) as blm_dijadwalkan_wii,
                           SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_psikotest,
                           SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_psikotest,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'dlm proses' THEN 1 ELSE 0 END) as jumlah_dlm_proses_psikotest,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'tdk psikotest' THEN 1 ELSE 0 END) as jumlah_tdk_psikotest,
                           SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_indepth,
                           SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_indepth,
+                          SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'blm dijadwalkan' THEN 1 ELSE 0 END) as blm_dijadwalkan,
                           SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_interviewuser,
-                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_interviewuser
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_interviewuser,
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'blm dijadwalkan' THEN 1 ELSE 0 END) as blm_dijadwalkan_interviewuser
                           FROM pelamar2
                           JOIN posisi ON pelamar2.kode_ps = posisi.kode_ps
                           LEFT JOIN seleksi_administrasi ON pelamar2.kode_pelamar = seleksi_administrasi.id_pelamar
@@ -302,14 +308,20 @@ if ($resultRekomendasi->num_rows > 0) {
                           COUNT(*) as total_pelamar,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_administrasi,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_administrasi,
+                          SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'blm seleksi' THEN 1 ELSE 0 END) as jumlah_belum_seleksi_administrasi,
                           SUM(CASE WHEN seleksi_wii.rating_wii = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_wii,
                           SUM(CASE WHEN seleksi_wii.rating_wii = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_wii,
+                          SUM(CASE WHEN seleksi_wii.rating_wii = 'blm dijadwalkan' THEN 1 ELSE 0 END) as blm_dijadwalkan_wii,
                           SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_psikotest,
                           SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_psikotest,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'dlm proses' THEN 1 ELSE 0 END) as jumlah_dlm_proses_psikotest,
+                          SUM(CASE WHEN seleksi_psikotest.rating_psikotest = 'tdk psikotest' THEN 1 ELSE 0 END) as jumlah_tdk_psikotest,
                           SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_indepth,
                           SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_indepth,
+                          SUM(CASE WHEN seleksi_indepth.hasilIndepth = 'blm dijadwalkan' THEN 1 ELSE 0 END) as blm_dijadwalkan,
                           SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_interviewuser,
-                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_interviewuser
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_interviewuser,
+                          SUM(CASE WHEN seleksi_interviewuser.hasil_iu = 'blm dijadwalkan' THEN 1 ELSE 0 END) as blm_dijadwalkan_interviewuser
                           FROM pelamar2
                           JOIN posisi ON pelamar2.kode_ps = posisi.kode_ps
                           LEFT JOIN seleksi_administrasi ON pelamar2.kode_pelamar = seleksi_administrasi.id_pelamar
@@ -323,9 +335,33 @@ if ($resultRekomendasi->num_rows > 0) {
                         $result = $conn->query($sql);
 
                         $i = 1;
-                        $total_jumlah_lolos_admin = 0;
-                        $total_jumlah_tidak_lolos_admin = 0;
-                        $total_jumlah_pilih_admin = 0;
+                        $total_pelamar = 0;
+                        // Administrasi
+                        $total_lolos_admin = 0;
+                        $total_tidak_lolos_admin = 0;
+                        $total_belum_seleksi_administrasi = 0;
+
+                        // WII
+                        $total_lolos_wii = 0;
+                        $total_tidak_lolos_wii = 0;
+                        $total_belum_dijadwalkan_wii = 0;
+
+                        // Psikotest
+                        $total_lolos_psikotest = 0;
+                        $total_tidak_lolos_psikotest = 0;
+                        $total_dalam_proses_psikotest = 0;
+                        $total_tidak_psikotest = 0;
+
+                        // Indepth
+                        $total_lolos_indepth = 0;
+                        $total_tidak_lolos_indepth = 0;
+                        $total_belum_dijadwalkan_indepth = 0;
+
+                        // Interview User
+                        $total_lolos_iu = 0;
+                        $total_tidak_lolos_iu = 0;
+                        $total_belum_dijadwalkan_iu = 0;
+
                         if ($result->num_rows > 0) {
                           while ($row = $result->fetch_assoc()) {
 
@@ -338,20 +374,20 @@ if ($resultRekomendasi->num_rows > 0) {
                             echo "<td>" . $row['total_pelamar'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_administrasi'] . "</td>";
                             echo "<td>" . $row['jumlah_tidak_lolos_administrasi'] . "</td>";
-                            echo "<td> - </td>";
-                            echo "<td>" . $row['jumlah_lolos_administrasi'] + $row['jumlah_tidak_lolos_administrasi'] . "</td>";
+                            echo "<td>" . $row['jumlah_belum_seleksi_administrasi'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos_administrasi'] + $row['jumlah_tidak_lolos_administrasi'] + $row['jumlah_belum_seleksi_administrasi'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_wii'] . "</td>";
                             echo "<td>" . $row['jumlah_tidak_lolos_wii'] . "</td>";
-                            echo "<td> - </td>";
+                            echo "<td>" . $row['blm_dijadwalkan_wii'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_wii'] + $row['jumlah_tidak_lolos_wii'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_psikotest'] . "</td>";
                             echo "<td>" . $row['jumlah_tidak_lolos_psikotest'] . "</td>";
-                            echo "<td> - </td>";
-                            echo "<td> - </td>";
-                            echo "<td>" . $row['jumlah_lolos_psikotest'] + $row['jumlah_tidak_lolos_psikotest'] . "</td>";
+                            echo "<td>" . $row['jumlah_dlm_proses_psikotest'] . "</td>";
+                            echo "<td>" . $row['jumlah_tdk_psikotest'] . "</td>";
+                            echo "<td>" . $row['jumlah_lolos_psikotest'] + $row['jumlah_tidak_lolos_psikotest'] + $row['jumlah_dlm_proses_psikotest'] + $row['jumlah_dlm_proses_psikotest'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_indepth'] . "</td>";
                             echo "<td>" . $row['jumlah_tidak_lolos_indepth'] . "</td>";
-                            echo "<td>-</td>";
+                            echo "<td>" . $row['blm_dijadwalkan'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_indepth'] + $row['jumlah_tidak_lolos_indepth'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_interviewuser'] . "</td>";
                             echo "<td>" . $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
@@ -359,7 +395,33 @@ if ($resultRekomendasi->num_rows > 0) {
                             echo "<td>" . $row['jumlah_lolos_interviewuser'] + $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
 
                             // hitung total
-                            $total_jumlah_lolos_admin += $row['total_pelamar'];
+                            $total_pelamar += $row['total_pelamar'];
+
+                            // administrasi
+                            $total_lolos_admin += $row['jumlah_lolos_administrasi'];
+                            $total_tidak_lolos_admin += $row['jumlah_tidak_lolos_administrasi'];
+                            $total_belum_seleksi_administrasi += $row['jumlah_belum_seleksi_administrasi'];
+
+                            // WII
+                            $total_lolos_wii += $row['jumlah_lolos_wii'];
+                            $total_tidak_lolos_wii += $row['jumlah_tidak_lolos_wii'];
+                            $total_belum_dijadwalkan_wii += $row['blm_dijadwalkan_wii'];
+
+                            // Psikotest
+                            $total_lolos_psikotest += $row['jumlah_lolos_psikotest'];
+                            $total_tidak_lolos_psikotest += $row['jumlah_tidak_lolos_psikotest'];
+                            $total_dalam_proses_psikotest += $row['jumlah_dlm_proses_psikotest'];
+                            $total_tidak_psikotest += $row['jumlah_tdk_psikotest'];
+
+                            // Indepth
+                            $total_lolos_indepth += $row['jumlah_lolos_indepth'];
+                            $total_tidak_lolos_indepth += $row['jumlah_tidak_lolos_indepth'];
+                            $total_belum_dijadwalkan_indepth = $row['blm_dijadwalkan'];
+
+                            // Interview User
+                            $total_lolos_iu += $row['jumlah_lolos_interviewuser'];
+                            $total_tidak_lolos_iu += $row['jumlah_tidak_lolos_interviewuser'];
+                            $total_belum_dijadwalkan_iu = 0;
                             echo "</tr>";
                             $i++;
                           }
@@ -367,32 +429,74 @@ if ($resultRekomendasi->num_rows > 0) {
                         ?>
                       </tbody>
                       <tfoot>
-                        <tr>
-                          <td colspan="5"></td>
+                        <tr class="text-center">
+                          <td colspan="5"><b>Total</b></td>
                           <td>
-                            <?php echo $total_jumlah_lolos_admin; ?>
+                            <?php echo $total_pelamar; ?>
                           </td>
-                          <td>Lolos</td>
-                          <td>Tidak Lolos</td>
-                          <td>Belum Diseleksi</td>
-                          <td>Total</td>
-                          <td>Lolos</td>
-                          <td>Tidak Lolos</td>
-                          <td>Belum Dijadwalkan</td>
-                          <td>Total</td>
-                          <td>Lolos</td>
-                          <td>Tidak Lolos</td>
-                          <td>Dalam Proses</td>
-                          <td>Tidak Psikotest</td>
-                          <td>Total</td>
-                          <td>Lolos</td>
-                          <td>Tidak Lolos</td>
-                          <td>Belum Dijadwalkan</td>
-                          <td>Total</td>
-                          <td>Lolos</td>
-                          <td>Tidak Lolos</td>
-                          <td>Belum Dijadwalkan</td>
-                          <td>Total</td>
+                          <td>
+                            <?php echo $total_lolos_admin; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_tidak_lolos_admin; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_belum_seleksi_administrasi; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_admin + $total_tidak_lolos_admin + $total_belum_seleksi_administrasi; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_wii; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_tidak_lolos_wii; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_belum_dijadwalkan_wii; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_wii + $total_tidak_lolos_wii + $total_belum_dijadwalkan_wii; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_psikotest; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_tidak_lolos_psikotest; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_dalam_proses_psikotest; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_tidak_psikotest; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_psikotest + $total_tidak_lolos_psikotest + $total_dalam_proses_psikotest + $total_tidak_psikotest; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_indepth; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_tidak_lolos_indepth; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_belum_dijadwalkan_indepth; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_indepth + $total_tidak_lolos_indepth + $total_belum_dijadwalkan_indepth; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_iu; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_tidak_lolos_iu; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_belum_dijadwalkan_iu; ?>
+                          </td>
+                          <td>
+                            <?php echo $total_lolos_iu + $total_tidak_lolos_iu + $total_belum_dijadwalkan_iu; ?>
+                          </td>
                         </tr>
                       </tfoot>
                     </table>

@@ -64,13 +64,13 @@ include 'komponen/koneksi.php';
                                             data-bs-target="#modalFilterProses">
                                             <i class="fa-solid fa-filter"></i> Filter
                                         </button>
-                                        <!-- <a href="../controller/cetak_laporan_rekrutmen.php"
+                                        <a href="../controller/cetak_laporan_rekrutmen.php"
                                             class="btn btn-sm btn-danger " target="_blank">
                                             <i class="fa-solid fa-print"></i> Export
-                                        </a> -->
-                                        <button onclick="exportToExcel()" class="btn btn-sm btn-danger "
+                                        </a>
+                                        <!-- <button onclick="exportToExcel()" class="btn btn-sm btn-danger "
                                             target="_blank">
-                                            <i class="fa-solid fa-print"></i> Export</button>
+                                            <i class="fa-solid fa-print"></i> Export</button> -->
                                     </div>
 
                                 </div>
@@ -117,10 +117,11 @@ include 'komponen/koneksi.php';
                                                 data-bs-title="Keterangan Seleksi Administrasi">Keterangan</th>
                                             <!-- Akhir Administrasi -->
                                             <!-- WII -->
-                                            <th class="table-info">Waktu WII</th>
-                                            <th class="table-info">Konfirmasi</th>
-                                            <th class="table-info">P</th>
-                                            <th class="table-info">A</th>
+                                            <th class="table-info" class="table-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Keterangan WII">Waktu WII</th>
+                                            <th class="table-info" data-bs-title="Konfirmasi WII">Konfirmasi</th>
+                                            <th class="table-info" data-bs-title="Pakar">P</th>
+                                            <th class="table-info" data-bs-title="Antusias">A</th>
                                             <th class="table-info">K</th>
                                             <th class="table-info">R</th>
                                             <th class="table-info">Platform Loker</th>
@@ -258,20 +259,20 @@ include 'komponen/koneksi.php';
                                                                 <div class="card card-body">
                                                                     <ul>
                                                                         <li><a class="btn"
-                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=wii"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=wii"
                                                                                 target="_blank">WII</a>
                                                                         </li>
                                                                         <li><a class="btn"
-                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=psikotest"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=psikotest"
                                                                                 target="_blank">Psikotest</a></li>
                                                                         <li><a class="btn"
-                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=indepth"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=indepth"
                                                                                 target="_blank">Indepth</a></li>
                                                                         <li><a class="btn"
-                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=tesbidang"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=tesbidang"
                                                                                 target="_blank">Test Bidang</a></li>
                                                                         <li><a class="btn"
-                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['id']; ?>' && pesan=interviewuser"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=interviewuser"
                                                                                 target="_blank">Interview User</a></li>
                                                                     </ul>
                                                                 </div>
@@ -529,14 +530,14 @@ include 'komponen/koneksi.php';
                                                     echo rtrim(', ', ', ');
                                                     // ...
                                                     ?>
-                                                        </td>
+                                                </td>
 
 
-                                                        <?php
-                                                        echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
-                                                        echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
-                                                        // AKhir Hasil Akhir
-                                                        echo "</tr>";
+                                                <?php
+                                                echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
+                                                echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
+                                                // AKhir Hasil Akhir
+                                                echo "</tr>";
                                             }
                                         }
 

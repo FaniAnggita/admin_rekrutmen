@@ -46,7 +46,7 @@ include 'komponen/koneksi.php';
                                             <select id="kode_ps" class="form-select" name="kode_ps">
                                                 <?php
                                                 // Ambil data dari database dan tampilkan dalam tabel
-                                                $sql = "SELECT * FROM posisi";
+                                                $sql = "SELECT * FROM posisi WHERE status_posisi = 1";
                                                 $result = $conn->query($sql);
 
                                                 if ($result->num_rows > 0) {
