@@ -18,8 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       // Verify password
       if (password_verify($password, $user["password"])) {
-        // Password is correct, user is authenticated
-        // You can set session variables or perform other actions here
+        session_start();
+        $_SESSION['nik'] = $user['nik'];
+        $_SESSION['status'] = 'login';
         header("Location: index.php");
       } else {
         // Password is incorrect

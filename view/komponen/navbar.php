@@ -1,4 +1,19 @@
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+<?php
+session_start();
+if (isset($_SESSION["nik"])) {
+    $nik = $_SESSION["nik"];
+    // SQL query to check user credentials
+    $sql = "SELECT * FROM `users` WHERE `nik` = '$nik' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+
+
+    $user = mysqli_fetch_assoc($result);
+
+
+}
+?>
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+    id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
             <i class="bx bx-menu bx-sm"></i>
@@ -38,12 +53,17 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img src="../assets/img/avatars/1.png" alt
+                                            class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">tes</span>
-                                    <small class="text-muted">tes</small>
+                                    <span class="fw-semibold d-block">
+                                        <?php echo $user['name']; ?>
+                                    </span>
+                                    <small class="text-muted">
+                                        <?php echo $user['email']; ?>
+                                    </small>
                                 </div>
                             </div>
 
@@ -52,14 +72,9 @@
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
+
                     <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="setting.php">
                             <i class="bx bx-cog me-2"></i>
                             <span class="align-middle">Settings</span>
                         </a>

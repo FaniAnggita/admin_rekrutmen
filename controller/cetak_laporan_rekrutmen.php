@@ -414,12 +414,17 @@ require_once '../koneksi/koneksi.php';
 
             // Save the workbook as an Excel file
             XLSX.writeFile(wb, 'data_rekrutmen.xlsx');
+
+            // Automatically close the page after 3 seconds
+            setTimeout(function () {
+                window.close();
+            }, 1000);
         }
 
         // Automatically trigger the export function when the page is loaded
         document.addEventListener('DOMContentLoaded', exportToExcel);
-
     </script>
+
 
 </body>
 

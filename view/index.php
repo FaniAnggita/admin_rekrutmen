@@ -224,7 +224,7 @@ if ($resultRekomendasi->num_rows > 0) {
                     <?php include_once 'modal/modal_filter_dashboard.php'; ?>
                   </div>
                   <div class="card-body table-responsive">
-                    <table class="table table-bordered text-center">
+                    <table class="table table-bordered">
                       <thead>
                         <tr>
                           <th colspan="6"></th>

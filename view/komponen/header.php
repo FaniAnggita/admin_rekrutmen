@@ -1,3 +1,11 @@
+<?php
+
+// mengaktifkan session
+session_start();
+// cek apakah user telah login, jika belum login maka di alihkan ke halaman login
+if ($_SESSION['status'] != "login") {
+  header("location: login.php");
+} ?>
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"

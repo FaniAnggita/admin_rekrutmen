@@ -2,6 +2,19 @@
 $page = 'setting';
 include 'komponen/header.php';
 include 'komponen/koneksi.php';
+
+session_start();
+if (isset($_SESSION["nik"])) {
+    $nik = $_SESSION["nik"];
+    // SQL query to check user credentials
+    $sql = "SELECT * FROM `users` WHERE `nik` = '$nik' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+
+
+    $user = mysqli_fetch_assoc($result);
+
+
+}
 ?>
 
 <body onload="startTime()">
@@ -32,20 +45,19 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">User Setting</h5>
-
                             </div>
 
 
                             <div class="card-body">
-                                <form id="add_user">
+                                <form id="edit_user">
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="name">NIK</label>
+                                        <label class="col-sm-2 col-form-label" for="nik">NIK</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-id-card"></i></span>
                                                 <input type="text" class="form-control" id="nik" name="nik"
                                                     aria-label="John Doe" aria-describedby="nik" autocomplete="off"
-                                                    readonly>
+                                                    readonly value="<?php echo $user['nik']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -56,7 +68,7 @@ include 'komponen/koneksi.php';
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
                                                 <input type="text" class="form-control" id="name" name="name"
                                                     aria-label="John Doe" aria-describedby="name" autocomplete="off"
-                                                    readonly>
+                                                    readonly value="<?php echo $user['name']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -66,7 +78,7 @@ include 'komponen/koneksi.php';
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                                                 <input type="email" class="form-control" id="email" name="email"
-                                                    autocomplete="off" readonly>
+                                                    autocomplete="off" readonly value="<?php echo $user['email']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -110,13 +122,8 @@ include 'komponen/koneksi.php';
                                     </div>
                                 </form>
                             </div>
-
                         </div>
-
                     </div>
-
-
-
 
                     <!-- Footer -->
                     <?php
@@ -158,10 +165,6 @@ include 'komponen/koneksi.php';
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-
-
-
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -179,11 +182,6 @@ include 'komponen/koneksi.php';
 
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
-
-
-
-
 </body>
 
 </html>
