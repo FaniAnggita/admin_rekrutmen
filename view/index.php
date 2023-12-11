@@ -391,7 +391,7 @@ if ($resultRekomendasi->num_rows > 0) {
                             echo "<td>" . $row['jumlah_lolos_indepth'] + $row['jumlah_tidak_lolos_indepth'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_interviewuser'] . "</td>";
                             echo "<td>" . $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
-                            echo "<td>-</td>";
+                            echo "<td>" . $row['blm_dijadwalkan_interviewuser'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_interviewuser'] + $row['jumlah_tidak_lolos_interviewuser'] . "</td>";
 
                             // hitung total
