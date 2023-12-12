@@ -32,8 +32,22 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Posisi</h5>
-                                <a href="add_posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i>
-                                    Tambah</a>
+                                <?php
+
+                                if (isset($_SESSION["nik"])) {
+                                    $nik = $_SESSION["nik"];
+                                    // SQL query to check user credentials
+                                    $sql = "SELECT * FROM `users` WHERE `nik` = '$nik' LIMIT 1";
+                                    $result = mysqli_query($conn, $sql);
+                                    $user = mysqli_fetch_assoc($result);
+                                    if ($user['role'] == 1) {
+                                        echo '<a href="add_posisi.php" class="btn btn-danger btn-sm"> <i class="bx bx-plus"></i>
+                                        Tambah</a>';
+                                    }
+                                }
+
+                                ?>
+
                             </div>
 
 
