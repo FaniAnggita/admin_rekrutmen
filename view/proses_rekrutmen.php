@@ -1135,8 +1135,8 @@ include 'komponen/koneksi.php';
 
 
 
-            // Add a checkbox for row selection
-            $('#deviceTable thead tr').first().prepend('<th><input type="checkbox" id="select-all"></th>');
+            // // Add a checkbox for row selection
+            // $('#deviceTable thead tr').first().prepend('<th><input type="checkbox" id="select-all"></th>');
 
             // Handle row selection
             $('#deviceTable tbody').on('click', '.select-checkbox', function () {
