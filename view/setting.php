@@ -83,33 +83,33 @@ if (isset($_SESSION["nik"])) {
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="password">Old Password</label>
+                                        <label class="col-sm-2 col-form-label" for="old_password">Old Password</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="password" class="form-control" id="password"
-                                                    name="password" autocomplete="off" required>
+                                                <input type="password" class="form-control" id="old_password"
+                                                    name="old_password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="password">New Password</label>
+                                        <label class="col-sm-2 col-form-label" for="new_password">New Password</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="password" class="form-control" id="password"
-                                                    name="password" autocomplete="off" required>
+                                                <input type="passsword" class="form-control" id="new_password"
+                                                    name="new_password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="copassword">New Confirm
+                                        <label class="col-sm-2 col-form-label" for="confirm_password">New Confirm
                                             Password</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="password" class="form-control" id="copassword"
-                                                    name="copassword" autocomplete="off" required>
+                                                <input type="password" class="form-control" id="confirm_password"
+                                                    name="confirm_password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
@@ -182,6 +182,28 @@ if (isset($_SESSION["nik"])) {
 
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#submitButton").click(function () {
+                // Get form data
+                var formData = $("#edit_user").serialize();
+
+                // Make Ajax request
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/setting.php",// Update with the actual path to your server-side script
+                    data: formData,
+                    success: function (response) {
+                        alert(response); // Display the server response
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
