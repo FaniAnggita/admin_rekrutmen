@@ -46,13 +46,13 @@ include 'komponen/koneksi.php';
                                             <select id="kode_ps" class="form-select" name="kode_ps">
                                                 <?php
                                                 // Ambil data dari database dan tampilkan dalam tabel
-                                                $sql = "SELECT * FROM posisi WHERE status_posisi = 1";
+                                                $sql = "SELECT * FROM posisi";
                                                 $result = $conn->query($sql);
 
                                                 if ($result->num_rows > 0) {
                                                     while ($row = $result->fetch_assoc()) { ?>
                                                         <option value="<?php echo $row['kode_ps']; ?>">
-                                                            <?php echo $row['nama_ps']; ?>
+                                                            <?php echo $row['kode_ps'] . " - " . $row['nama_ps']; ?>
                                                         </option>
                                                     <?php }
                                                 } ?>
@@ -208,7 +208,6 @@ include 'komponen/koneksi.php';
     <script>
         function submitForm() {
             var kode_ps = document.getElementById('kode_ps').value;
-            var penempatan = document.getElementById('penempatan').value;
             var tenggat_daftar = document.getElementById('tenggat_daftar').value;
             var deskripsi = tinymce.get('deskripsi').getContent(); // For TinyMCE content
             var kualifikasi = tinymce.get('kualifikasi').getContent(); // For TinyMCE content
@@ -216,7 +215,6 @@ include 'komponen/koneksi.php';
 
             var data = {
                 kode_ps: kode_ps,
-                penempatan: penempatan,
                 tenggat_daftar: tenggat_daftar,
                 deskripsi: deskripsi,
                 kualifikasi: kualifikasi,
@@ -225,7 +223,7 @@ include 'komponen/koneksi.php';
             };
 
             var xhr = new XMLHttpRequest();
-            var url = '../controller/edit_lowongan.php'; // Replace with your PHP script
+            var url = '../controller/tambah_lowongan.php'; // Replace with your PHP script
 
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -246,6 +244,7 @@ include 'komponen/koneksi.php';
             xhr.send(JSON.stringify(data));
         }
     </script>
+
 
 
 

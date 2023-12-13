@@ -53,7 +53,7 @@ if ($resultRekomendasi->num_rows > 0) {
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-      <!-- Menu -->\
+      <!-- Menu -->
       <?php
       include 'komponen/aside.php';
       ?>
@@ -224,7 +224,7 @@ if ($resultRekomendasi->num_rows > 0) {
                     <?php include_once 'modal/modal_filter_dashboard.php'; ?>
                   </div>
                   <div class="card-body table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered text-center">
                       <thead>
                         <tr>
                           <th colspan="6"></th>
@@ -273,7 +273,7 @@ if ($resultRekomendasi->num_rows > 0) {
                           $end_date = $_POST['end_date'];
 
                           // Tambahkan kondisi tanggal ke query SQL
-                          $sql = "SELECT posisi.nama_ps, posisi.jumlah_pelamar, pelamar2.kode_ps, 
+                          $sql = "SELECT posisi.nama_ps, posisi.jumlah_kebutuhan, pelamar2.kode_ps, 
                           COUNT(*) as total_pelamar,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_administrasi,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_administrasi,
@@ -304,7 +304,7 @@ if ($resultRekomendasi->num_rows > 0) {
 
                         } else {
                           // Query tanpa filter tanggal
-                          $sql = "SELECT posisi.nama_ps, posisi.jumlah_pelamar, pelamar2.kode_ps, 
+                          $sql = "SELECT posisi.nama_ps, posisi.jumlah_kebutuhan, pelamar2.kode_ps, 
                           COUNT(*) as total_pelamar,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'lolos' THEN 1 ELSE 0 END) as jumlah_lolos_administrasi,
                           SUM(CASE WHEN seleksi_administrasi.hasil_seleksi_adm = 'tidak lolos' THEN 1 ELSE 0 END) as jumlah_tidak_lolos_administrasi,
@@ -370,7 +370,7 @@ if ($resultRekomendasi->num_rows > 0) {
                             echo "<td>" . $row['nama_ps'] . "</td>";
                             echo "<td>" . $row['kode_ps'] . "</td>";
                             echo "<td>  PIM </td>";
-                            echo "<td>" . $row['jumlah_pelamar'] . "</td>";
+                            echo "<td>" . $row['jumlah_kebutuhan'] . "</td>";
                             echo "<td>" . $row['total_pelamar'] . "</td>";
                             echo "<td>" . $row['jumlah_lolos_administrasi'] . "</td>";
                             echo "<td>" . $row['jumlah_tidak_lolos_administrasi'] . "</td>";
@@ -431,70 +431,70 @@ if ($resultRekomendasi->num_rows > 0) {
                       <tfoot>
                         <tr class="text-center">
                           <td colspan="5"><b>Total</b></td>
-                          <td>
+                          <td class='text-center fw-bold'>
                             <?php echo $total_pelamar; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_admin; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_tidak_lolos_admin; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_belum_seleksi_administrasi; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_admin + $total_tidak_lolos_admin + $total_belum_seleksi_administrasi; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_wii; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_tidak_lolos_wii; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_belum_dijadwalkan_wii; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_wii + $total_tidak_lolos_wii + $total_belum_dijadwalkan_wii; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_psikotest; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_tidak_lolos_psikotest; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_dalam_proses_psikotest; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_tidak_psikotest; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_psikotest + $total_tidak_lolos_psikotest + $total_dalam_proses_psikotest + $total_tidak_psikotest; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_indepth; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_tidak_lolos_indepth; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_belum_dijadwalkan_indepth; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_indepth + $total_tidak_lolos_indepth + $total_belum_dijadwalkan_indepth; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_iu; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_tidak_lolos_iu; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_belum_dijadwalkan_iu; ?>
                           </td>
-                          <td>
+                          <td class="text-center fw-bold">
                             <?php echo $total_lolos_iu + $total_tidak_lolos_iu + $total_belum_dijadwalkan_iu; ?>
                           </td>
                         </tr>

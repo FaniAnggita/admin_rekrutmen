@@ -59,9 +59,7 @@ include 'komponen/koneksi.php';
                                             <th>Kode Posisi</th>
                                             <th>Nama Posisi</th>
                                             <th>Max. Usia Pelamar</th>
-                                            <!-- <th>Penempatan</th> -->
-                                            <th>Deskripsi</th>
-                                            <th>Kualifikasi</th>
+                                            <th>Detail</th>
                                             <th>Tenggat Pendaftaran</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -73,9 +71,10 @@ include 'komponen/koneksi.php';
                                         // Ambil data dari database dan tampilkan dalam tabel
                                         $sql = "SELECT * FROM lowongan_baru JOIN posisi USING (kode_ps)";
                                         $result = $conn->query($sql);
-
+                                        $i = 0;
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
+                                                $i++;
                                                 echo "<tr>";
                                                 echo "<td>" . $row['id_lowongan'] . "</td>";
                                                 echo "<td>" . $row['kode_ps'] . "</td>";
@@ -83,42 +82,53 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 //    echo "<td>" . $row['penempatan'] . "</td>";
                                                 ?>
+
                                                 <td>
                                                     <p class="text-center">
-                                                        <button class="btn btn-sm btn-outline-primary" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                                                            aria-expanded="false" aria-controls="collapseExample">
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-primary btn-sm mt-2"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal<?php echo $i; ?>">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>
                                                     </p>
-                                                    <div class="collapse" id="collapseExample">
-                                                        <div class="card card-body">
-                                                            <?php
-                                                            echo $row['deskripsi'];
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-center">
-                                                        <button class="btn btn-sm btn-outline-primary" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collKual"
-                                                            aria-expanded="false" aria-controls="collKual">
-                                                            <i class="fa-solid fa-eye"></i>
-                                                        </button>
-                                                    </p>
-                                                    <div class="collapse" id="collKual">
-                                                        <div class="card card-body">
-                                                            <?php
-                                                            echo $row['kualifikasi'];
-                                                            ?>
+
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal<?php echo $i; ?>" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Detail
+                                                                        <?php echo $row['kode_ps'] . '-' . $row['nama_ps']; ?>
+                                                                    </h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h4>Deskripsi</h4>
+                                                                    <p>
+                                                                        <?php
+                                                                        echo $row['deskripsi'];
+                                                                        ?>
+                                                                    </p>
+                                                                    <h4>Kualifikasi</h4>
+                                                                    <p>
+                                                                        <?php
+                                                                        echo $row['kualifikasi'];
+                                                                        ?>
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <?php
 
                                                 echo "<td>" . $row['tenggat_daftar'] . "</td>";
-                                                echo $row['status'] == 1 ? '<td> Dibuka </td>' : '<td> Ditutup </td>';
+                                                echo $row['status'] == 1 ? '<td class="text-success"> Buka </td>' : '<td class="text-danger"> Tutup </td>';
                                                 ?>
                                                 <td>
                                                     <div class="dropdown">

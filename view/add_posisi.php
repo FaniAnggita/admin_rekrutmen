@@ -71,14 +71,14 @@ include 'komponen/koneksi.php';
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="jumlah_pelamar">Jumlah
-                                            Pelamar</label>
+                                        <label class="col-sm-2 col-form-label" for="jumlah_kebutuhan">Jumlah
+                                            Kebutuhan</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="number" class="form-control" id="jumlah_pelamar"
-                                                    name="jumlah_pelamar" aria-label="John Doe"
-                                                    aria-describedby="jumlah_pelamar" autocomplete="on" required>
+                                                <input type="number" class="form-control" id="jumlah_kebutuhan"
+                                                    name="jumlah_kebutuhan" aria-label="John Doe"
+                                                    aria-describedby="jumlah_kebutuhan" autocomplete="on" required>
                                             </div>
                                         </div>
                                     </div>

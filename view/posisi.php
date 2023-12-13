@@ -59,27 +59,95 @@ include 'komponen/koneksi.php';
                                             <th>Kode Posisi</th>
                                             <th>Nama Posisi</th>
                                             <th>Max. Usia Pelamar</th>
-                                            <th>Jumlah Pelamar</th>
+                                            <th>Jumlah Kebutuhan</th>
                                             <th>Status Posisi</th>
+                                            <th>Histori</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-
                                         // Ambil data dari database dan tampilkan dalam tabel
                                         $sql = "SELECT * FROM posisi";
-                                        $result = $conn->query($sql);
+                                        $resultPosisi = $conn->query($sql);
 
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
+                                        if ($resultPosisi->num_rows > 0) {
+                                            $i = 1; // Initialize counter
+                                            while ($rowPosisi = $resultPosisi->fetch_assoc()) {
                                                 echo "<tr>";
-                                                echo "<td>" . $row['id_ps'] . "</td>";
-                                                echo "<td>" . $row['kode_ps'] . "</td>";
-                                                echo "<td>" . $row['nama_ps'] . "</td>";
-                                                echo "<td>" . $row['max_usia'] . "</td>";
-                                                echo "<td>" . $row['jumlah_pelamar'] . "</td>";
-                                                echo $row['status_posisi'] == 1 ? '<td> Dibuka </td>' : '<td> Ditutup </td>';
+                                                echo "<td>" . $rowPosisi['id_ps'] . "</td>";
+                                                echo "<td>" . $rowPosisi['kode_ps'] . "</td>";
+                                                echo "<td>" . $rowPosisi['nama_ps'] . "</td>";
+                                                echo "<td>" . $rowPosisi['max_usia'] . "</td>";
+                                                echo "<td>" . $rowPosisi['jumlah_kebutuhan'] . "</td>";
+                                                echo $rowPosisi['status_posisi'] == 1 ? '<td> Dibuka </td>' : '<td> Ditutup </td>';
+                                                echo '<td>';
+                                                ?>
+                                                <p class="text-center">
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-primary btn-sm mt-2"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $i; ?>">
+                                                        <i class="fa-solid fa-book"></i>
+                                                    </button>
+                                                </p>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal<?php echo $i; ?>" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Histori
+                                                                    Jumlah Kebutuhan
+                                                                    <?php echo $rowPosisi['kode_ps'] . '-' . $rowPosisi['nama_ps']; ?>
+                                                                </h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <?php
+                                                                $kode_ps = $rowPosisi['kode_ps'];
+                                                                $queryHistori = "SELECT * FROM histori_kebutuhan_posisi WHERE kode_ps = '$kode_ps'";
+                                                                $resultHistori = mysqli_query($conn, $queryHistori);
+
+                                                                // Check for errors
+                                                                if (!$resultHistori) {
+                                                                    die("Query failed: " . mysqli_error($conn));
+                                                                } ?>
+                                                                <table>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>ID Histori</th>
+                                                                            <th>Kode Posisi</th>
+                                                                            <th>Date</th>
+                                                                            <th>Jumlah Kebutuhan</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php while ($rowHistori = mysqli_fetch_assoc($resultHistori)): ?>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <?= $rowHistori['id_histori'] ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?= $rowHistori['kode_ps'] ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?= $rowHistori['date'] ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <?= $rowHistori['jumlah_kebutuhan'] ?>
+                                                                                </td>
+                                                                            </tr>
+                                                                        <?php endwhile; ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                                echo '</td>';
                                                 ?>
                                                 <td>
                                                     <div class="dropdown">
@@ -89,19 +157,19 @@ include 'komponen/koneksi.php';
                                                         </button>
                                                         <div class="dropdown-menu">
                                                             <a class="dropdown-item"
-                                                                href="form_edit_posisi.php?id_posisi=<?php echo $row['id_ps']; ?>"><i
+                                                                href="form_edit_posisi.php?id_posisi=<?php echo $rowPosisi['id_ps']; ?>"><i
                                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
                                                             <form method="post" action="">
                                                                 <input type="text" id="uid" name="uid" value="" hidden />
                                                                 <button type="submit" class="btn dropdown-item"><i
                                                                         class="bx bx-trash me-1"></i>Delete</button>
                                                             </form>
-
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <?php
                                                 echo "</tr>";
+                                                $i++; // Increment counter
                                             }
                                         } else {
                                             echo "<tr><td colspan='12'>Tidak ada data pendaftar.</td></tr>";
@@ -109,6 +177,7 @@ include 'komponen/koneksi.php';
 
                                         $conn->close();
                                         ?>
+
                                     </tbody>
                                 </table>
                             </div>

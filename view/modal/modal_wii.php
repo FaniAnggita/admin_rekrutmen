@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-6">
         <label for="waktuInterview" class="form-label">Waktu WII</label>
-        <input type="datetime-local" class="form-control" id="waktuInterview" name="waktuInterview">
+        <input type="date" class="form-control" id="waktuInterview" name="waktuInterview">
     </div>
     <div class="col-6">
         <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>

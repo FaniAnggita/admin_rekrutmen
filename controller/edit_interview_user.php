@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $tanggalInterviewUser = $_POST['tanggal_interview_user'];
     if ($tanggalInterviewUser === '') {
-        $tanggalInterviewUser = date('Y-m-d H:i:s');
+        $tanggalInterviewUser = date('Y-m-d');
     }
     $konfirmasiKehadiranIu = $_POST['konfirmasi_kehadiran_iu'];
     $dt = $_POST['dt'];

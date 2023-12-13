@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Assuming $_POST['tanggalIndepth'] is the value from the POST request
     $tanggalIndepth = $_POST['tanggal_indepth'];
     if ($tanggalIndepth === '') {
-        $tanggalIndepth = date('Y-m-d H:i:s');
+        $tanggalIndepth = date('Y-m-d');
     }
 
     $konfirmasiKehadiranIn = $_POST['konfirmasi_kehadiran_in'];

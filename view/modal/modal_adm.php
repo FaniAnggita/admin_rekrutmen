@@ -12,7 +12,7 @@ error_reporting(E_ALL);
     </div>
     <div class="col-md-4">
         <label for="tanggal_administrasi" class="form-label">Tanggal Administrasi</label>
-        <input type="datetime-local" class="form-control" id="tanggal_administrasi" name="tanggal_administrasi">
+        <input type="date" class="form-control" id="tanggal_administrasi" name="tanggal_administrasi">
     </div>
     <div class="col-md-4">
         <label for="nilaiCv" class="form-label">Penilaian CV</label>

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $tanggalTesBidang = $_POST['tanggal_tes_bidang'];
     if ($tanggalTesBidang === '') {
-        $tanggalTesBidang = date('Y-m-d H:i:s');
+        $tanggalTesBidang = date('Y-m-d');
     }
     $konfirmasi_kehadiran_tb = $_POST['konfirmasi_kehadiran_tb'];
     $nilaiTesBidang1 = $_POST['nilai_tb1'];

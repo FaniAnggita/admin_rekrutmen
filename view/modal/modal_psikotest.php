@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-4">
         <label for="tanggalPsikotest" class="form-label">Tanggal Psikotest</label>
-        <input type="datetime-local" class="form-control" id="tanggalPsikotest" name="tanggalPsikotest">
+        <input type="date" class="form-control" id="tanggalPsikotest" name="tanggalPsikotest">
     </div>
     <div class=" col-md-4">
         <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
