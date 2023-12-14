@@ -84,7 +84,7 @@ include 'komponen/koneksi.php';
                                         <tr style="font-size: 12px;">
                                             <th colspan="7"></th>
                                             <th colspan="7" class="table-warning text-center">Administrasi</th>
-                                            <th colspan="11" class="table-info text-center">WII</th>
+                                            <th colspan="12" class="table-info text-center">WII</th>
                                             <th colspan="4" class="table-success text-center">Psikotest</th>
                                             <th colspan="9" class="table-danger text-center">Indepth</th>
                                             <th colspan="9" class="table-primary text-center">Tes Bidang</th>
@@ -116,7 +116,9 @@ include 'komponen/koneksi.php';
                                             <!-- Akhir Administrasi -->
                                             <!-- WII -->
                                             <th class="table-info" class="table-warning" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" data-bs-title="Keterangan WII">Waktu WII</th>
+                                                data-bs-placement="top" data-bs-title="Tanggal WII">Tanggal WII</th>
+                                            <th class="table-info" class="table-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Jam WII">Jam WII</th>
                                             <th class="table-info" data-bs-title="Konfirmasi WII">Konfirmasi</th>
                                             <th class="table-info" data-bs-title="Pakar">P</th>
                                             <th class="table-info" data-bs-title="Antusias">A</th>
@@ -287,6 +289,7 @@ include 'komponen/koneksi.php';
                                                 // Akhir Administrasi
                                                 // WII
                                                 echo "<td class='editable-date'>" . $row['waktuInterview'] . "</td>";
+                                                echo "<td class='editable-time'>" . $row['jam_wii'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'bersedia', 'tidak bersedia', 'reschedule'])) . "'>" . $row['konfirmasiKehadiran_wii'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['p'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['a'] . "</td>";
@@ -691,7 +694,6 @@ include 'komponen/koneksi.php';
     <!-- / Layout wrapper -->
 
     <script>
-
         $(document).ready(function () {
             var table = $('#deviceTable').DataTable({
                 fixedColumns: {
@@ -705,14 +707,14 @@ include 'komponen/koneksi.php';
                 scrollY: 450,
                 select: true,
                 lengthMenu: [5, 10, 25, 50, 100], // Specify the available page lengths
-                pageLength: 10,// Set the initial page length
+                pageLength: 10, // Set the initial page length
                 orderCellsTop: true,
                 autoWidth: true,
 
             });
 
 
-            $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date', function () {
+            $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date, td.editable-time', function () {
                 var cell = $(this);
 
                 // Check if the cell already contains an input, select, or datetime element
@@ -723,6 +725,8 @@ include 'komponen/koneksi.php';
                         createDateTimeInput(cell);
                     } else if (cell.hasClass('editable-date')) {
                         createDateInput(cell);
+                    } else if (cell.hasClass('editable-time')) {
+                        createTimeInput(cell);
                     } else {
                         createTextInput(cell);
                     }
@@ -835,6 +839,38 @@ include 'komponen/koneksi.php';
             function createDateInput(cell) {
                 var content = cell.text().trim();
                 cell.html('<input type="date" class="form-control" value="' + content + '">');
+
+                var input = cell.find('input');
+                input.focus();
+
+                input.on('blur', function () {
+                    cell.text(input.val());
+                    updateData(cell);
+                    updateDataWII(cell);
+                    updateDataPsikotest(cell);
+                    updateDataIndepth(cell);
+                    updateDataTestBidang(cell);
+                    updateDataInterviewUser(cell);
+                    updateDataHasilAkhir(cell);
+                });
+
+                input.on('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        cell.text(input.val());
+                        updateData(cell);
+                        updateDataWII(cell);
+                        updateDataPsikotest(cell);
+                        updateDataIndepth(cell);
+                        updateDataTestBidang(cell);
+                        updateDataInterviewUser(cell);
+                        updateDataHasilAkhir(cell);
+                    }
+                });
+            }
+
+            function createTimeInput(cell) {
+                var content = cell.text().trim();
+                cell.html('<input type="time" class="form-control" value="' + content + '">');
 
                 var input = cell.find('input');
                 input.focus();
@@ -1145,7 +1181,9 @@ include 'komponen/koneksi.php';
 
             // Handle "Select All" checkbox
             $('#select-all').on('click', function () {
-                var rows = table.rows({ page: 'current' }).nodes();
+                var rows = table.rows({
+                    page: 'current'
+                }).nodes();
                 $(':checkbox', rows).prop('checked', this.checked).toggleClass('selected', this.checked);
             });
 
@@ -1360,7 +1398,6 @@ include 'komponen/koneksi.php';
             // Save the workbook as an Excel file
             XLSX.writeFile(wb, 'data_rekrutmen.xlsx');
         }
-
     </script>
 
 
