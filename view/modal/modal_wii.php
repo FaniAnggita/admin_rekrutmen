@@ -1,13 +1,17 @@
 <form class="row g-3" id="form1" action="../controller/seleksi_wii.php" method="post">
-    <div class="col-md-6">
+    <div class="col-md-3">
         <label for="selectedIdsInputWII" class="form-label">ID</label>
         <input type="id" class="form-control" id="selectedIdsInputWii" name="selectedIdsInputWii" readonly>
     </div>
-    <div class="col-md-6">
-        <label for="waktuInterview" class="form-label">Waktu WII</label>
+    <div class="col-md-3">
+        <label for="waktuInterview" class="form-label">Tanggal WII</label>
         <input type="date" class="form-control" id="waktuInterview" name="waktuInterview">
     </div>
-    <div class="col-6">
+    <div class="col-md-3">
+        <label for="jam_wii" class="form-label">Jam WII</label>
+        <input type="time" class="form-control" id="jam_wii" name="jam_wii">
+    </div>
+    <div class="col-3">
         <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
         <select id="konfirmasiKehadiran" class="form-select" name="konfirmasiKehadiran">
             <option value="">Choose...</option>
@@ -82,11 +86,11 @@
             <option value="Belum">Belum</option>
         </select>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         <label for="akun_platform" class="form-label">Akun Platform</label>
         <input type="text" class="form-control" id="akun_platform" name="akun_platform">
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         <label for="rating" class="form-label">Hasil</label>
         <select id="rating" class="form-select" name="rating">
             <option value="">Choose...</option>

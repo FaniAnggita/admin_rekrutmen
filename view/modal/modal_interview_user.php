@@ -10,6 +10,10 @@
         <input type="date" class="form-control" id="tanggalIntUser" name="tanggalIntUser">
     </div>
     <div class="col-md-4">
+        <label for="jam_iu" class="form-label">Jam IU</label>
+        <input type="time" class="form-control" id="jam_iu" name="jam_iu">
+    </div>
+    <div class="col-md-4">
         <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
         <select id="konfirmasiKehadiran" class="form-select" name="konfirmasiKehadiran">
             <option value="">Choose...</option>

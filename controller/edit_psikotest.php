@@ -18,6 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $konfirmasiKehadiran = $_POST['konfirmasi_kehadiran'];
     $ratingPsikotest = $_POST['rating_psikotest'];
     $pengumumanPsikotest = $_POST['pengumuman_psikotest'];
+    // Additional fields
+    $jamPsikotest = $_POST['jam_psikotest'];
+    $keteranganPsikotest = $_POST['keterangan_psikotest'];
 
     // Check if the id_pelamar already exists in the database
     $checkSql = "SELECT * FROM seleksi_psikotest WHERE id_pelamar = '$idPelamar'";
@@ -29,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       SET tanggalPsikotest = '$tanggalPsikotest',
                           konfirmasiKehadiran = '$konfirmasiKehadiran',
                           rating_psikotest = '$ratingPsikotest',
-                          pengumuman_psikotest = '$pengumumanPsikotest'
+                          pengumuman_psikotest = '$pengumumanPsikotest',
+                          jam_psikotest = '$jamPsikotest',
+                          keterangan_psikotest = '$keteranganPsikotest'
                       WHERE id_pelamar = '$idPelamar'";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -41,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Perform an INSERT operation if the id_pelamar does not exist
-        $insertSql = "INSERT INTO seleksi_psikotest (id_pelamar, tanggalPsikotest, konfirmasiKehadiran, rating_psikotest, pengumuman_psikotest)
-                      VALUES ('$idPelamar', '$tanggalPsikotest', '$konfirmasiKehadiran', '$ratingPsikotest', '$pengumumanPsikotest')";
+        $insertSql = "INSERT INTO seleksi_psikotest (id_pelamar, tanggalPsikotest, konfirmasiKehadiran, rating_psikotest, pengumuman_psikotest, jam_psikotest, keterangan_psikotest)
+                      VALUES ('$idPelamar', '$tanggalPsikotest', '$konfirmasiKehadiran', '$ratingPsikotest', '$pengumumanPsikotest', '$jamPsikotest', '$keteranganPsikotest')";
 
         if ($conn->query($insertSql) === TRUE) {
             // Return a success message

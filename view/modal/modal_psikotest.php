@@ -10,6 +10,10 @@
         <label for="tanggalPsikotest" class="form-label">Tanggal Psikotest</label>
         <input type="date" class="form-control" id="tanggalPsikotest" name="tanggalPsikotest">
     </div>
+    <div class="col-md-4">
+        <label for="jam_psikotest" class="form-label">Jam Psikotest</label>
+        <input type="time" class="form-control" id="jam_psikotest" name="jam_psikotest">
+    </div>
     <div class=" col-md-4">
         <label for="konfirmasiKehadiran" class="form-label">Konfirmasi Kehadiran</label>
         <select id="konfirmasiKehadiran" class="form-select" name="konfirmasiKehadiran">

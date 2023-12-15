@@ -22,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hasilTesBidang = $_POST['hasil'];
     $pengumumanTesBidang = $_POST['pengumuman'];
     $keteranganTesBidang = $_POST['keterangan'];
+    // Additional field
+    $jam_tb = $_POST['jam_tes_bidang'];
 
     // Check if the id_pelamar already exists in the database
     $checkSql = "SELECT * FROM seleksi_tesbidang WHERE id_pelamar = '$idPelamar'";
@@ -38,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           korektor2 = '$korektor2',
                           hasil_tb = '$hasilTesBidang',
                           pengumuman_tb = '$pengumumanTesBidang',
-                          keterangan_tb = '$keteranganTesBidang'
+                          keterangan_tb = '$keteranganTesBidang',
+                          jam_tb = '$jam_tb'
                       WHERE id_pelamar = '$idPelamar'";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -50,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Perform an INSERT operation if the id_pelamar does not exist
-        $insertSql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil_tb, pengumuman_tb, keterangan_tb)
-                      VALUES ('$idPelamar', '$tanggalTesBidang', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2', '$korektor2', '$hasilTesBidang', '$pengumumanTesBidang', '$keteranganTesBidang')";
+        $insertSql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil_tb, pengumuman_tb, keterangan_tb, jam_tb)
+                      VALUES ('$idPelamar', '$tanggalTesBidang', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2', '$korektor2', '$hasilTesBidang', '$pengumumanTesBidang', '$keteranganTesBidang', '$jam_tb')";
 
         if ($conn->query($insertSql) === TRUE) {
             // Return a success message

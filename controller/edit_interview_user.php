@@ -24,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hasilIu = $_POST['hasil_iu'];
     $pengumumanIu = $_POST['pengumuman_iu'];
     $keteranganIu = $_POST['keterangan_iu'];
+    // Additional field
+    $jam_iu = $_POST['jam_iu'];
 
     // Check if the id_pelamar already exists in the database
     $checkSql = "SELECT * FROM seleksi_interviewuser WHERE id_pelamar = '$idPelamar'";
@@ -42,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           ktb = '$ktb',
                           hasil_iu = '$hasilIu',
                           pengumuman_iu = '$pengumumanIu',
-                          keterangan_iu = '$keteranganIu'
+                          keterangan_iu = '$keteranganIu',
+                          jam_iu = '$jam_iu'
                       WHERE id_pelamar = '$idPelamar'";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -54,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Perform an INSERT operation if the id_pelamar does not exist
-        $insertSql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran_iu, dt, ka, pm, pd, bd, ktb, hasil_iu, pengumuman_iu, keterangan_iu)
-                      VALUES ('$idPelamar', '$tanggalInterviewUser', '$konfirmasiKehadiranIu', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$hasilIu', '$pengumumanIu', '$keteranganIu')";
+        $insertSql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran_iu, dt, ka, pm, pd, bd, ktb, hasil_iu, pengumuman_iu, keterangan_iu, jam_iu)
+                      VALUES ('$idPelamar', '$tanggalInterviewUser', '$konfirmasiKehadiranIu', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$hasilIu', '$pengumumanIu', '$keteranganIu', '$jam_iu')";
 
         if ($conn->query($insertSql) === TRUE) {
             // Return a success message

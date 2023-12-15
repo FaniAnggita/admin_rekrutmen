@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($waktuInterview === '') {
         $waktuInterview = date('Y-m-d');
     }
+    $jam_wii = $_POST['jam_interview'];
     $konfirmasiKehadiranWii = $_POST['konfirmasi_kehadiran_wii'];
     $p = $_POST['p'];
     $a = $_POST['a'];
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Perform an UPDATE operation if the id_pelamar exists
         $updateSql = "UPDATE seleksi_wii
                       SET waktuInterview = '$waktuInterview',
+                          jam_wii = '$jam_wii',
                           konfirmasiKehadiran_wii = '$konfirmasiKehadiranWii',
                           p = '$p',
                           a = '$a',
@@ -48,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Perform an INSERT operation if the id_pelamar does not exist
-        $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, interviewer_wii, akun_platform)
-                      VALUES ('$idPelamar', '$waktuInterview', '$konfirmasiKehadiranWii', '$p', '$a', '$k', '$r', '$ratingWii', '$pengumumanWii', '$interviewerWii', '$akun_platform')";
+        $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, jam_wii, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, interviewer_wii, akun_platform)
+                      VALUES ('$idPelamar', '$waktuInterview', '$jam_wii', '$konfirmasiKehadiranWii', '$p', '$a', '$k', '$r', '$ratingWii', '$pengumumanWii', '$interviewerWii', '$akun_platform')";
 
         if ($conn->query($insertSql) === TRUE) {
             // Return a success message
