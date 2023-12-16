@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pengumuman = $_POST['pengumuman'];
                 $keterangan = $_POST['keterangan'];
                 $hasil = $_POST['hasil'];
+                $jam_tb = isset($_POST['jam_tb']) ? $_POST['jam_tb'] : ''; // Added
 
                 if ($count > 0) {
                     // ID already exists, perform UPDATE
@@ -50,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " hasil_tb = '$hasil'," : '';
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " pengumuman_tb = '$pengumuman'," : '';
                     $updateSql .= isset($_POST['keterangan']) && $_POST['keterangan'] !== '' ? " keterangan_tb = '$keterangan'," : '';
+                    $updateSql .= isset($_POST['jam_tb']) && $_POST['jam_tb'] !== '' ? " jam_tb = '$jam_tb'," : '';
 
                     // Remove trailing comma
                     $updateSql = rtrim($updateSql, ',');
@@ -68,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, konfirmasi_kehadiran_tb, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil_tb, pengumuman_tb, keterangan_tb)
-                                  VALUES ('$id', '$tanggalTesBidang', '$konfirmasiKehadiran', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2','$korektor2', '$hasil', '$pengumuman', '$keterangan')";
+                    $insertSql = "INSERT INTO seleksi_tesbidang (id_pelamar, tanggalTesBidang, konfirmasi_kehadiran_tb, nilaiTesBidang1, korektor1, nilaiTesBidang2, korektor2, hasil_tb, pengumuman_tb, keterangan_tb, jam_tb)
+                                  VALUES ('$id', '$tanggalTesBidang', '$konfirmasiKehadiran', '$nilaiTesBidang1', '$korektor1', '$nilaiTesBidang2','$korektor2', '$hasil', '$pengumuman', '$keterangan', '$jam_tb')";
 
                     if ($conn->query($insertSql) === TRUE) {
                         // Success

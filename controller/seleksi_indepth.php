@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $keterangan = isset($_POST['keterangan']) ? $_POST['keterangan'] : '';
                 $interviewer_indepth = isset($_POST['interviewer_indepth']) ? $_POST['interviewer_indepth'] : '';
                 $hasil = isset($_POST['hasil']) ? $_POST['hasil'] : '';
+                $jam_indepth = isset($_POST['jam_indepth']) ? $_POST['jam_indepth'] : ''; // Added
 
                 if ($count > 0) {
                     // ID already exists, perform UPDATE
@@ -50,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateSql .= !empty($keterangan) ? " keterangan_in = '$keterangan'," : '';
                     $updateSql .= !empty($interviewer_indepth) ? " interviewerIndepth = '$interviewer_indepth'," : '';
                     $updateSql .= !empty($hasil) ? " hasilIndepth = '$hasil'," : '';
+                    $updateSql .= !empty($jam_indepth) ? " jam_indepth = '$jam_indepth'," : '';
 
                     // Remove trailing comma
                     $updateSql = rtrim($updateSql, ',');
@@ -68,11 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_indepth (id_pelamar, interviewerIndepth, tanggalIndepth, konfirmasiKehadiran_in, KTB, KPR, Siker, pengumuman_in, keterangan_in, hasilIndepth)
-                                  VALUES ('$id', '$interviewer_indepth', '$tanggalIndepth', '$konfirmasiKehadiran', '$KTB', '$KPR', '$Siker', '$pengumuman', '$keterangan', '$hasil')";
+                    $insertSql = "INSERT INTO seleksi_indepth (id_pelamar, interviewerIndepth, tanggalIndepth, konfirmasiKehadiran_in, KTB, KPR, Siker, pengumuman_in, keterangan_in, hasilIndepth, jam_indepth)
+                                  VALUES ('$id', '$interviewer_indepth', '$tanggalIndepth', '$konfirmasiKehadiran', '$KTB', '$KPR', '$Siker', '$pengumuman', '$keterangan', '$hasil', '$jam_indepth')";
 
                     if ($conn->query($insertSql) === TRUE) {
-                        // Success
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';

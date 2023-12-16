@@ -35,8 +35,8 @@
     </div>
 
     <div class="col-md-8">
-        <label for="keterangan" class="form-label">Keterangan</label>
-        <input type="text" class="form-control" id="keterangan" name="keterangan" ">
+        <label for="keterangan_psikotest" class="form-label">Keterangan</label>
+        <input type="text" class="form-control" id="keterangan_psikotest" name="keterangan_psikotest">
     </div>
     <div class=" col-md-4">
         <label for="rating" class="form-label">Hasil</label>

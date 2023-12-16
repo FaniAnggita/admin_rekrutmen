@@ -34,10 +34,6 @@ include 'komponen/koneksi.php';
                                 <h4 class="mb-0 ">Proses Rekrutmen Kandidat</h4>
                             </div>
 
-
-                            <!-- <div class="card-body justify-content-center ">
-                               
-                            </div> -->
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -464,7 +460,7 @@ include 'komponen/koneksi.php';
                                                 // Hasil akhir
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Proses', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_akhir'] . "</td>";
                                                 ?>
-                                                <td>
+                                                <!-- <td>
                                                     <?php
                                                     // ...
                                             
@@ -545,8 +541,71 @@ include 'komponen/koneksi.php';
                                                     echo rtrim(', ', ', ');
                                                     // ...
                                                     ?>
-                                                </td>
+                                                </td> -->
+                                                <td>
 
+
+
+                                                    // $errorMessages = [];
+
+                                                    // if ($row['hasil_akhir'] === 'Tidak Lolos') {
+                                                    // $latestTimestamp = max(
+                                                    // $row['updated_at_administrasi'],
+                                                    // $row['updated_at_wii'],
+                                                    // $row['updated_at_psikotest'],
+                                                    // $row['updated_at_indepth'],
+                                                    // $row['updated_at_tb'],
+                                                    // $row['updated_at_iu']
+                                                    // );
+
+                                                    // $latestStages = [];
+
+                                                    // // Check each stage and select the one with the latest timestamp that did
+                                                    not pass
+                                                    // if ($row['hasil_seleksi_adm'] == 'tidak lolos' &&
+                                                    $row['updated_at_administrasi'] === $latestTimestamp) {
+                                                    // $latestStages[] = 'CV';
+                                                    // $latestStages[] = 'Kualifikasi';
+                                                    // $latestStages[] = 'Pengalaman';
+                                                    // }
+                                                    // if ($row['rating_wii'] == 'tidak lolos' && $row['updated_at_wii'] ===
+                                                    $latestTimestamp) {
+                                                    // $latestStages[] = 'Percaya Diri';
+                                                    // $latestStages[] = 'Antusias';
+                                                    // $latestStages[] = 'Komunikasi';
+                                                    // $latestStages[] = 'Keramahan';
+                                                    // }
+                                                    // if ($row['rating_psikotest'] == 'tidak lolos' &&
+                                                    $row['updated_at_psikotest'] === $latestTimestamp) {
+                                                    // $latestStages[] = 'Psikotest';
+                                                    // }
+                                                    // if ($row['hasilIndepth'] == 'tidak lolos' && $row['updated_at_indepth']
+                                                    === $latestTimestamp) {
+                                                    // $latestStages[] = 'Kemampuan Teknis Bidang';
+                                                    // $latestStages[] = 'Kepribadian';
+                                                    // $latestStages[] = 'Sikap Kerja';
+                                                    // }
+                                                    // if ($row['hasil_tb'] == 'tidak lolos' && $row['updated_at_tb'] ===
+                                                    $latestTimestamp) {
+                                                    // $latestStages[] = 'TB';
+                                                    // }
+                                                    // if ($row['hasil_iu'] == 'tidak lolos' && $row['updated_at_iu'] ===
+                                                    $latestTimestamp) {
+                                                    // $latestStages[] = 'Daya Tangkap';
+                                                    // $latestStages[] = 'Kemampuan Analisa';
+                                                    // $latestStages[] = 'Pemecahan Masalah';
+                                                    // $latestStages[] = 'Kepercayaan Diri';
+                                                    // $latestStages[] = 'Pembawaan Diri';
+                                                    // $latestStages[] = 'Kemampuan Teknis Bidang';
+                                                    // }
+
+                                                    // // Display the selected latest stages
+                                                    // echo implode(', ', $latestStages);
+                                                    // }
+                                                    // ...
+
+
+                                                </td>
 
                                                 <?php
                                                 echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";

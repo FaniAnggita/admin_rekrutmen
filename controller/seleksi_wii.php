@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $akun_platform = isset($_POST['akun_platform']) ? $_POST['akun_platform'] : '';
                 $pengumuman = isset($_POST['pengumuman']) ? $_POST['pengumuman'] : '';
                 $rating = isset($_POST['rating']) ? $_POST['rating'] : '';
+                $jam_wii = isset($_POST['jam_wii']) ? $_POST['jam_wii'] : ''; // Added
 
                 if ($count > 0) {
                     // ID already exists, perform UPDATE
@@ -50,7 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                   akun_platform = " . ($akun_platform !== '' ? "'$akun_platform'" : "NULL") . ",
                                   interviewer_wii = " . ($interviewer_wii !== '' ? "'$interviewer_wii'" : "NULL") . ",
                                   rating_wii = " . ($rating !== '' ? "'$rating'" : "NULL") . ",
-                                  pengumuman_wii = " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . "
+                                  pengumuman_wii = " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . ",
+                                  jam_wii = " . ($jam_wii !== '' ? "'$jam_wii'" : "NULL") . "
                                   WHERE id_pelamar = '$id'";
 
                     if ($conn->query($updateSql) === TRUE) {
@@ -65,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, akun_platform)
-                                  VALUES ('$id', " . ($waktuInterview !== '' ? "'$waktuInterview'" : "NULL") . ", " . ($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL") . ", " . ($p !== '' ? "'$p'" : "NULL") . ", " . ($a !== '' ? "'$a'" : "NULL") . ", " . ($k !== '' ? "'$k'" : "NULL") . ", " . ($r !== '' ? "'$r'" : "NULL") . ", " . ($rating !== '' ? "'$rating'" : "NULL") . ", " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . ", " . ($akun_platform !== '' ? "'$akun_platform'" : "NULL") . ", " . ($interviewer_wii !== '' ? "'$interviewer_wii'" : "NULL") . ")";
+                    $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, akun_platform, jam_wii)
+                                  VALUES ('$id', " . ($waktuInterview !== '' ? "'$waktuInterview'" : "NULL") . ", " . ($konfirmasiKehadiran !== '' ? "'$konfirmasiKehadiran'" : "NULL") . ", " . ($p !== '' ? "'$p'" : "NULL") . ", " . ($a !== '' ? "'$a'" : "NULL") . ", " . ($k !== '' ? "'$k'" : "NULL") . ", " . ($r !== '' ? "'$r'" : "NULL") . ", " . ($rating !== '' ? "'$rating'" : "NULL") . ", " . ($pengumuman !== '' ? "'$pengumuman'" : "NULL") . ", " . ($akun_platform !== '' ? "'$akun_platform'" : "NULL") . ", " . ($interviewer_wii !== '' ? "'$interviewer_wii'" : "NULL") . ", " . ($jam_wii !== '' ? "'$jam_wii'" : "NULL") . ")";
 
                     if ($conn->query($insertSql) === TRUE) {
                         // Success

@@ -33,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $keterangan = $_POST['keterangan'];
                 $rating = $_POST['rating'];
                 $pengumuman = $_POST['pengumuman'];
+                $jam_psikotest = $_POST['jam_psikotest']; // Added
+                $keterangan_psikotest = $_POST['keterangan_psikotest']; // Added
 
                 if ($count > 0) {
                     // ID already exists, perform UPDATE
@@ -40,9 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $updateSql .= isset($_POST['tanggalPsikotest']) && $_POST['tanggalPsikotest'] !== '' ? " tanggalPsikotest = '$tanggalPsikotest'," : '';
                     $updateSql .= isset($_POST['konfirmasiKehadiran']) && $_POST['konfirmasiKehadiran'] !== '' ? " konfirmasiKehadiran = '$konfirmasiKehadiran'," : '';
-                    $updateSql .= isset($_POST['keterangan']) && $_POST['keterangan'] !== '' ? " keterangan = '$keterangan'," : '';
+                    $updateSql .= isset($_POST['keterangan_psikotest']) && $_POST['keterangan_psikotest'] !== '' ? " keterangan_psikotest = '$keterangan'," : '';
                     $updateSql .= isset($_POST['rating']) && $_POST['rating'] !== '' ? " rating_psikotest = '$rating'," : '';
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " pengumuman_psikotest = '$pengumuman'," : '';
+                    $updateSql .= isset($_POST['jam_psikotest']) && $_POST['jam_psikotest'] !== '' ? " jam_psikotest = '$jam_psikotest'," : '';
+                    $updateSql .= isset($_POST['keterangan_psikotest']) && $_POST['keterangan_psikotest'] !== '' ? " keterangan_psikotest = '$keterangan_psikotest'," : '';
 
                     // Remove trailing comma
                     $updateSql = rtrim($updateSql, ',');
@@ -50,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateSql .= " WHERE id_pelamar = '$id'";
 
                     if ($conn->query($updateSql) === TRUE) {
-                        // Success
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';
@@ -62,11 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_psikotest (id_pelamar, tanggalPsikotest, konfirmasiKehadiran, keterangan, rating_psikotest, pengumuman_psikotest)
-                                  VALUES ('$id', '$tanggalPsikotest', '$konfirmasiKehadiran', '$keterangan', '$rating', '$pengumuman')";
+                    $insertSql = "INSERT INTO seleksi_psikotest (id_pelamar, tanggalPsikotest, konfirmasiKehadiran, keterangan, rating_psikotest, pengumuman_psikotest, jam_psikotest, keterangan_psikotest)
+                                  VALUES ('$id', '$tanggalPsikotest', '$konfirmasiKehadiran', '$keterangan', '$rating', '$pengumuman', '$jam_psikotest', '$keterangan_psikotest')";
 
                     if ($conn->query($insertSql) === TRUE) {
-                        // Success
                         // Success
                         echo '<script>';
                         echo 'alert("Data berhasil disimpan");';

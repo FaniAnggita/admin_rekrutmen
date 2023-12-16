@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pengumuman = $_POST['pengumuman'];
                 $keterangan = $_POST['keterangan'];
                 $hasil = $_POST['hasil'];
+                $jam_iu = isset($_POST['jam_iu']) ? $_POST['jam_iu'] : ''; // Added
                 // Extract interviewer names and store as a comma-separated string
                 $interviewers = implode(',', $_POST['interviewers']);
 
@@ -55,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " hasil_iu = '$hasil'," : '';
                     $updateSql .= isset($_POST['pengumuman']) && $_POST['pengumuman'] !== '' ? " pengumuman_iu = '$pengumuman'," : '';
                     $updateSql .= isset($_POST['keterangan']) && $_POST['keterangan'] !== '' ? " keterangan_iu = '$keterangan'," : '';
+                    $updateSql .= isset($_POST['jam_iu']) && $_POST['jam_iu'] !== '' ? " jam_iu = '$jam_iu'," : ''; // Corrected line
                     $updateSql .= " interviewer_iu = '$interviewers'";
 
                     // Remove trailing comma
@@ -74,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 } else {
                     // ID does not exist, perform INSERT
-                    $insertSql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran_iu, dt, ka, pm, pd, bd, ktb, hasil_iu, pengumuman_iu, keterangan_iu, interviewer_iu)
-                                 VALUES ('$id', '$tanggalInterviewUser', '$konfirmasiKehadiran', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$hasil', '$pengumuman', '$keterangan', '$interviewers')";
+                    $insertSql = "INSERT INTO seleksi_interviewuser (id_pelamar, tanggalInterviewUser, konfirmasiKehadiran_iu, dt, ka, pm, pd, bd, ktb, hasil_iu, pengumuman_iu, keterangan_iu, interviewer_iu, jam_iu)
+                                 VALUES ('$id', '$tanggalInterviewUser', '$konfirmasiKehadiran', '$dt', '$ka', '$pm', '$pd', '$bd', '$ktb', '$hasil', '$pengumuman', '$keterangan', '$interviewers', '$jam_iu')";
                     if ($conn->query($insertSql) === TRUE) {
 
                         // Success
