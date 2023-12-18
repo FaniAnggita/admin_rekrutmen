@@ -317,7 +317,7 @@ include 'komponen/koneksi.php';
 
                                                 // Administrasi
                                                 echo "<td class='editable-date'>" . $row['tanggal_administrasi'] . "</td>";
-                                                echo "<td class='not-editable'><a href='" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
+                                                echo "<td class='not-editable'><a href='../karir_pim/" . $row['dokumen'] . "' target='_blank'>Lihat</a></td>";
                                                 $options = ['', '1', '0'];
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_cv'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_kualifikasi'] . "</td>";

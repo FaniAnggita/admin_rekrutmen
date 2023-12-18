@@ -44,7 +44,7 @@ $row = mysqli_fetch_assoc($result);
 echo $row['id'] . " - " . $row['nama_lengkap'] . " - " . $row['kode_ps'];
 $nama_pelamar = $row['nama_lengkap'];
 $gender = $row['gender'] == 'Laki-Laki' ? 'saudara' : 'saudari';
-$phone = '+62 882-9347-7565';
+$phone = $row['no_hp'];
 $kode_ps = $row['nama_ps'];
 echo $_GET['pesan'];
 
