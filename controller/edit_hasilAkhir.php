@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($onboard === '') {
         $onboard = date('Y-m-d');
     }
-    $hasilAkhir = $_POST['hasil_akhir'];
+
     $alasanTidakLolos = $_POST['alasan_tidak_lolos'];
 
 
@@ -27,16 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $updateSql = "UPDATE pelamar_lolos
                       SET spkwt = '$spkwt',
                           onboard = '$onboard',
-                          hasil_akhir = '$hasilAkhir',
+                        
                           alasan_tidak_lolos = '$alasanTidakLolos'
                        WHERE id_pelamar = '$idPelamar'";
 
-        $updatePelamar =
-            "UPDATE pelamar2
-             SET status_hasil_akhir = '$hasilAkhir'
-             WHERE id = '$idPelamar'";
-
-        $conn->query($updatePelamar);
 
         if ($conn->query($updateSql) === TRUE) {
             // Return a success message
@@ -47,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Perform an INSERT operation if the id_pelamar does not exist
-        $insertSql = "INSERT INTO pelamar_lolos (id_pelamar, spkwt, onboard, hasil_akhir, alasan_tidak_lolos)
-                      VALUES ('$idPelamar', '$spkwt', '$onboard', '$hasilAkhir', '$alasanTidakLolos')";
+        $insertSql = "INSERT INTO pelamar_lolos (id_pelamar, spkwt, onboard,alasan_tidak_lolos)
+                      VALUES ('$idPelamar', '$spkwt', '$onboard', '$alasanTidakLolos')";
 
         if ($conn->query($insertSql) === TRUE) {
             // Return a success message
