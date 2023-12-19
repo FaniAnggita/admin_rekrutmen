@@ -76,35 +76,31 @@ include 'komponen/koneksi.php';
                                             while ($row = $result->fetch_assoc()) {
                                                 $i++;
                                                 echo "<tr>";
-                                                echo "<td>" . $row['id_lowongan'] . "</td>";
+                                                echo "<td>" . $i . "</td>";
                                                 echo "<td>" . $row['kode_ps'] . "</td>";
                                                 echo "<td>" . $row['nama_ps'] . "</td>";
                                                 echo "<td>" . $row['max_usia'] . "</td>";
                                                 //    echo "<td>" . $row['penempatan'] . "</td>";
-                                                ?>
+                                        ?>
 
                                                 <td>
                                                     <p class="text-center">
                                                         <!-- Button trigger modal -->
-                                                        <button type="button" class="btn btn-primary btn-sm mt-2"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#exampleModal<?php echo $i; ?>">
+                                                        <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $i; ?>">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>
                                                     </p>
 
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="exampleModal<?php echo $i; ?>" tabindex="-1"
-                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="exampleModal<?php echo $i; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Detail
                                                                         <?php echo $row['kode_ps'] . '-' . $row['nama_ps']; ?>
                                                                     </h1>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <h4>Deskripsi</h4>
@@ -132,24 +128,19 @@ include 'komponen/koneksi.php';
                                                 ?>
                                                 <td>
                                                     <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item"
-                                                                href="form_edit_lowongan.php?id_lowongan=<?php echo $row['id_lowongan']; ?>"><i
-                                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                            <form method="post" action="">
+                                                            <a class="dropdown-item" href="form_edit_lowongan.php?id_lowongan=<?php echo $row['id_lowongan']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                            <!-- <form method="post" action="">
                                                                 <input type="text" id="uid" name="uid" value="" hidden />
-                                                                <button type="submit" class="btn dropdown-item"><i
-                                                                        class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
-
+                                                                <button type="submit" class="btn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</button>
+                                                            </form> -->
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <?php
+                                        <?php
                                                 echo "</tr>";
                                             }
                                         } else {
@@ -235,7 +226,7 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#myTable').DataTable();
         });
     </script>

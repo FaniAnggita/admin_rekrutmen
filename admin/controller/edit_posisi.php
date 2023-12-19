@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                        WHERE id_ps = '$id_posisi'";
 
         if (mysqli_query($conn, $update_sql)) {
-            echo "Data updated successfully";
+            echo "Data berhasil diperbarui!";
 
             // Check if jumlah_kebutuhan has changed
             if ($previous_jumlah_kebutuhan != $jumlah_kebutuhan) {
@@ -48,4 +48,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Close the database connection
 mysqli_close($conn);
-?>

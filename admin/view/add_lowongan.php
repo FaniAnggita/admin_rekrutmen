@@ -46,7 +46,7 @@ include 'komponen/koneksi.php';
                                             <select id="kode_ps" class="form-select" name="kode_ps">
                                                 <?php
                                                 // Ambil data dari database dan tampilkan dalam tabel
-                                                $sql = "SELECT * FROM posisi";
+                                                $sql = "SELECT * FROM posisi WHERE status_posisi = 1";
                                                 $result = $conn->query($sql);
 
                                                 if ($result->num_rows > 0) {
@@ -54,7 +54,7 @@ include 'komponen/koneksi.php';
                                                         <option value="<?php echo $row['kode_ps']; ?>">
                                                             <?php echo $row['kode_ps'] . " - " . $row['nama_ps']; ?>
                                                         </option>
-                                                    <?php }
+                                                <?php }
                                                 } ?>
                                             </select>
                                         </div>
@@ -68,9 +68,7 @@ include 'komponen/koneksi.php';
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                                            <input type="date" class="form-control" id="tenggat_daftar"
-                                                name="tenggat_daftar" aria-label="John Doe"
-                                                aria-describedby="tenggat_daftar" autocomplete="on" required>
+                                            <input type="date" class="form-control" id="tenggat_daftar" name="tenggat_daftar" aria-label="John Doe" aria-describedby="tenggat_daftar" autocomplete="on" required>
                                         </div>
                                     </div>
                                 </div>
@@ -80,8 +78,7 @@ include 'komponen/koneksi.php';
                                         <div class="input-group input-group-merge">
 
                                             <!-- Add the TinyMCE textarea for 'deskripsi' -->
-                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
-                                                required></textarea>
+                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -92,8 +89,7 @@ include 'komponen/koneksi.php';
                                         <div class="input-group input-group-merge">
 
                                             <!-- Add the TinyMCE textarea for 'kualifikasi' -->
-                                            <textarea class="form-control" id="kualifikasi" name="kualifikasi" rows="5"
-                                                required></textarea>
+                                            <textarea class="form-control" id="kualifikasi" name="kualifikasi" rows="5" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -179,8 +175,7 @@ include 'komponen/koneksi.php';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Include TinyMCE from CDN -->
-    <script src="https://cdn.tiny.cloud/1/v21ibk7userhaa0pxe64bhmuibfz1vsnqqu32qew6iblxd79/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/v21ibk7userhaa0pxe64bhmuibfz1vsnqqu32qew6iblxd79/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 
     <script>
@@ -228,7 +223,7 @@ include 'komponen/koneksi.php';
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         // Request was successful
