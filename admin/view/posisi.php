@@ -75,25 +75,23 @@ include 'komponen/koneksi.php';
                                             $i = 1; // Initialize counter
                                             while ($rowPosisi = $resultPosisi->fetch_assoc()) {
                                                 echo "<tr>";
-                                                echo "<td>" . $rowPosisi['id_ps'] . "</td>";
+                                                echo "<td>" . $i . "</td>";
                                                 echo "<td>" . $rowPosisi['kode_ps'] . "</td>";
                                                 echo "<td>" . $rowPosisi['nama_ps'] . "</td>";
                                                 echo "<td>" . $rowPosisi['max_usia'] . "</td>";
                                                 echo "<td>" . $rowPosisi['jumlah_kebutuhan'] . "</td>";
-                                                echo $rowPosisi['status_posisi'] == 1 ? '<td> Dibuka </td>' : '<td> Ditutup </td>';
+                                                echo $rowPosisi['status_posisi'] == 1 ? '<td class="text-success"> Buka </td>' : '<td class="text-danger"> Tutup </td>';
                                                 echo '<td>';
-                                                ?>
+                                        ?>
                                                 <p class="text-center">
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary btn-sm mt-2"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $i; ?>">
+                                                    <button type="button" class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $i; ?>">
                                                         <i class="fa-solid fa-book"></i>
                                                     </button>
                                                 </p>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal<?php echo $i; ?>" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="exampleModal<?php echo $i; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -101,8 +99,7 @@ include 'komponen/koneksi.php';
                                                                     Jumlah Kebutuhan
                                                                     <?php echo $rowPosisi['kode_ps'] . '-' . $rowPosisi['nama_ps']; ?>
                                                                 </h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <?php
@@ -124,7 +121,7 @@ include 'komponen/koneksi.php';
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <?php while ($rowHistori = mysqli_fetch_assoc($resultHistori)): ?>
+                                                                        <?php while ($rowHistori = mysqli_fetch_assoc($resultHistori)) : ?>
                                                                             <tr>
                                                                                 <td>
                                                                                     <?= $rowHistori['id_histori'] ?>
@@ -151,23 +148,19 @@ include 'komponen/koneksi.php';
                                                 ?>
                                                 <td>
                                                     <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item"
-                                                                href="form_edit_posisi.php?id_posisi=<?php echo $rowPosisi['id_ps']; ?>"><i
-                                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                            <form method="post" action="">
+                                                            <a class="dropdown-item" href="form_edit_posisi.php?id_posisi=<?php echo $rowPosisi['id_ps']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                            <!-- <form method="post" action="">
                                                                 <input type="text" id="uid" name="uid" value="" hidden />
-                                                                <button type="submit" class="btn dropdown-item"><i
-                                                                        class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
+                                                                <button type="submit" class="btn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</button>
+                                                            </form> -->
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <?php
+                                        <?php
                                                 echo "</tr>";
                                                 $i++; // Increment counter
                                             }
@@ -256,7 +249,7 @@ include 'komponen/koneksi.php';
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#myTable').DataTable();
         });
     </script>

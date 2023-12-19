@@ -91,7 +91,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-                          
+
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) AS total_posisi FROM posisi";
 
@@ -124,7 +124,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-                          
+
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2";
 
@@ -156,9 +156,25 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-                          
+
                           // Query untuk menghitung jumlah posisi
-                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE status_hasil_akhir = 'Lolos'";
+                          $query = "SELECT COUNT(*) as total_pelamar
+                          FROM pelamar2 pl
+                          LEFT JOIN seleksi_administrasi sa ON pl.kode_pelamar = sa.id_pelamar
+                          LEFT JOIN seleksi_wii sw ON pl.kode_pelamar = sw.id_pelamar
+                          LEFT JOIN seleksi_psikotest sp ON pl.kode_pelamar = sp.id_pelamar
+                          LEFT JOIN seleksi_indepth si ON pl.kode_pelamar = si.id_pelamar
+                          LEFT JOIN seleksi_tesbidang st ON pl.kode_pelamar = st.id_pelamar
+                          LEFT JOIN seleksi_interviewuser sin ON pl.kode_pelamar = sin.id_pelamar
+                          LEFT JOIN pelamar_lolos pls ON pl.kode_pelamar = pls.id_pelamar
+                          WHERE
+                              -- Add your conditions here
+                              sa.hasil_seleksi_adm = 'lolos'
+                              AND sw.rating_wii = 'lolos'
+                              AND sp.rating_psikotest = 'lolos'
+                              AND si.hasilIndepth = 'lolos'
+                              AND st.hasil_tb = 'lolos'
+                              AND sin.hasil_iu = 'lolos';";
 
                           // Eksekusi query
                           $result = $conn->query($query);
@@ -188,9 +204,26 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-                          
+
                           // Query untuk menghitung jumlah posisi
-                          $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2 WHERE status_hasil_akhir = 'Tidak Lolos'";
+                          $query = "SELECT COUNT(*) as total_pelamar
+                          FROM pelamar2 pl
+                          LEFT JOIN seleksi_administrasi sa ON pl.kode_pelamar = sa.id_pelamar
+                          LEFT JOIN seleksi_wii sw ON pl.kode_pelamar = sw.id_pelamar
+                          LEFT JOIN seleksi_psikotest sp ON pl.kode_pelamar = sp.id_pelamar
+                          LEFT JOIN seleksi_indepth si ON pl.kode_pelamar = si.id_pelamar
+                          LEFT JOIN seleksi_tesbidang st ON pl.kode_pelamar = st.id_pelamar
+                          LEFT JOIN seleksi_interviewuser sin ON pl.kode_pelamar = sin.id_pelamar
+                          LEFT JOIN pelamar_lolos pls ON pl.kode_pelamar = pls.id_pelamar
+                          WHERE
+                              -- Add your conditions here
+                              sa.hasil_seleksi_adm = 'tidak lolos'
+                              OR sw.rating_wii = 'tidak lolos'
+                              OR sp.rating_psikotest = 'tidak lolos'
+                              OR si.hasilIndepth = 'tidak lolos'
+                              OR st.hasil_tb = 'tidak lolos'
+                              OR sin.hasil_iu = 'tidak lolos';
+                          ";
 
                           // Eksekusi query
                           $result = $conn->query($query);
@@ -217,8 +250,7 @@ if ($resultRekomendasi->num_rows > 0) {
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
                     <h6 class="mb-0">Laporan Proses Rekrutmen</h6>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#modalFilterDashboard">
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalFilterDashboard">
                       <i class="fa-solid fa-filter"></i> Filter
                     </button>
                     <?php include_once 'modal/modal_filter_dashboard.php'; ?>
@@ -301,7 +333,6 @@ if ($resultRekomendasi->num_rows > 0) {
                           WHERE
                               pelamar2.time BETWEEN '$start_date' AND '$end_date'
                           GROUP BY pelamar2.kode_ps";
-
                         } else {
                           // Query tanpa filter tanggal
                           $sql = "SELECT posisi.nama_ps, posisi.jumlah_kebutuhan, pelamar2.kode_ps, 
@@ -575,8 +606,7 @@ if ($resultRekomendasi->num_rows > 0) {
 
 
   <!-- DataTables JavaScript -->
-  <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -584,7 +614,7 @@ if ($resultRekomendasi->num_rows > 0) {
   <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('.table').DataTable({
 
         fixedColumns: {

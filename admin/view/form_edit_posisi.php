@@ -54,15 +54,12 @@ if ($result->num_rows > 0) {
                             <div class="card-body">
                                 <form id="tambah">
                                     <div class="row mb-3">
-                                        <input type="text" name="id_ps" id="id_ps" value="<?php echo $row['id_ps']; ?>"
-                                            hidden>
+                                        <input type="text" name="id_ps" id="id_ps" value="<?php echo $row['id_ps']; ?>" hidden>
                                         <label class="col-sm-2 col-form-label" for="kode_ps">Kode Posisi</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="text" class="form-control" id="kode_ps" name="kode_ps"
-                                                    aria-describedby="kode_ps" value="<?php echo $row['kode_ps']; ?>"
-                                                    required readonly>
+                                                <input type="text" class="form-control" id="kode_ps" name="kode_ps" aria-describedby="kode_ps" value="<?php echo $row['kode_ps']; ?>" required readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -71,9 +68,7 @@ if ($result->num_rows > 0) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="nama_ps" name="nama_ps"
-                                                    aria-label="John Doe" aria-describedby="nama_ps" autocomplete="on"
-                                                    required value="<?php echo $row['nama_ps']; ?>" readonly>
+                                                <input type="text" class="form-control" id="nama_ps" name="nama_ps" aria-label="John Doe" aria-describedby="nama_ps" autocomplete="on" required value="<?php echo $row['nama_ps']; ?>" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -82,22 +77,17 @@ if ($result->num_rows > 0) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="max_usia" name="max_usia"
-                                                    aria-label="John Doe" aria-describedby="max_usia" autocomplete="on"
-                                                    required value="<?php echo $row['max_usia']; ?>">
+                                                <input type="text" class="form-control" id="max_usia" name="max_usia" aria-label="John Doe" aria-describedby="max_usia" autocomplete="on" required value="<?php echo $row['max_usia']; ?>">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="jumlah_kebutuhan">Jumlah
-                                            Pelamar</label>
+                                            Kebutuhan</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="number" class="form-control" id="jumlah_kebutuhan"
-                                                    name="jumlah_kebutuhan" aria-label="John Doe"
-                                                    aria-describedby="jumlah_kebutuhan" autocomplete="on" required
-                                                    value="<?php echo $row['jumlah_kebutuhan']; ?>">
+                                                <input type="number" class="form-control" id="jumlah_kebutuhan" name="jumlah_kebutuhan" aria-label="John Doe" aria-describedby="jumlah_kebutuhan" autocomplete="on" required value="<?php echo $row['jumlah_kebutuhan']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -105,8 +95,7 @@ if ($result->num_rows > 0) {
                                         <label class="col-sm-2 col-form-label" for="status_posisi">Status Posisi</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
-                                                <span class="input-group-text"><i
-                                                        class="bx bx-question-mark"></i></span>
+                                                <span class="input-group-text"><i class="bx bx-question-mark"></i></span>
                                                 <select id="status_posisi" class="form-select" name="status_posisi">
                                                     <option value="1" <?php echo ($row['status_posisi'] == '1') ? 'selected' : ''; ?>>Dibuka</option>
                                                     <option value="0" <?php echo ($row['status_posisi'] == '0') ? 'selected' : ''; ?>>Ditutup</option>
@@ -187,9 +176,9 @@ if ($result->num_rows > 0) {
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Form 1 submission
-            $("#tambah").submit(function (event) {
+            $("#tambah").submit(function(event) {
                 event.preventDefault();
 
                 var formData = $(this).serialize();
@@ -198,11 +187,12 @@ if ($result->num_rows > 0) {
                     type: "POST",
                     url: "../controller/edit_posisi.php", // Replace with the path to your PHP script
                     data: formData,
-                    success: function (response) {
+                    success: function(response) {
                         alert(response); // Display the response from the server
                         // You can redirect or perform other actions as needed.
+                        window.location.href = "posisi.php";
                     },
-                    error: function () {
+                    error: function() {
                         alert("Error while submitting Form 1");
                     }
                 });

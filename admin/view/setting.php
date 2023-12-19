@@ -3,7 +3,7 @@ $page = 'setting';
 include 'komponen/header.php';
 include 'komponen/koneksi.php';
 
-session_start();
+
 if (isset($_SESSION["nik"])) {
     $nik = $_SESSION["nik"];
     // SQL query to check user credentials
@@ -12,8 +12,6 @@ if (isset($_SESSION["nik"])) {
 
 
     $user = mysqli_fetch_assoc($result);
-
-
 }
 ?>
 
@@ -55,9 +53,7 @@ if (isset($_SESSION["nik"])) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-id-card"></i></span>
-                                                <input type="text" class="form-control" id="nik" name="nik"
-                                                    aria-label="John Doe" aria-describedby="nik" autocomplete="off"
-                                                    readonly value="<?php echo $user['nik']; ?>">
+                                                <input type="text" class="form-control" id="nik" name="nik" aria-label="John Doe" aria-describedby="nik" autocomplete="off" readonly value="<?php echo $user['nik']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -66,9 +62,7 @@ if (isset($_SESSION["nik"])) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    aria-label="John Doe" aria-describedby="name" autocomplete="off"
-                                                    readonly value="<?php echo $user['name']; ?>">
+                                                <input type="text" class="form-control" id="name" name="name" aria-label="John Doe" aria-describedby="name" autocomplete="off" readonly value="<?php echo $user['name']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -77,8 +71,7 @@ if (isset($_SESSION["nik"])) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                    autocomplete="off" readonly value="<?php echo $user['email']; ?>">
+                                                <input type="email" class="form-control" id="email" name="email" autocomplete="off" readonly value="<?php echo $user['email']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -87,8 +80,7 @@ if (isset($_SESSION["nik"])) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="password" class="form-control" id="old_password"
-                                                    name="old_password" autocomplete="off" required>
+                                                <input type="password" class="form-control" id="old_password" name="old_password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
@@ -97,8 +89,7 @@ if (isset($_SESSION["nik"])) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="passsword" class="form-control" id="new_password"
-                                                    name="new_password" autocomplete="off" required>
+                                                <input type="passsword" class="form-control" id="new_password" name="new_password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
@@ -108,16 +99,14 @@ if (isset($_SESSION["nik"])) {
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="password" class="form-control" id="confirm_password"
-                                                    name="confirm_password" autocomplete="off" required>
+                                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" autocomplete="off" required>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row justify-content-end">
                                         <div class="col-sm-10">
-                                            <button type="button" class="btn btn-primary"
-                                                id="submitButton">Simpan</button>
+                                            <button type="button" class="btn btn-primary" id="submitButton">Simpan</button>
                                         </div>
                                     </div>
                                 </form>
@@ -184,20 +173,20 @@ if (isset($_SESSION["nik"])) {
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $("#submitButton").click(function () {
+        $(document).ready(function() {
+            $("#submitButton").click(function() {
                 // Get form data
                 var formData = $("#edit_user").serialize();
 
                 // Make Ajax request
                 $.ajax({
                     type: "POST",
-                    url: "../controller/setting.php",// Update with the actual path to your server-side script
+                    url: "../controller/setting.php", // Update with the actual path to your server-side script
                     data: formData,
-                    success: function (response) {
+                    success: function(response) {
                         alert(response); // Display the server response
                     },
-                    error: function (error) {
+                    error: function(error) {
                         console.log(error);
                     }
                 });
