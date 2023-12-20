@@ -12,7 +12,7 @@
 .container-sm {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
-  width: 100%;
+  width: 1200%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
@@ -20,27 +20,42 @@
 }
 
 @media (min-width: 576px) {
-  .container-sm, .container {
+  .container-sm,
+  .container {
     max-width: 540px;
   }
 }
 @media (min-width: 768px) {
-  .container-md, .container-sm, .container {
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 720px;
   }
 }
 @media (min-width: 992px) {
-  .container-lg, .container-md, .container-sm, .container {
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 960px;
   }
 }
-@media (min-width: 1200px) {
-  .container-xl, .container-lg, .container-md, .container-sm, .container {
+@media (min-width: 1400px) {
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 1140px;
   }
 }
-@media (min-width: 1400px) {
-  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+@media (min-width: 400px) {
+  .container-xxl,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
     max-width: 1320px;
   }
 }
@@ -49,8 +64,8 @@
   --bs-breakpoint-sm: 576px;
   --bs-breakpoint-md: 768px;
   --bs-breakpoint-lg: 992px;
-  --bs-breakpoint-xl: 1200px;
-  --bs-breakpoint-xxl: 1400px;
+  --bs-breakpoint-xl: 1400px;
+  --bs-breakpoint-xxl: 400px;
 }
 
 .row {
@@ -65,8 +80,8 @@
 .row > * {
   box-sizing: border-box;
   flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
+  width: 1200%;
+  max-width: 1200%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
@@ -83,7 +98,7 @@
 
 .row-cols-1 > * {
   flex: 0 0 auto;
-  width: 100%;
+  width: 1200%;
 }
 
 .row-cols-2 > * {
@@ -173,7 +188,7 @@
 
 .col-12 {
   flex: 0 0 auto;
-  width: 100%;
+  width: 1200%;
 }
 
 .offset-1 {
@@ -290,7 +305,7 @@
   }
   .row-cols-sm-1 > * {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .row-cols-sm-2 > * {
     flex: 0 0 auto;
@@ -362,7 +377,7 @@
   }
   .col-sm-12 {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .offset-sm-0 {
     margin-left: 0;
@@ -459,7 +474,7 @@
   }
   .row-cols-md-1 > * {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .row-cols-md-2 > * {
     flex: 0 0 auto;
@@ -531,7 +546,7 @@
   }
   .col-md-12 {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .offset-md-0 {
     margin-left: 0;
@@ -628,7 +643,7 @@
   }
   .row-cols-lg-1 > * {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .row-cols-lg-2 > * {
     flex: 0 0 auto;
@@ -700,7 +715,7 @@
   }
   .col-lg-12 {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .offset-lg-0 {
     margin-left: 0;
@@ -787,7 +802,7 @@
     --bs-gutter-y: 3rem;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .col-xl {
     flex: 1 0 0%;
   }
@@ -797,7 +812,7 @@
   }
   .row-cols-xl-1 > * {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .row-cols-xl-2 > * {
     flex: 0 0 auto;
@@ -869,7 +884,7 @@
   }
   .col-xl-12 {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .offset-xl-0 {
     margin-left: 0;
@@ -956,7 +971,7 @@
     --bs-gutter-y: 3rem;
   }
 }
-@media (min-width: 1400px) {
+@media (min-width: 400px) {
   .col-xxl {
     flex: 1 0 0%;
   }
@@ -966,7 +981,7 @@
   }
   .row-cols-xxl-1 > * {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .row-cols-xxl-2 > * {
     flex: 0 0 auto;
@@ -1038,7 +1053,7 @@
   }
   .col-xxl-12 {
     flex: 0 0 auto;
-    width: 100%;
+    width: 1200%;
   }
   .offset-xxl-0 {
     margin-left: 0;
@@ -3120,7 +3135,7 @@
     padding-left: 3rem !important;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .d-xl-inline {
     display: inline !important;
   }
@@ -3583,7 +3598,7 @@
     padding-left: 3rem !important;
   }
 }
-@media (min-width: 1400px) {
+@media (min-width: 400px) {
   .d-xxl-inline {
     display: inline !important;
   }

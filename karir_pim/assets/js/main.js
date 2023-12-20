@@ -82,7 +82,7 @@
   let selectHeader = select('#header')
   if (selectHeader) {
     const headerScrolled = () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 1200) {
         selectHeader.classList.add('header-scrolled')
       } else {
         selectHeader.classList.remove('header-scrolled')
@@ -98,7 +98,7 @@
   let backtotop = select('.back-to-top')
   if (backtotop) {
     const toggleBacktotop = () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 1200) {
         backtotop.classList.add('active')
       } else {
         backtotop.classList.remove('active')

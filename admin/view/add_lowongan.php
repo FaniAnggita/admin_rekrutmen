@@ -54,7 +54,7 @@ include 'komponen/koneksi.php';
                                                         <option value="<?php echo $row['kode_ps']; ?>">
                                                             <?php echo $row['kode_ps'] . " - " . $row['nama_ps']; ?>
                                                         </option>
-                                                <?php }
+                                                    <?php }
                                                 } ?>
                                             </select>
                                         </div>
@@ -68,7 +68,9 @@ include 'komponen/koneksi.php';
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                                            <input type="date" class="form-control" id="tenggat_daftar" name="tenggat_daftar" aria-label="John Doe" aria-describedby="tenggat_daftar" autocomplete="on" required>
+                                            <input type="date" class="form-control" id="tenggat_daftar"
+                                                name="tenggat_daftar" aria-label="John Doe"
+                                                aria-describedby="tenggat_daftar" autocomplete="on" required>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +80,8 @@ include 'komponen/koneksi.php';
                                         <div class="input-group input-group-merge">
 
                                             <!-- Add the TinyMCE textarea for 'deskripsi' -->
-                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
+                                                required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +92,8 @@ include 'komponen/koneksi.php';
                                         <div class="input-group input-group-merge">
 
                                             <!-- Add the TinyMCE textarea for 'kualifikasi' -->
-                                            <textarea class="form-control" id="kualifikasi" name="kualifikasi" rows="5" required></textarea>
+                                            <textarea class="form-control" id="kualifikasi" name="kualifikasi" rows="5"
+                                                required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -175,14 +179,15 @@ include 'komponen/koneksi.php';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Include TinyMCE from CDN -->
-    <script src="https://cdn.tiny.cloud/1/v21ibk7userhaa0pxe64bhmuibfz1vsnqqu32qew6iblxd79/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/v21ibk7userhaa0pxe64bhmuibfz1vsnqqu32qew6iblxd79/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
 
 
     <script>
         // Initialize TinyMCE for 'deskripsi' and 'kualifikasi'
         tinymce.init({
             selector: '#deskripsi',
-            width: '100%',
+            width: '1200%',
             height: 200,
             plugins: 'lists advlist',
             toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
@@ -192,7 +197,7 @@ include 'komponen/koneksi.php';
 
         tinymce.init({
             selector: '#kualifikasi',
-            width: '100%',
+            width: '1200%',
             height: 200,
             plugins: 'lists advlist',
             toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
@@ -223,7 +228,7 @@ include 'komponen/koneksi.php';
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         // Request was successful

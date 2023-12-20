@@ -50,27 +50,27 @@ if ($resultRekomendasi->num_rows > 0) {
 ?>
 
 <body>
+  <?php
+  include 'komponen/navbar2.php';
+  ?>
   <!-- Layout wrapper -->
-  <div class="layout-wrapper layout-content-navbar">
+  <div class="layout-wrapper layout-content-navbar  layout-without-menu">
+
     <div class="layout-container">
       <!-- Menu -->
-      <?php
-      include 'komponen/aside.php';
-      ?>
+
       <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">
         <!-- Navbar -->
-        <?php
-        include 'komponen/navbar.php';
-        ?>
+
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <!-- Content -->
-          <div class="container-xxl flex-grow-1 container-p-y">
+          <div class=" container-xxl flex-grow-1 container-p-y">
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -91,7 +91,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-
+                          
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) AS total_posisi FROM posisi";
 
@@ -124,7 +124,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-
+                          
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) AS total_pelamar FROM pelamar2";
 
@@ -156,7 +156,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-
+                          
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) as total_pelamar
                           FROM pelamar2 pl
@@ -204,7 +204,7 @@ if ($resultRekomendasi->num_rows > 0) {
                         <h5 class="mb-0">
                           <?php
                           // Lakukan koneksi ke database Anda di sini
-
+                          
                           // Query untuk menghitung jumlah posisi
                           $query = "SELECT COUNT(*) as total_pelamar
                           FROM pelamar2 pl
@@ -250,7 +250,8 @@ if ($resultRekomendasi->num_rows > 0) {
                 <div class="card">
                   <div class="card-header d-flex align-items-center justify-content-between">
                     <h6 class="mb-0">Laporan Proses Rekrutmen</h6>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalFilterDashboard">
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                      data-bs-target="#modalFilterDashboard">
                       <i class="fa-solid fa-filter"></i> Filter
                     </button>
                     <?php include_once 'modal/modal_filter_dashboard.php'; ?>
@@ -606,7 +607,8 @@ if ($resultRekomendasi->num_rows > 0) {
 
 
   <!-- DataTables JavaScript -->
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -614,7 +616,7 @@ if ($resultRekomendasi->num_rows > 0) {
   <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('.table').DataTable({
 
         fixedColumns: {
@@ -626,7 +628,7 @@ if ($resultRekomendasi->num_rows > 0) {
         buttons: [
           'excelHtml5',
         ],
-        lengthMenu: [10, 25, 50, 100], // Specify the available page lengths
+        lengthMenu: [10, 25, 50, 1200], // Specify the available page lengths
         pageLength: 10 // Set the initial page length
       });
     });

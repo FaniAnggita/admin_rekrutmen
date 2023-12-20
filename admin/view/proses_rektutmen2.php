@@ -49,7 +49,7 @@ include 'komponen/koneksi.php';
                                     </div>
 
                                     <div class="form-group col-3">
-                                        <button type="submit" class="btn btn-primary mt-4 w-100">Cari</button>
+                                        <button type="submit" class="btn btn-primary mt-4 w-1200">Cari</button>
                                     </div>
 
                                 </form>
@@ -561,7 +561,7 @@ include 'komponen/koneksi.php';
             table.columns().every(function () {
                 var column = this;
                 if (column.index() !== 0) {
-                    var select = $('<br><select class="w-100 form-select-sm"><option value=""></option></select>')
+                    var select = $('<br><select class="w-1200 form-select-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());

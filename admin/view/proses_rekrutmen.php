@@ -37,7 +37,7 @@ include 'komponen/koneksi.php';
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                                        <!-- <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
                                             <button type="button" class="btn btn-outline-primary" id="editButton" data-bs-toggle="modal" data-bs-target="#editModal">Administrasi</button>
                                             <button type="button" class="btn btn-outline-primary" id="editButtonWii">WII</button>
                                             <button type="button" class="btn btn-outline-primary" id="editButtonPsikotest">Psikotest</button>
@@ -45,14 +45,16 @@ include 'komponen/koneksi.php';
                                             <button type="button" class="btn btn-outline-primary" id="editButtonTesBidang">Tes
                                                 Bidang</button>
                                             <button type="button" class="btn btn-outline-primary" id="editButtonInterviewUser">Interview User</button>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-lg-6 d-flex justify-content-end">
                                         <?php include_once 'modal/modal_proses_rekrutmen.php'; ?>
-                                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalFilterProses">
+                                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
+                                            data-bs-target="#modalFilterProses">
                                             <i class="fa-solid fa-filter"></i> Filter
                                         </button>
-                                        <a href="../controller/cetak_laporan_rekrutmen.php" class="btn btn-sm btn-danger " target="_blank">
+                                        <a href="../controller/cetak_laporan_rekrutmen.php"
+                                            class="btn btn-sm btn-danger " target="_blank">
                                             <i class="fa-solid fa-print"></i> Export
                                         </a>
 
@@ -71,7 +73,7 @@ include 'komponen/koneksi.php';
                             }
                             ?>
                             <datalist id="list-timezone">
-                                <?php while ($rowHistori = mysqli_fetch_assoc($resultHistori)) : ?>
+                                <?php while ($rowHistori = mysqli_fetch_assoc($resultHistori)): ?>
                                     <option value="<?= $rowHistori['akun_platform'] ?>">
                                     <?php endwhile; ?>
                             </datalist>
@@ -109,16 +111,23 @@ include 'komponen/koneksi.php';
                                             <!-- Administrasi -->
                                             <th class="table-warning">Tgl. Adm</th>
                                             <th class="table-warning">Dokumen</th>
-                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV</th>
-                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai kualifikasi">Klf</th>
-                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai Pengalaman">Pgl</th>
-                                            <th class="table-warning not-editable" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hasil Seleksi Administrasi">Hasil
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Nilai CV">CV</th>
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Nilai kualifikasi">Klf</th>
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Nilai Pengalaman">Pgl</th>
+                                            <th class="table-warning not-editable" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Hasil Seleksi Administrasi">Hasil
                                             </th>
-                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Keterangan Seleksi Administrasi">Keterangan</th>
+                                            <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Keterangan Seleksi Administrasi">Keterangan</th>
                                             <!-- Akhir Administrasi -->
                                             <!-- WII -->
-                                            <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tanggal WII">Tanggal WII</th>
-                                            <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Jam WII">Jam WII</th>
+                                            <th class="table-info" class="table-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Tanggal WII">Tanggal WII</th>
+                                            <th class="table-info" class="table-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-title="Jam WII">Jam WII</th>
                                             <th class="table-info" data-bs-title="Konfirmasi WII">Konfirmasi</th>
                                             <th class="table-info" data-bs-title="Pakar">P</th>
                                             <th class="table-info" data-bs-title="Antusias">A</th>
@@ -237,22 +246,37 @@ include 'komponen/koneksi.php';
                                                 echo "<tr style='line-height: 25px;'>";
                                                 echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "' style='position: absolute; z-index: 9;'></td>";
                                                 // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
-                                        ?>
+                                                ?>
                                                 <td>
                                                     <p>
-                                                        <button class="btn btn-danger btn-xs" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2<?php echo $row['id']; ?>" aria-expanded="false" aria-controls="multiCollapseExample2"> <i class='fa-solid fa-envelope'></i></button>
+                                                        <button class="btn btn-danger btn-xs" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#multiCollapseExample2<?php echo $row['id']; ?>"
+                                                            aria-expanded="false" aria-controls="multiCollapseExample2"> <i
+                                                                class='fa-solid fa-envelope'></i></button>
                                                     </p>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="collapse multi-collapse" id="multiCollapseExample2<?php echo $row['id']; ?>">
+                                                            <div class="collapse multi-collapse"
+                                                                id="multiCollapseExample2<?php echo $row['id']; ?>">
                                                                 <div class="card card-body">
                                                                     <ul>
-                                                                        <li><a class="btn" href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=wii" target="_blank">WII</a>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=wii"
+                                                                                target="_blank">WII</a>
                                                                         </li>
-                                                                        <li><a class="btn" href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=psikotest" target="_blank">Psikotest</a></li>
-                                                                        <li><a class="btn" href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=indepth" target="_blank">Indepth</a></li>
-                                                                        <li><a class="btn" href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=tesbidang" target="_blank">Test Bidang</a></li>
-                                                                        <li><a class="btn" href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=interviewuser" target="_blank">Interview User</a></li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=psikotest"
+                                                                                target="_blank">Psikotest</a></li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=indepth"
+                                                                                target="_blank">Indepth</a></li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=tesbidang"
+                                                                                target="_blank">Test Bidang</a></li>
+                                                                        <li><a class="btn"
+                                                                                href="../controller/pesan/pesan.php?id='<?php echo $row['kode_pelamar']; ?>' && pesan=interviewuser"
+                                                                                target="_blank">Interview User</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -280,7 +304,7 @@ include 'komponen/koneksi.php';
                                                 $age = $currentDate->diff($birthdate)->y;
                                                 // Display the age in your table cell
                                                 echo "<td class='not-editable'>" . $age . "</td>";
-                                                echo "<td class='editable-date'>" . $row['no_hp'] . "</td>";
+                                                echo "<td class='not-editable'>" . $row['no_hp'] . "</td>";
 
                                                 // Administrasi
                                                 echo "<td class='editable-date'>" . $row['tanggal_administrasi'] . "</td>";
@@ -293,10 +317,10 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($hasilSeleksiAdmOptions)) . "'>" . $row['hasil_seleksi_adm'] . "</td>";
                                                 echo "<td class='editable-text'>" . $row['keterangan_adm'] . "</td>";
                                                 // Akhir Administrasi
-
+                                        
                                                 // WII
                                                 echo "<td class='editable-date'>" . $row['waktuInterview'] . "</td>";
-                                                echo "<td class='editable-time'>" . $row['jam_wii'] . "</td>";
+                                                echo "<td class='editable-time'>" . (isset($row['jam_wii']) ? date('H:i', strtotime($row['jam_wii'])) : '') . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'bersedia', 'tidak bersedia', 'reschedule'])) . "'>" . $row['konfirmasiKehadiran_wii'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['p'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['a'] . "</td>";
@@ -329,16 +353,16 @@ include 'komponen/koneksi.php';
                                                 // Akhir WII
                                                 // Psikotest
                                                 echo "<td class='editable-date'>" . $row['tanggalPsikotest'] . "</td>"; // Use class 'editable-date' for datetime input
-                                                echo "<td class='editable-time'>" . $row['jam_psikotest'] . "</td>";
+                                                echo "<td class='editable-time'>" . (isset($row['jam_psikotest']) ? date('H:i', strtotime($row['jam_psikotest'])) : '') . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia'])) . "'>" . $row['konfirmasiKehadiran'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_psikotest'] . "</td>";
                                                 echo "<td class='editable-text'>" . $row['keterangan_psikotest'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'dlm proses', 'tdk psikotest'])) . "'>" . $row['rating_psikotest'] . "</td>";
                                                 // Akhir Psikotest
-
+                                        
                                                 // Indepth
                                                 echo "<td class='editable-date'>" . $row['tanggalIndepth'] . "</td>";
-                                                echo "<td class='editable-time'>" . $row['jam_indepth'] . "</td>";
+                                                echo "<td class='editable-time'>" . (isset($row['jam_indepth']) ? date('H:i', strtotime($row['jam_indepth'])) : '') . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia', 'Reschedule'])) . "'>" . $row['konfirmasiKehadiran_in'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['KTB'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['KPR'] . "</td>";
@@ -365,7 +389,7 @@ include 'komponen/koneksi.php';
                                                 // Akhir Indepth
                                                 // Test Bidang
                                                 echo "<td class='editable-date'>" . $row['tanggalTesBidang'] . "</td>";
-                                                echo "<td class='editable-time'>" . $row['jam_tb'] . "</td>";
+                                                echo "<td class='editable-time'>" . (isset($row['jam_tb']) ? date('H:i', strtotime($row['jam_tb'])) : '') . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'bersedia', 'tidak bersedia', 'reschedule'])) . "'>" . $row['konfirmasi_kehadiran_tb'] . "</td>";
                                                 echo "<td class='editable-text'>" . $row['nilaiTesBidang1'] . "</td>";
 
@@ -411,7 +435,7 @@ include 'komponen/koneksi.php';
                                                 // Akhir Test Bidang
                                                 // Interview User
                                                 echo "<td class='editable-date'>" . $row['tanggalInterviewUser'] . "</td>";
-                                                echo "<td class='editable-time'>" . $row['jam_iu'] . "</td>";
+                                                echo "<td class='editable-time'>" . (isset($row['jam_iu']) ? date('H:i', strtotime($row['jam_iu'])) : '') . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia', 'Reschedule'])) . "'>" . $row['konfirmasiKehadiran_iu'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['dt'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['ka'] . "</td>";
@@ -435,7 +459,7 @@ include 'komponen/koneksi.php';
 
                                                     <?php
                                                     // ...
-
+                                            
                                                     $errorMessages = [];
 
 
@@ -557,7 +581,7 @@ include 'komponen/koneksi.php';
 
                                                 </td>
 
-                                        <?php
+                                                <?php
                                                 echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
                                                 echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
                                                 // AKhir Hasil Akhir
@@ -575,12 +599,14 @@ include 'komponen/koneksi.php';
                     </div>
                     <!-- Modal -->
                     <!-- Modal for Edit Form ADM -->
-                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalLabel">Edit Administrasi</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <?php include_once 'modal/modal_adm.php'; ?>
@@ -590,12 +616,14 @@ include 'komponen/koneksi.php';
                     </div>
 
                     <!-- Modal for Edit Form WII -->
-                    <div class="modal fade" id="editModalWii" tabindex="-1" aria-labelledby="editModalWiiLabel" aria-hidden="true">
+                    <div class="modal fade" id="editModalWii" tabindex="-1" aria-labelledby="editModalWiiLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalWiiLabel">Edit WII</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <?php include_once 'modal/modal_wii.php'; ?>
@@ -605,12 +633,14 @@ include 'komponen/koneksi.php';
                     </div>
 
                     <!-- Modal for Edit Form Psikotest -->
-                    <div class="modal fade" id="editModalPsikotest" tabindex="-1" aria-labelledby="editModalPsikotestLabel" aria-hidden="true">
+                    <div class="modal fade" id="editModalPsikotest" tabindex="-1"
+                        aria-labelledby="editModalPsikotestLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalPsikotestLabel">Edit Psikotest</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <?php include_once 'modal/modal_psikotest.php'; ?>
@@ -619,12 +649,14 @@ include 'komponen/koneksi.php';
                         </div>
                     </div>
                     <!-- Modal for Edit Form InDepth -->
-                    <div class="modal fade" id="editModalIndepth" tabindex="-1" aria-labelledby="editModalInDepthLabel" aria-hidden="true">
+                    <div class="modal fade" id="editModalIndepth" tabindex="-1" aria-labelledby="editModalInDepthLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalInDepthLabel">Edit InDepth</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <?php include_once 'modal/modal_indepth.php'; ?>
@@ -633,12 +665,14 @@ include 'komponen/koneksi.php';
                         </div>
                     </div>
                     <!-- Modal for Edit Form Tes Bidang -->
-                    <div class="modal fade" id="editModalTesBidang" tabindex="-1" aria-labelledby="editModalTesBidangLabel" aria-hidden="true">
+                    <div class="modal fade" id="editModalTesBidang" tabindex="-1"
+                        aria-labelledby="editModalTesBidangLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalTesBidangLabel">Edit Tes Bidang</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <?php include_once 'modal/modal_tes_bidang.php'; ?>
@@ -648,12 +682,14 @@ include 'komponen/koneksi.php';
                     </div>
 
                     <!-- Modal for Edit Form Interview User -->
-                    <div class="modal fade" id="editModalInterviewUser" tabindex="-1" aria-labelledby="editModalInterviewUserLabel" aria-hidden="true">
+                    <div class="modal fade" id="editModalInterviewUser" tabindex="-1"
+                        aria-labelledby="editModalInterviewUserLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalInterviewUserLabel">Edit Interview User</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <?php include_once 'modal/modal_interview_user.php'; ?>
@@ -740,7 +776,7 @@ include 'komponen/koneksi.php';
     <!-- / Layout wrapper -->
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#deviceTable').DataTable({
                 fixedColumns: {
                     left: 7,
@@ -752,7 +788,7 @@ include 'komponen/koneksi.php';
                 scrollX: true,
                 scrollY: 450,
                 select: true,
-                lengthMenu: [5, 10, 25, 50, 100], // Specify the available page lengths
+                lengthMenu: [5, 10, 25, 50, 1200], // Specify the available page lengths
                 pageLength: 10, // Set the initial page length
                 orderCellsTop: true,
                 autoWidth: true,
@@ -760,7 +796,7 @@ include 'komponen/koneksi.php';
             });
 
 
-            $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date, td.editable-time, td.editable-ac ', function() {
+            $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date, td.editable-time, td.editable-ac ', function () {
                 var cell = $(this);
 
                 // Check if the cell already contains an input, select, or datetime element
@@ -789,7 +825,7 @@ include 'komponen/koneksi.php';
                 cell.html('<select class="form-control"></select>');
                 var select = cell.find('select');
 
-                options.forEach(function(option) {
+                options.forEach(function (option) {
                     var optionElement = $('<option>', {
                         value: option,
                         text: option
@@ -804,7 +840,7 @@ include 'komponen/koneksi.php';
 
                 select.focus();
 
-                select.on('change', function() {
+                select.on('change', function () {
                     cell.text(select.val());
                     updateData(cell);
                     updateDataWII(cell);
@@ -823,7 +859,7 @@ include 'komponen/koneksi.php';
                 var input = cell.find('input');
                 input.focus();
 
-                input.on('blur', function() {
+                input.on('blur', function () {
                     cell.text(input.val());
                     updateData(cell);
                     updateReferPosisi(cell);
@@ -836,7 +872,7 @@ include 'komponen/koneksi.php';
 
                 });
 
-                input.on('keypress', function(e) {
+                input.on('keypress', function (e) {
                     if (e.key === 'Enter') {
                         cell.text(input.val());
                         updateData(cell);
@@ -858,7 +894,7 @@ include 'komponen/koneksi.php';
                 var input = cell.find('input');
                 input.focus();
 
-                input.on('blur', function() {
+                input.on('blur', function () {
                     cell.text(input.val());
                     updateData(cell);
                     updateDataWII(cell);
@@ -869,7 +905,7 @@ include 'komponen/koneksi.php';
                     updateDataHasilAkhir(cell);
                 });
 
-                input.on('keypress', function(e) {
+                input.on('keypress', function (e) {
                     if (e.key === 'Enter') {
                         cell.text(input.val());
                         updateData(cell);
@@ -891,7 +927,7 @@ include 'komponen/koneksi.php';
                 var input = cell.find('input');
                 input.focus();
 
-                input.on('blur', function() {
+                input.on('blur', function () {
                     cell.text(input.val());
                     updateData(cell);
                     updateDataWII(cell);
@@ -902,7 +938,7 @@ include 'komponen/koneksi.php';
                     updateDataHasilAkhir(cell);
                 });
 
-                input.on('keypress', function(e) {
+                input.on('keypress', function (e) {
                     if (e.key === 'Enter') {
                         cell.text(input.val());
                         updateData(cell);
@@ -923,7 +959,7 @@ include 'komponen/koneksi.php';
                 var input = cell.find('input');
                 input.focus();
 
-                input.on('blur', function() {
+                input.on('blur', function () {
                     cell.text(input.val());
                     updateData(cell);
                     updateDataWII(cell);
@@ -934,7 +970,7 @@ include 'komponen/koneksi.php';
                     updateDataHasilAkhir(cell);
                 });
 
-                input.on('keypress', function(e) {
+                input.on('keypress', function (e) {
                     if (e.key === 'Enter') {
                         cell.text(input.val());
                         updateData(cell);
@@ -953,12 +989,12 @@ include 'komponen/koneksi.php';
                 cell.html('<input type="text" class="form-control" value="' + content + '" list="list-timezone" id="input-datalist">');
                 var input = cell.find('input');
                 input.focus();
-                input.on('blur', function() {
+                input.on('blur', function () {
                     cell.text(input.val());
                     updateDataWII(cell);
                 });
 
-                input.on('keypress', function(e) {
+                input.on('keypress', function (e) {
                     if (e.key === 'Enter') {
                         cell.text(input.val());
                         updateDataWII(cell);
@@ -989,11 +1025,11 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_administrasi.php', // Replace with the actual path
                     type: 'POST',
                     data: data,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1016,11 +1052,11 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_refer_posisi.php', // Replace with the actual path for WII
                     type: 'POST',
                     data: dataReferPosisi,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1053,11 +1089,11 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_wii.php', // Replace with the actual path for WII
                     type: 'POST',
                     data: dataWII,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1084,11 +1120,11 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_psikotest.php', // Replace with the actual path for Psikotest
                     type: 'POST',
                     data: dataPsikotest,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1120,11 +1156,11 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_indepth.php', // Replace with the actual path for Indepth
                     type: 'POST',
                     data: dataIndepth,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1156,11 +1192,11 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_tesBidang.php', // Replace with the actual path for Test Bidang
                     type: 'POST',
                     data: dataTestBidang,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1196,11 +1232,11 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_interview_user.php', // Replace with the actual path for Interview User
                     type: 'POST',
                     data: dataInterviewUser,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1226,13 +1262,13 @@ include 'komponen/koneksi.php';
                     url: '../controller/edit_hasilAkhir.php', // Replace with the actual path for Hasil Akhir
                     type: 'POST',
                     data: dataHasilAkhir,
-                    success: function(response) {
+                    success: function (response) {
                         // Handle success
                         console.log(response);
 
                         // You can add additional logic here if needed
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle error
                         console.error(error);
                     }
@@ -1245,12 +1281,12 @@ include 'komponen/koneksi.php';
             // $('#deviceTable thead tr').first().prepend('<th><input type="checkbox" id="select-all"></th>');
 
             // Handle row selection
-            $('#deviceTable tbody').on('click', '.select-checkbox', function() {
+            $('#deviceTable tbody').on('click', '.select-checkbox', function () {
                 $(this).toggleClass('selected');
             });
 
             // Handle "Select All" checkbox
-            $('#select-all').on('click', function() {
+            $('#select-all').on('click', function () {
                 var rows = table.rows({
                     page: 'current'
                 }).nodes();
@@ -1258,17 +1294,17 @@ include 'komponen/koneksi.php';
             });
 
             // Create select inputs for each column
-            table.columns().every(function() {
+            table.columns().every(function () {
                 var column = this;
                 if (column.index() !== 0 && column.index() !== 1) {
-                    var select = $('<br><select class="w-100 form-control form-control-sm"><option value=""></option></select>')
+                    var select = $('<br><select class="w-1200 form-control form-control-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
-                        .on('change', function() {
+                        .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());
                             column.search(val ? '^' + val + '$' : '', true, false).draw();
                         });
 
-                    column.data().unique().sort().each(function(d, j) {
+                    column.data().unique().sort().each(function (d, j) {
                         select.append('<option value="' + d + '">' + d + '</option>');
                     });
                 }
@@ -1279,11 +1315,11 @@ include 'komponen/koneksi.php';
     </script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Function to populate form fields based on the selected IDs
             function populateFormFields() {
                 var selectedIds = [];
-                $('.select-checkbox:checked').each(function() {
+                $('.select-checkbox:checked').each(function () {
                     var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
                     selectedIds.push(id);
                 });
@@ -1303,13 +1339,13 @@ include 'komponen/koneksi.php';
                 }
             }
 
-            $('#editButton').on('click', function() {
+            $('#editButton').on('click', function () {
                 populateFormFields();
             });
 
             function populateFormWii() {
                 var selectedIds = [];
-                $('.select-checkbox:checked').each(function() {
+                $('.select-checkbox:checked').each(function () {
                     var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
                     selectedIds.push(id);
                 });
@@ -1331,13 +1367,13 @@ include 'komponen/koneksi.php';
             // Event handler for the "Edit" button
 
 
-            $('#editButtonWii').on('click', function() {
+            $('#editButtonWii').on('click', function () {
                 populateFormWii();
             });
 
             function populateFormPsikotest() {
                 var selectedIds = [];
-                $('.select-checkbox:checked').each(function() {
+                $('.select-checkbox:checked').each(function () {
                     var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
                     selectedIds.push(id);
                 });
@@ -1357,13 +1393,13 @@ include 'komponen/koneksi.php';
             }
 
             // Event handler for the "Edit" button
-            $('#editButtonPsikotest').on('click', function() {
+            $('#editButtonPsikotest').on('click', function () {
                 populateFormPsikotest();
             });
 
             function populateFormIndepth() {
                 var selectedIds = [];
-                $('.select-checkbox:checked').each(function() {
+                $('.select-checkbox:checked').each(function () {
                     var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
                     selectedIds.push(id);
                 });
@@ -1384,13 +1420,13 @@ include 'komponen/koneksi.php';
             // Event handler for the "Edit" button
 
 
-            $('#editButtonIndepth').on('click', function() {
+            $('#editButtonIndepth').on('click', function () {
                 populateFormIndepth();
             });
 
             function populateFormTesBidang() {
                 var selectedIds = [];
-                $('.select-checkbox:checked').each(function() {
+                $('.select-checkbox:checked').each(function () {
                     var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
                     selectedIds.push(id);
                 });
@@ -1412,13 +1448,13 @@ include 'komponen/koneksi.php';
             // Event handler for the "Edit" button
 
 
-            $('#editButtonTesBidang').on('click', function() {
+            $('#editButtonTesBidang').on('click', function () {
                 populateFormTesBidang();
             });
 
             function populateFormInterviewUser() {
                 var selectedIds = [];
-                $('.select-checkbox:checked').each(function() {
+                $('.select-checkbox:checked').each(function () {
                     var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
                     selectedIds.push(id);
                 });
@@ -1436,7 +1472,7 @@ include 'komponen/koneksi.php';
             }
 
             // Event handler for the "Edit" button
-            $('#editButtonInterviewUser').on('click', function() {
+            $('#editButtonInterviewUser').on('click', function () {
                 populateFormInterviewUser();
             });
 

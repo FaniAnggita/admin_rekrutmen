@@ -96,7 +96,7 @@ if ($_SESSION['status'] != "login") {
   <style>
     /* table {
       margin: 0 auto;
-      width: 100%;
+      width: 1200%;
       clear: both;
       border-collapse: collapse;
       table-layout: auto;
@@ -104,14 +104,14 @@ if ($_SESSION['status'] != "login") {
     }
 
     thead {
-      width: calc(100% - 17px);
+      width: calc(1200% - 17px);
 
     }
 
 
 
     tbody {
-      width: 100%;
+      width: 1200%;
     }
 
 
@@ -121,13 +121,15 @@ if ($_SESSION['status'] != "login") {
     }
 
     td.editable input {
-      width: 100%;
+      width: 1200%;
       box-sizing: border-box;
-      
+
     } */
+
     #deviceTable {
       table-layout: auto !important;
     }
+
 
     #deviceTable th,
     #deviceTable td {

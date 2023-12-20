@@ -208,7 +208,7 @@ if ($result->num_rows > 0) {
         // Initialize TinyMCE for 'deskripsi' and 'kualifikasi'
         tinymce.init({
             selector: '#deskripsi',
-            width: '100%',
+            width: '1200%',
             height: 200,
             plugins: 'lists advlist',
             toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
@@ -218,7 +218,7 @@ if ($result->num_rows > 0) {
 
         tinymce.init({
             selector: '#kualifikasi',
-            width: '100%',
+            width: '1200%',
             height: 200,
             plugins: 'lists advlist',
             toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',

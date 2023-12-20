@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <!-- Content -->
   <div class="container d-flex justify-content-center align-items-center"
-    style="height: 100vh; max-width: 800px; margin: 0 auto;">
+    style="height: 100vh; max-width: 1400px; margin: 0 auto;">
     <!-- Horizontal -->
 
     <div class="row mb-5 ">
