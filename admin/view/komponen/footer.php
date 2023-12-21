@@ -8,6 +8,6 @@
 
         </div>
         <div>
-            <a href="https://fanianggita.github.io/" class="footer-link me-4" target="_blank">About</a>
+            <a href="https://www.insanmadani.com/" class="footer-link me-4" target="_blank">About</a>
         </div>
 </footer>

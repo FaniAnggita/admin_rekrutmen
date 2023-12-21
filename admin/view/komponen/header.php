@@ -125,7 +125,15 @@ if ($_SESSION['status'] != "login") {
       box-sizing: border-box;
 
     } */
+    /* 
+   
 
+
+    .dropdown-menu {
+      overflow: overlay !important;
+      overflow-x: overlay !important;
+      overflow-y: overlay !important;
+    } */
     #deviceTable {
       table-layout: auto !important;
     }
@@ -134,15 +142,8 @@ if ($_SESSION['status'] != "login") {
     #deviceTable th,
     #deviceTable td {
       white-space: nowrap;
-      overflow: hidden;
-      text-overf low: ellipsis;
-    }
-
-
-    .dropdown-menu {
-      overflow: overlay !important;
-      overflow-x: overlay !important;
-      overflow-y: overlay !important;
+      overflow: auto;
+      text-overflow: ellipsis;
     }
 
     .btn-group-xs>.btn,
