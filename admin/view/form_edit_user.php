@@ -36,24 +36,18 @@ function hashPassword($password)
 }
 ?>
 
-<body onload="startTime()">
+<body>
+    <?php
+    include 'komponen/navbar2.php';
+    ?>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar  layout-without-menu">
+
         <div class="layout-container">
-            <!-- Menu -->
-            <?php
-            include 'komponen/aside.php';
-            ?>
-            <!-- / Menu -->
+
 
             <!-- Layout container -->
             <div class="layout-page">
-                <!-- Navbar -->
-                <?php
-                include 'komponen/navbar.php';
-                ?>
-                <!-- / Navbar -->
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->

@@ -4,24 +4,18 @@ include 'komponen/header.php';
 include 'komponen/koneksi.php';
 ?>
 
-<body onload="startTime()">
+<body>
+    <?php
+    include 'komponen/navbar2.php';
+    ?>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar  layout-without-menu">
+
         <div class="layout-container">
-            <!-- Menu -->
-            <?php
-            include 'komponen/aside.php';
-            ?>
-            <!-- / Menu -->
+
 
             <!-- Layout container -->
             <div class="layout-page">
-                <!-- Navbar -->
-                <?php
-                include 'komponen/navbar.php';
-                ?>
-                <!-- / Navbar -->
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
@@ -32,17 +26,20 @@ include 'komponen/koneksi.php';
 
                             <div class="card-header d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Tambah Interviewer/Korektor</h5>
-                                <a href="interviewer.php" class="btn btn-danger btn-sm"> <i class="bx bx-left-arrow-alt"></i> Kembali</a>
+                                <a href="interviewer.php" class="btn btn-danger btn-sm"> <i
+                                        class="bx bx-left-arrow-alt"></i> Kembali</a>
                             </div>
 
                             <div class="card-body">
                                 <form id="tambah">
                                     <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="name">Nomor Induk Karyawan (NIK)</label>
+                                        <label class="col-sm-2 col-form-label" for="name">Nomor Induk Karyawan
+                                            (NIK)</label>
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-key"></i></span>
-                                                <input type="number" class="form-control" id="nik" name="nik" aria-describedby="nik" required>
+                                                <input type="number" class="form-control" id="nik" name="nik"
+                                                    aria-describedby="nik" required>
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +48,9 @@ include 'komponen/koneksi.php';
                                         <div class="col-sm-10">
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control" id="nama_int" name="nama_int" aria-label="John Doe" aria-describedby="nama_int" autocomplete="on" required>
+                                                <input type="text" class="form-control" id="nama_int" name="nama_int"
+                                                    aria-label="John Doe" aria-describedby="nama_int" autocomplete="on"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -129,9 +128,9 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Form 1 submission
-            $("#tambah").submit(function(event) {
+            $("#tambah").submit(function (event) {
                 event.preventDefault();
 
                 var formData = $(this).serialize();
@@ -140,11 +139,11 @@ include 'komponen/koneksi.php';
                     type: "POST",
                     url: "../controller/tambah_interviewer.php", // Replace with the path to your PHP script
                     data: formData,
-                    success: function(response) {
+                    success: function (response) {
                         alert(response); // Display the response from the server
                         // You can redirect or perform other actions as needed.
                     },
-                    error: function() {
+                    error: function () {
                         alert("Error while submitting Form 1");
                     }
                 });

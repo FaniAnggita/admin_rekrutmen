@@ -5,22 +5,17 @@ include 'komponen/koneksi.php';
 ?>
 
 <body>
+    <?php
+    include 'komponen/navbar2.php';
+    ?>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar  layout-without-menu">
+
         <div class="layout-container">
-            <!-- Menu -->
-            <?php
-            include 'komponen/aside.php';
-            ?>
-            <!-- / Menu -->
+
 
             <!-- Layout container -->
             <div class="layout-page">
-                <!-- Navbar -->
-                <?php
-                include 'komponen/navbar.php';
-                ?>
-                <!-- / Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -55,19 +50,19 @@ include 'komponen/koneksi.php';
                                         $sql = "SELECT * FROM users";
                                         $result = $conn->query($sql);
 
-                                        if($result->num_rows > 0) {
-                                            while($row = $result->fetch_assoc()) {
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
-                                                echo "<td>".$row['id']."</td>";
-                                                echo "<td>".$row['nik']."</td>";
-                                                echo "<td>".$row['name']."</td>";
-                                                echo "<td>".$row['email']."</td>";
-                                                echo "<td>".$row['password']."</td>";
+                                                echo "<td>" . $row['id'] . "</td>";
+                                                echo "<td>" . $row['nik'] . "</td>";
+                                                echo "<td>" . $row['name'] . "</td>";
+                                                echo "<td>" . $row['email'] . "</td>";
+                                                echo "<td>" . $row['password'] . "</td>";
                                                 echo "<td>";
 
-                                                if($row['role'] == '1') {
+                                                if ($row['role'] == '1') {
                                                     echo 'Admin';
-                                                } elseif($row['role'] == '2') {
+                                                } elseif ($row['role'] == '2') {
                                                     echo 'Kadiv';
                                                 } else {
                                                     echo 'Manager';

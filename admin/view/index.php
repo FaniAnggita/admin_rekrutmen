@@ -57,9 +57,7 @@ if ($resultRekomendasi->num_rows > 0) {
   <div class="layout-wrapper layout-content-navbar  layout-without-menu">
 
     <div class="layout-container">
-      <!-- Menu -->
 
-      <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">

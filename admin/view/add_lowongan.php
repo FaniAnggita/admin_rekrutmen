@@ -4,137 +4,134 @@ include 'komponen/header.php';
 include 'komponen/koneksi.php';
 ?>
 
-<body ">
+<body>
+    <?php
+    include 'komponen/navbar2.php';
+    ?>
     <!-- Layout wrapper -->
-    <div class=" layout-wrapper layout-content-navbar">
-    <div class="layout-container">
-        <!-- Menu -->
-        <?php
-        include 'komponen/aside.php';
-        ?>
-        <!-- / Menu -->
+    <div class="layout-wrapper layout-content-navbar  layout-without-menu">
 
-        <!-- Layout container -->
-        <div class="layout-page">
-            <!-- Navbar -->
-            <?php
-            include 'komponen/navbar.php';
-            ?>
-            <!-- / Navbar -->
+        <div class="layout-container">
 
-            <!-- Content wrapper -->
-            <div class="content-wrapper">
-                <!-- Content -->
-                <div class="container-xxl flex-grow-1 container-p-y">
 
-                    <!-- Basic Bootstrap Table -->
-                    <div class="card">
+            <!-- Layout container -->
+            <div class="layout-page">
 
-                        <div class="card-header d-flex align-items-center justify-content-between">
-                            <h5 class="mb-0">Tambah Posisi/Jabatan</h5>
-                            <a href="lowongan.php" class="btn btn-danger btn-sm"> <i class="bx bx-left-arrow-alt"></i>
-                                Kembali</a>
-                        </div>
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
 
-                        <div class="card-body">
-                            <form id="edit" method="post">
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="kode_ps">Posisi</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group input-group-merge">
-                                            <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                            <select id="kode_ps" class="form-select" name="kode_ps">
-                                                <?php
-                                                // Ambil data dari database dan tampilkan dalam tabel
-                                                $sql = "SELECT * FROM posisi WHERE status_posisi = 1";
-                                                $result = $conn->query($sql);
+                        <!-- Basic Bootstrap Table -->
+                        <div class="card">
 
-                                                if ($result->num_rows > 0) {
-                                                    while ($row = $result->fetch_assoc()) { ?>
-                                                        <option value="<?php echo $row['kode_ps']; ?>">
-                                                            <?php echo $row['kode_ps'] . " - " . $row['nama_ps']; ?>
-                                                        </option>
-                                                    <?php }
-                                                } ?>
-                                            </select>
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="mb-0">Tambah Posisi/Jabatan</h5>
+                                <a href="lowongan.php" class="btn btn-danger btn-sm"> <i
+                                        class="bx bx-left-arrow-alt"></i>
+                                    Kembali</a>
+                            </div>
+
+                            <div class="card-body">
+                                <form id="edit" method="post">
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="kode_ps">Posisi</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-user"></i></span>
+                                                <select id="kode_ps" class="form-select" name="kode_ps">
+                                                    <?php
+                                                    // Ambil data dari database dan tampilkan dalam tabel
+                                                    $sql = "SELECT * FROM posisi WHERE status_posisi = 1";
+                                                    $result = $conn->query($sql);
+
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) { ?>
+                                                            <option value="<?php echo $row['kode_ps']; ?>">
+                                                                <?php echo $row['kode_ps'] . " - " . $row['nama_ps']; ?>
+                                                            </option>
+                                                        <?php }
+                                                    } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="tenggat_daftar">Tenggat
+                                            Pendaftaran</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                                                <input type="date" class="form-control" id="tenggat_daftar"
+                                                    name="tenggat_daftar" aria-label="John Doe"
+                                                    aria-describedby="tenggat_daftar" autocomplete="on" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="deskripsi">Deskripsi</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+
+                                                <!-- Add the TinyMCE textarea for 'deskripsi' -->
+                                                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
+                                                    required></textarea>
+                                            </div>
                                         </div>
                                     </div>
 
-                                </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="kualifikasi">Kualifikasi</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
 
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="tenggat_daftar">Tenggat
-                                        Pendaftaran</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group input-group-merge">
-                                            <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                                            <input type="date" class="form-control" id="tenggat_daftar"
-                                                name="tenggat_daftar" aria-label="John Doe"
-                                                aria-describedby="tenggat_daftar" autocomplete="on" required>
+                                                <!-- Add the TinyMCE textarea for 'kualifikasi' -->
+                                                <textarea class="form-control" id="kualifikasi" name="kualifikasi"
+                                                    rows="5" required></textarea>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="deskripsi">Deskripsi</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group input-group-merge">
-
-                                            <!-- Add the TinyMCE textarea for 'deskripsi' -->
-                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
-                                                required></textarea>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label" for="status">Status</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span class="input-group-text"><i
+                                                        class="bx bx-question-mark"></i></span>
+                                                <select id="status" class="form-select" name="status">
+                                                    <option value="1">Dibuka</option>
+                                                    <option value="0">Ditutup</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="kualifikasi">Kualifikasi</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group input-group-merge">
-
-                                            <!-- Add the TinyMCE textarea for 'kualifikasi' -->
-                                            <textarea class="form-control" id="kualifikasi" name="kualifikasi" rows="5"
-                                                required></textarea>
+                                    <div class="row justify-content-end">
+                                        <div class="col-sm-10">
+                                            <button type="button" onclick="submitForm()">Simpan</button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="status">Status</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group input-group-merge">
-                                            <span class="input-group-text"><i class="bx bx-question-mark"></i></span>
-                                            <select id="status" class="form-select" name="status">
-                                                <option value="1">Dibuka</option>
-                                                <option value="0">Ditutup</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-end">
-                                    <div class="col-sm-10">
-                                        <button type="button" onclick="submitForm()">Simpan</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
+
+                    <!-- Footer -->
+                    <?php
+                    include 'komponen/footer.php';
+                    ?>
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
                 </div>
-
-
-                <!-- Footer -->
-                <?php
-                include 'komponen/footer.php';
-                ?>
-                <!-- / Footer -->
-
-                <div class="content-backdrop fade"></div>
+                <!-- Content wrapper -->
             </div>
-            <!-- Content wrapper -->
+            <!-- / Layout page -->
         </div>
-        <!-- / Layout page -->
-    </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

@@ -5,22 +5,17 @@ include 'komponen/koneksi.php';
 ?>
 
 <body>
+    <?php
+    include 'komponen/navbar2.php';
+    ?>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar  layout-without-menu">
+
         <div class="layout-container">
-            <!-- Menu -->
-            <?php
-            include 'komponen/aside.php';
-            ?>
-            <!-- / Menu -->
+
 
             <!-- Layout container -->
             <div class="layout-page">
-                <!-- Navbar -->
-                <?php
-                include 'komponen/navbar.php';
-                ?>
-                <!-- / Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -31,37 +26,61 @@ include 'komponen/koneksi.php';
                         <div class="card">
 
                             <div class="card-header d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 ">Proses Rekrutmen Kandidat</h4>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <!-- <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                                            <button type="button" class="btn btn-outline-primary" id="editButton" data-bs-toggle="modal" data-bs-target="#editModal">Administrasi</button>
-                                            <button type="button" class="btn btn-outline-primary" id="editButtonWii">WII</button>
-                                            <button type="button" class="btn btn-outline-primary" id="editButtonPsikotest">Psikotest</button>
-                                            <button type="button" class="btn btn-outline-primary" id="editButtonIndepth">Indepth</button>
-                                            <button type="button" class="btn btn-outline-primary" id="editButtonTesBidang">Tes
-                                                Bidang</button>
-                                            <button type="button" class="btn btn-outline-primary" id="editButtonInterviewUser">Interview User</button>
-                                        </div> -->
-                                    </div>
-                                    <div class="col-lg-6 d-flex justify-content-end">
-                                        <?php include_once 'modal/modal_proses_rekrutmen.php'; ?>
-                                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
-                                            data-bs-target="#modalFilterProses">
-                                            <i class="fa-solid fa-filter"></i> Filter
-                                        </button>
-                                        <a href="../controller/cetak_laporan_rekrutmen.php"
+                                <h4>Proses Rekrutmen Kandidat</h4>
+                                <div class="d-flex justify-content-end">
+                                    <?php include_once 'modal/modal_proses_rekrutmen.php'; ?>
+                                    <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
+                                        data-bs-target="#modalFilterProses">
+                                        <i class="fa-solid fa-filter"></i> Filter
+                                    </button>
+                                    <!-- FILTER BY DATE -->
+                                    <?php
+                                    if (isset($_POST['start_date']) && isset($_POST['end_date']) && $_POST['start_date'] != '' && $_POST['end_date'] != '') {
+                                        $start_date = $_POST['start_date'];
+                                        $end_date = $_POST['end_date'];
+                                        $status = $_POST['status'];
+                                        ?>
+                                        <a href="../controller/cetak_laporan_rekrutmen.php?start_date=<?php echo $start_date; ?> & end_date=<?php echo $end_date; ?> & status=<?php echo $status; ?> "
                                             class="btn btn-sm btn-danger " target="_blank">
                                             <i class="fa-solid fa-print"></i> Export
                                         </a>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="../controller/cetak_laporan_rekrutmen.php" class="btn btn-sm btn-danger "
+                                            target="_blank">
+                                            <i class="fa-solid fa-print"></i> Export
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
 
-                                    </div>
 
                                 </div>
-                                <!-- Button trigger modal -->
+                            </div>
+
+                            <div class="card-body">
+                                <!-- <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="btn-group btn-group-sm" role="group"
+                                            aria-label="Basic outlined example">
+                                            <button type="button" class="btn btn-outline-primary" id="editButton"
+                                                data-bs-toggle="modal" data-bs-target="#editModal">Administrasi</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonWii">WII</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonPsikotest">Psikotest</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonIndepth">Indepth</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonTesBidang">Tes
+                                                Bidang</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                id="editButtonInterviewUser">Interview User</button>
+                                        </div>
+                                    </div>
+                                </div> -->
+
                             </div>
                             <?php
                             $queryHistori = "SELECT akun_platform FROM seleksi_wii GROUP BY akun_platform";
@@ -104,7 +123,7 @@ include 'komponen/koneksi.php';
                                             <th class="table-primary">Jurusan/Prodi</th>
                                             <th class="table-primary">Sekolah/Univ.</th>
                                             <th class="table-primary">Domisili</th>
-                                            <th class="table-primary">Gender</th>
+                                            <th class="table-primary">JK</th>
                                             <th class="table-primary">Tgl. Lahir</th>
                                             <th class="table-primary">Usia</th>
                                             <th class="table-primary">No. HP</th>
@@ -294,7 +313,7 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='not-editable'>" . $row['jurusan'] . "</td>";
                                                 echo "<td class='not-editable'>" . $row['sekolah'] . "</td>";
                                                 echo "<td class='not-editable'>" . $row['domisili'] . "</td>";
-                                                echo "<td class='not-editable'>" . $row['gender'] . "</td>";
+                                                echo "<td class='not-editable'>" . ($row['gender'] == 'Laki-Laki' ? 'L' : 'P') . "</td>";
                                                 echo "<td class='not-editable'>" . $row['tanggal_lahir'] . "</td>";
                                                 // Create a DateTime object for the birthdate
                                                 $birthdate = new DateTime($row['tanggal_lahir']);
@@ -783,7 +802,7 @@ include 'komponen/koneksi.php';
                 },
 
                 responsive: true,
-                paging: true,
+                paging: false,
                 scrollCollapse: true,
                 scrollX: true,
                 scrollY: 450,

@@ -44,16 +44,23 @@ require_once '../koneksi/koneksi.php';
                 <!-- Administrasi -->
                 <th class="table-warning">Tgl. Adm</th>
 
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV</th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai kualifikasi">Klf</th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai Pengalaman">Pgl</th>
-                <th class="table-warning not-editable" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hasil Seleksi Administrasi">Hasil
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV
                 </th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Keterangan Seleksi Administrasi">Keterangan</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Nilai kualifikasi">Klf</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Nilai Pengalaman">Pgl</th>
+                <th class="table-warning not-editable" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Hasil Seleksi Administrasi">Hasil
+                </th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Keterangan Seleksi Administrasi">Keterangan</th>
                 <!-- Akhir Administrasi -->
                 <!-- WII -->
-                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tanggal WII">Tanggal WII</th>
-                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Jam WII">Jam WII</th>
+                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Tanggal WII">Tanggal WII</th>
+                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Jam WII">Jam WII</th>
                 <th class="table-info" data-bs-title="Konfirmasi WII">Konfirmasi</th>
                 <th class="table-info" data-bs-title="Pakar">P</th>
                 <th class="table-info" data-bs-title="Antusias">A</th>
@@ -135,10 +142,10 @@ require_once '../koneksi/koneksi.php';
                                                 LEFT JOIN pelamar_lolos pls ON pl.kode_pelamar = pls.id_pelamar";
 
             // Periksa apakah ada filter tanggal yang disetel
-            if (isset($_POST['start_date']) && isset($_POST['end_date']) && $_POST['start_date'] != '' && $_POST['end_date'] != '') {
-                $start_date = $_POST['start_date'];
-                $end_date = $_POST['end_date'];
-                $status = $_POST['status'];
+            if (isset($_GET['start_date']) && isset($_GET['end_date']) && $_GET['start_date'] != '' && $_GET['end_date'] != '') {
+                $start_date = $_GET['start_date'];
+                $end_date = $_GET['end_date'];
+                $status = $_GET['status'];
                 $kondisi = '';
 
                 if ($status == 'Administrasi') {
@@ -171,7 +178,7 @@ require_once '../koneksi/koneksi.php';
                     $tes = ($row['status'] == 1 ? 'text-danger' : '');
                     echo "<tr style='line-height: 25px;'>";
                     // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
-            ?>
+                    ?>
 
                     <?php
                     echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
@@ -246,7 +253,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-text'>" . $row['keterangan_psikotest'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'dlm proses', 'tdk psikotest'])) . "'>" . $row['rating_psikotest'] . "</td>";
                     // Akhir Psikotest
-
+            
                     // Indepth
                     echo "<td class='editable-date'>" . $row['tanggalIndepth'] . "</td>";
                     echo "<td class='editable-time'>" . $row['jam_indepth'] . "</td>";
@@ -346,7 +353,7 @@ require_once '../koneksi/koneksi.php';
 
                         <?php
                         // ...
-
+                
                         $errorMessages = [];
 
 
@@ -468,7 +475,7 @@ require_once '../koneksi/koneksi.php';
 
                     </td>
 
-            <?php
+                    <?php
                     echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
                     echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
                     // AKhir Hasil Akhir
@@ -481,6 +488,7 @@ require_once '../koneksi/koneksi.php';
             ?>
         </tbody>
     </table>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <script>
         function exportToExcel() {
@@ -508,7 +516,7 @@ require_once '../koneksi/koneksi.php';
             XLSX.writeFile(wb, 'data_rekrutmen.xlsx');
 
             // Automatically close the page after 3 seconds
-            setTimeout(function() {
+            setTimeout(function () {
                 window.close();
             }, 1000);
         }
