@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ratingPsikotest = $_POST['rating_psikotest'];
     $pengumumanPsikotest = $_POST['pengumuman_psikotest'];
     // Additional fields
-    $jamPsikotest = $_POST['jam_psikotest'];
+
+    $jamPsikotest = !empty($_POST['jam_psikotest']) ? $_POST['jam_psikotest'] : '00:00:00';
     $keteranganPsikotest = $_POST['keterangan_psikotest'];
 
     // Check if the id_pelamar already exists in the database

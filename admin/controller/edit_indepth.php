@@ -24,8 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pengumumanIndepth = $_POST['pengumuman_in'];
     $keteranganIndepth = $_POST['keterangan_in'];
     // Additional field
-    $jamIndepth = $_POST['jam_indepth'];
-
+    $jamIndepth = !empty($_POST['jam_indepth']) ? $_POST['jam_indepth'] : '00:00:00';
     // Check if the id_pelamar already exists in the database
     $checkSql = "SELECT * FROM seleksi_indepth WHERE id_pelamar = '$idPelamar'";
     $result = $conn->query($checkSql);

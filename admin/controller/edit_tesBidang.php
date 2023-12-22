@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pengumumanTesBidang = $_POST['pengumuman'];
     $keteranganTesBidang = $_POST['keterangan'];
     // Additional field
-    $jam_tb = $_POST['jam_tes_bidang'];
+
+    $jam_tb = !empty($_POST['jam_tes_bidang']) ? $_POST['jam_tes_bidang'] : '00:00:00';
 
     // Check if the id_pelamar already exists in the database
     $checkSql = "SELECT * FROM seleksi_tesbidang WHERE id_pelamar = '$idPelamar'";

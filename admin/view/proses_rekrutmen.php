@@ -378,9 +378,9 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-date'>" . $row['tanggalPsikotest'] . "</td>"; // Use class 'editable-date' for datetime input
                                                 echo "<td class='editable-time'>" . (isset($row['jam_psikotest']) ? date('H:i', strtotime($row['jam_psikotest'])) : '') . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia'])) . "'>" . $row['konfirmasiKehadiran'] . "</td>";
-                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_psikotest'] . "</td>";
-                                                echo "<td class='editable-text'>" . $row['keterangan_psikotest'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'dlm proses', 'tdk psikotest'])) . "'>" . $row['rating_psikotest'] . "</td>";
+                                                echo "<td class='editable-text'>" . $row['keterangan_psikotest'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_psikotest'] . "</td>";
                                                 // Akhir Psikotest
                                         
                                                 // Indepth
@@ -477,127 +477,32 @@ include 'komponen/koneksi.php';
                                                 // Hasil akhir
                                                 // echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Proses', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_akhir'] . "</td>";
                                                 ?>
-
                                                 <td>
                                                     <?php
                                                     $stages = [
-                                                        'iu' => [
-                                                            'result' => $row['hasil_iu'],
-                                                        ],
-                                                        'tb' => [
-                                                            'result' => $row['hasil_tb'],
-                                                        ],
-                                                        'indepth' => [
-                                                            'result' => $row['hasilIndepth'],
-                                                        ],
-                                                        'psikotest' => [
-                                                            'result' => $row['rating_psikotest'],
-                                                        ],
-                                                        'wii' => [
-                                                            'result' => $row['rating_wii'],
-                                                        ],
-                                                        'administrasi' => [
-                                                            'result' => $row['hasil_seleksi_adm'],
-                                                        ],
+                                                        'iu' => ['result' => $row['hasil_iu']],
+                                                        'tb' => ['result' => $row['hasil_tb']],
+                                                        'indepth' => ['result' => $row['hasilIndepth']],
+                                                        'psikotest' => ['result' => $row['rating_psikotest']],
+                                                        'wii' => ['result' => $row['rating_wii']],
+                                                        'administrasi' => ['result' => $row['hasil_seleksi_adm']],
                                                     ];
 
-                                                    $foundFailure = false; // Variabel penanda hasil "tidak lolos" ditemukan atau tidak
-                                                    $stage = '';
+                                                    foreach ($stages as $stage => $data) {
+                                                        // Check if the result is not null or empty
+                                                        if (!empty($data['result'])) {
+                                                            // Check if the result is "lolos"
+                                                            if ($data['result'] == 'lolos') {
+                                                                echo $stage . ' lolos';
+                                                            } else {
+                                                                echo $stage . ' tidak lolos';
+                                                            }
 
-                                                    foreach ($stages as $stageKey => $data) {
-                                                        if ($data['result'] == 'tidak lolos') {
-                                                            $foundFailure = true;
-                                                            $stage = $stageKey; // Menyimpan nama stage yang ditemukan "tidak lolos"
+                                                            // Break the loop after processing one stage
                                                             break;
                                                         }
                                                     }
-
-                                                    // Jika hasil "tidak lolos" tidak ditemukan, kosongkan nilai $stage
-                                                    if (!$foundFailure) {
-                                                        $stage = '';
-                                                    }
-
-                                                    // Sekarang, $stage berisi nama stage yang ditemukan "tidak lolos", atau kosong jika tidak ditemukan.
-                                            
-
-
-                                                    $latestStage = $stage;
-
-                                                    // Administrasi
-                                                    if ($latestStage == 'administrasi') {
-                                                        if ($row['nilai_cv'] === '0') {
-                                                            echo 'CV, ';
-                                                        }
-                                                        if ($row['nilai_kualifikasi'] === '0') {
-                                                            echo 'Kualifikasi, ';
-                                                        }
-                                                        if ($row['nilai_pengalaman'] === '0') {
-                                                            echo 'Pengalaman, ';
-                                                        }
-                                                    }
-
-                                                    // WII
-                                                    if ($latestStage == 'wii') {
-                                                        if ($row['p'] === '0') {
-                                                            echo 'Percaya Diri, ';
-                                                        }
-                                                        if ($row['a'] === '0') {
-                                                            echo 'Antusias, ';
-                                                        }
-                                                        if ($row['k'] === '0') {
-                                                            echo 'Komunikasi, ';
-                                                        }
-                                                        if ($row['r'] === '0') {
-                                                            echo 'Keramahan, ';
-                                                        }
-                                                    }
-
-                                                    // Psikotest
-                                                    if ($latestStage == 'psikotest') {
-                                                        echo 'Psikotest, ';
-                                                    }
-
-                                                    // Indepth
-                                                    if ($latestStage == 'indepth') {
-                                                        if ($row['KTB'] === '0') {
-                                                            echo 'Kemampuan Teknis Bidang, ';
-                                                        }
-                                                        if ($row['KPR'] === '0') {
-                                                            echo 'Kepribadian, ';
-                                                        }
-                                                        if ($row['Siker'] === '0') {
-                                                            echo 'Sikap Kerja, ';
-                                                        }
-                                                    }
-
-                                                    // Interviewer User
-                                                    if ($latestStage == 'iu') {
-                                                        if ($row['dt'] === '0') {
-                                                            echo 'Daya Tangkap, ';
-                                                        }
-                                                        if ($row['ka'] === '0') {
-                                                            echo 'Kemampuan Analisa, ';
-                                                        }
-                                                        if ($row['pm'] === '0') {
-                                                            echo 'Pemecahan Masalah, ';
-                                                        }
-                                                        if ($row['pd'] === '0') {
-                                                            echo 'Kepercayaan Diri, ';
-                                                        }
-                                                        if ($row['bd'] === '0') {
-                                                            echo 'Pembawaan Diri, ';
-                                                        }
-                                                        if ($row['ktb'] === '0') {
-                                                            echo 'Kemampuan Teknis Bidang, ';
-                                                        }
-                                                    }
-                                                    // Remove the trailing comma and space
-                                                    echo rtrim(', ', ', ');
-
-
                                                     ?>
-
-
                                                 </td>
 
                                                 <?php
@@ -616,107 +521,6 @@ include 'komponen/koneksi.php';
                             </div>
                         </div>
                     </div>
-                    <!-- Modal -->
-                    <!-- Modal for Edit Form ADM -->
-                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Edit Administrasi</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <?php include_once 'modal/modal_adm.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal for Edit Form WII -->
-                    <div class="modal fade" id="editModalWii" tabindex="-1" aria-labelledby="editModalWiiLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalWiiLabel">Edit WII</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <?php include_once 'modal/modal_wii.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal for Edit Form Psikotest -->
-                    <div class="modal fade" id="editModalPsikotest" tabindex="-1"
-                        aria-labelledby="editModalPsikotestLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalPsikotestLabel">Edit Psikotest</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <?php include_once 'modal/modal_psikotest.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal for Edit Form InDepth -->
-                    <div class="modal fade" id="editModalIndepth" tabindex="-1" aria-labelledby="editModalInDepthLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalInDepthLabel">Edit InDepth</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <?php include_once 'modal/modal_indepth.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal for Edit Form Tes Bidang -->
-                    <div class="modal fade" id="editModalTesBidang" tabindex="-1"
-                        aria-labelledby="editModalTesBidangLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalTesBidangLabel">Edit Tes Bidang</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <?php include_once 'modal/modal_tes_bidang.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal for Edit Form Interview User -->
-                    <div class="modal fade" id="editModalInterviewUser" tabindex="-1"
-                        aria-labelledby="editModalInterviewUserLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalInterviewUserLabel">Edit Interview User</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <?php include_once 'modal/modal_interview_user.php'; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <!-- Footer -->
                     <?php
@@ -793,7 +597,7 @@ include 'komponen/koneksi.php';
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <!-- DataTables ColumnFilter Plugin JS CDN -->
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.25/api/colReorder.js"></script>
+
     <!-- / Layout wrapper -->
 
     <script>
@@ -844,6 +648,31 @@ include 'komponen/koneksi.php';
                     select.width($(column.header()).width());
                 }
             });
+
+            // Dynamically adjust column widths on content change
+            function adjustColumnWidths() {
+                table.columns().every(function () {
+                    var maxWidth = 0;
+                    var column = this;
+
+                    // Iterate over each cell in the column
+                    column.nodes().to$().each(function () {
+                        // Get the width of the cell content
+                        var cellWidth = $(this).width();
+                        maxWidth = Math.max(maxWidth, cellWidth);
+                    });
+
+                    // Set the maximum width for the column
+                    column.width(maxWidth);
+                });
+
+                // Redraw the DataTable to apply the changes
+                table.draw();
+            }
+
+            // Call the adjustColumnWidths function on content change
+            $('#deviceTable').on('input', 'td', adjustColumnWidths);
+
             $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date, td.editable-time, td.editable-ac ', function () {
                 var cell = $(this);
 
@@ -1082,6 +911,8 @@ include 'komponen/koneksi.php';
                         console.error(error);
                     }
                 });
+
+                table.draw();
             }
 
             // UPdate WII = DONE
@@ -1231,9 +1062,9 @@ include 'komponen/koneksi.php';
                     korektor1: row.find('td:eq(54)').text(),
                     nilai_tb2: row.find('td:eq(55)').text(),
                     korektor2: row.find('td:eq(56)').text(),
-                    keterangan: row.find('td:eq(57)').text(),
-                    pengumuman: row.find('td:eq(58)').text(),
-                    hasil: row.find('td:eq(59)').text(),
+                    keterangan: row.find('td:eq(58)').text(),
+                    pengumuman: row.find('td:eq(59)').text(),
+                    hasil: row.find('td:eq(57)').text(),
                 };
 
                 // Send AJAX request to update data on the server for Test Bidang

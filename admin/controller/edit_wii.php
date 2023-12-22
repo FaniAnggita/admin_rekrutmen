@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($waktuInterview === '') {
         $waktuInterview = date('Y-m-d');
     }
-    $jam_wii = $_POST['jam_interview'];
+    $jam_wii = !empty($_POST['jam_interview']) ? $_POST['jam_interview'] : '00:00:00';
     $konfirmasiKehadiranWii = $_POST['konfirmasi_kehadiran_wii'];
     $p = $_POST['p'];
     $a = $_POST['a'];
@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $akun_platform = $_POST['akun_platform'];
     $ratingWii = $_POST['rating_wii'];
     $pengumumanWii = $_POST['pengumuman_wii'];
+    $keterangan_wii = $_POST['keterangan_wii'];
     $interviewerWii = $_POST['interviewer_wii'];
 
     // Check if the id_pelamar already exists in the database
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           akun_platform = '$akun_platform',
                           rating_wii = '$ratingWii',
                           pengumuman_wii = '$pengumumanWii',
+                          keterangan_wii = '$keterangan_wii',
                           interviewer_wii = '$interviewerWii'
                       WHERE id_pelamar = '$idPelamar'";
 
@@ -50,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Perform an INSERT operation if the id_pelamar does not exist
-        $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, jam_wii, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, interviewer_wii, akun_platform)
-                      VALUES ('$idPelamar', '$waktuInterview', '$jam_wii', '$konfirmasiKehadiranWii', '$p', '$a', '$k', '$r', '$ratingWii', '$pengumumanWii', '$interviewerWii', '$akun_platform')";
+        $insertSql = "INSERT INTO seleksi_wii (id_pelamar, waktuInterview, jam_wii, konfirmasiKehadiran_wii, p, a, k, r, rating_wii, pengumuman_wii, interviewer_wii, akun_platform, keterangan_wii)
+                      VALUES ('$idPelamar', '$waktuInterview', '$jam_wii', '$konfirmasiKehadiranWii', '$p', '$a', '$k', '$r', '$ratingWii', '$pengumumanWii', '$interviewerWii', '$akun_platform', '$keterangan_wii')";
 
         if ($conn->query($insertSql) === TRUE) {
             // Return a success message
