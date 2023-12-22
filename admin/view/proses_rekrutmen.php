@@ -477,7 +477,8 @@ include 'komponen/koneksi.php';
                                                 // Hasil akhir
                                                 // echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Proses', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_akhir'] . "</td>";
                                                 ?>
-                                                <td>
+                                                <td id="resultCell"></td>
+                                                <!-- <td>
                                                     <?php
                                                     $stages = [
                                                         'iu' => ['result' => $row['hasil_iu']],
@@ -493,17 +494,84 @@ include 'komponen/koneksi.php';
                                                         if (!empty($data['result'])) {
                                                             // Check if the result is "lolos"
                                                             if ($data['result'] == 'lolos') {
-                                                                echo $stage . ' lolos';
+                                                                // echo $stage . ' lolos';
                                                             } else {
-                                                                echo $stage . ' tidak lolos';
+                                                                // Specific messages based on the stage
+                                                                if ($stage == 'administrasi') {
+                                                                    if ($row['nilai_cv'] === '0') {
+                                                                        echo ' CV, ';
+                                                                    }
+                                                                    if ($row['nilai_kualifikasi'] === '0') {
+                                                                        echo ' Kualifikasi, ';
+                                                                    }
+                                                                    if ($row['nilai_pengalaman'] === '0') {
+                                                                        echo ' Pengalaman, ';
+                                                                    }
+                                                                } elseif ($stage == 'wii') {
+                                                                    if ($row['p'] === '0') {
+                                                                        echo 'Percaya Diri, ';
+                                                                    }
+                                                                    if ($row['a'] === '0') {
+                                                                        echo 'Antusias, ';
+                                                                    }
+                                                                    if ($row['k'] === '0') {
+                                                                        echo 'Komunikasi, ';
+                                                                    }
+                                                                    if ($row['r'] === '0') {
+                                                                        echo 'Keramahan, ';
+                                                                    }
+                                                                    // Add conditions for the 'psikotest' stage
+                                                                } elseif ($stage == 'psikotest') {
+                                                                    echo 'Psikotest, ';
+                                                                } elseif ($stage == 'indepth') {
+                                                                    if ($row['KTB'] === '0') {
+                                                                        echo 'Kemampuan Teknis Bidang, ';
+                                                                    }
+                                                                    if ($row['KPR'] === '0') {
+                                                                        echo 'Kepribadian, ';
+                                                                    }
+                                                                    if ($row['Siker'] === '0') {
+                                                                        echo 'Sikap Kerja, ';
+                                                                    }
+                                                                } elseif ($stage == 'tb') {
+
+                                                                    echo 'Tes Bidang, ';
+
+
+                                                                } elseif ($stage == 'iu') {
+                                                                    if ($row['dt'] === '0') {
+                                                                        echo 'Daya Tangkap, ';
+                                                                    }
+                                                                    if ($row['ka'] === '0') {
+                                                                        echo 'Kemampuan Analisa, ';
+                                                                    }
+                                                                    if ($row['pm'] === '0') {
+                                                                        echo 'Pemecahan Masalah, ';
+                                                                    }
+                                                                    if ($row['pd'] === '0') {
+                                                                        echo 'Kepercayaan Diri, ';
+                                                                    }
+                                                                    if ($row['bd'] === '0') {
+                                                                        echo 'Pembawaan Diri, ';
+                                                                    }
+                                                                    if ($row['ktb'] === '0') {
+                                                                        echo 'Kemampuan Teknis Bidang, ';
+                                                                    }
+                                                                }
+
+
+                                                                // Remove the trailing comma and space
+                                                                echo rtrim(', ', ', ');
                                                             }
+
+
 
                                                             // Break the loop after processing one stage
                                                             break;
                                                         }
                                                     }
                                                     ?>
-                                                </td>
+                                                </td> -->
 
                                                 <?php
                                                 echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
@@ -923,7 +991,7 @@ include 'komponen/koneksi.php';
                 // Prepare data to be sent to the server for WII
                 var dataReferPosisi = {
                     id_pelamar: idPelamar,
-                    refer_posisi: row.find('td:eq(4)').text(), // Adjust the column index based on your actual structure
+                    refer_posisi: row.find('td:eq(3)').text(), // Adjust the column index based on your actual structure
                 };
 
                 // Send AJAX request to update data on the server for WII
@@ -1159,6 +1227,8 @@ include 'komponen/koneksi.php';
 
         });
     </script>
+
+
 
 
 </body>
