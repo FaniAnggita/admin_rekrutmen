@@ -93,7 +93,7 @@ include 'komponen/koneksi.php';
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Histori
-                                                                    Jumlah Kebutuhan
+                                                                    Perubahan
                                                                     <?php echo $rowPosisi['kode_ps'] . '-' . $rowPosisi['nama_ps']; ?>
                                                                 </h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"

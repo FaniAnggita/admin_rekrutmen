@@ -453,7 +453,7 @@ include 'komponen/koneksi.php';
                                                 }
 
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($listOfInterviewers2)) . "'>" . $defaultValue2 . "</td>";
-                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_tb'] . "</td>";
+                                                echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Lolos', 'tidak lolos'])) . "'>" . $row['hasil_tb'] . "</td>";
                                                 echo "<td class='editable-text'>" . $row['keterangan_tb'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_tb'] . "</td>";
                                                 // Akhir Test Bidang
@@ -467,7 +467,7 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['pd'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['bd'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['ktb'] . "</td>";
-                                                echo "<td>" . $row['interviewer_iu'] . "</td>";
+                                                echo "<td class='editable-text'>" . $row['interviewer_iu'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'blm dijadwalkan'])) . "'>" . $row['hasil_iu'] . "</td>";
                                                 echo "<td class='editable-text'>" . $row['keterangan_iu'] . "</td>";
                                                 echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_iu'] . "</td>";
@@ -479,9 +479,6 @@ include 'komponen/koneksi.php';
                                                 ?>
 
                                                 <td>
-
-
-
                                                     <?php
                                                     $stages = [
                                                         'iu' => [
@@ -817,31 +814,36 @@ include 'komponen/koneksi.php';
                 orderCellsTop: true,
                 autoWidth: true,
 
-                orderCellsTop: true,
-                // Initialize the DataTables ColumnFilter plugin
-                initComplete: function () {
-                    this.api().columns().every(function () {
-                        var column = this;
-                        var select = $('<select><option value=""></option></select>')
-                            .appendTo($(column.header()).parent().next())
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
-
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
-                            });
-
-                        column.data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
-                        });
-                    });
-                },
             });
 
+            // Create select inputs for each column
+            table.columns().every(function () {
+                var column = this;
+                if (column.index() !== 0) {
+                    // Use the header class to apply styles to both header and body
+                    var select = $('<select class="w-100 form-control form-control-sm p-0 m-0"><option value=""></option></select>')
+                        .appendTo($(column.header()).addClass('text-center')) // Add text-center class to the header
+                        .on('click', function (e) {
+                            e.stopPropagation(); // Stop the click event from propagating to the DataTable header
+                        })
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
 
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>');
+                    });
+
+                    // Prevent order event from propagating to the DataTable header
+                    $(column.header()).on('click', function (e) {
+                        e.stopPropagation();
+                    });
+
+                    // Set the width of the select input to match the width of the column
+                    select.width($(column.header()).width());
+                }
+            });
             $('#deviceTable').on('click', 'td.editable-combobox, td.editable-text, td.editable-datetime, td.editable-date, td.editable-time, td.editable-ac ', function () {
                 var cell = $(this);
 
@@ -1052,17 +1054,17 @@ include 'komponen/koneksi.php';
             // UPdate Administrasi = DONE
             function updateData(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server
                 var data = {
                     id_pelamar: idPelamar,
-                    tanggal_administrasi: row.find('td:eq(15)').text(),
-                    nilai_cv: row.find('td:eq(17)').text(), // Adjust the column index based on your actual structure
-                    nilai_kualifikasi: row.find('td:eq(18)').text(),
-                    nilai_pengalaman: row.find('td:eq(19)').text(),
-                    hasil_seleksi_adm: row.find('td:eq(20)').text(),
-                    keterangan_adm: row.find('td:eq(21)').text()
+                    tanggal_administrasi: row.find('td:eq(14)').text(),
+                    nilai_cv: row.find('td:eq(16)').text(), // Adjust the column index based on your actual structure
+                    nilai_kualifikasi: row.find('td:eq(17)').text(),
+                    nilai_pengalaman: row.find('td:eq(18)').text(),
+                    hasil_seleksi_adm: row.find('td:eq(19)').text(),
+                    keterangan_adm: row.find('td:eq(20)').text()
                     // Add more fields as needed
                 };
 
@@ -1085,7 +1087,7 @@ include 'komponen/koneksi.php';
             // UPdate WII = DONE
             function updateReferPosisi(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server for WII
                 var dataReferPosisi = {
@@ -1111,21 +1113,22 @@ include 'komponen/koneksi.php';
             // UPdate WII = DONE
             function updateDataWII(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server for WII
                 var dataWII = {
                     id_pelamar: idPelamar,
-                    waktu_interview: row.find('td:eq(22)').text(), // Adjust the column index based on your actual structure
-                    jam_interview: row.find('td:eq(23)').text(),
-                    konfirmasi_kehadiran_wii: row.find('td:eq(24)').text(),
-                    p: row.find('td:eq(25)').text(),
-                    a: row.find('td:eq(26)').text(),
-                    k: row.find('td:eq(27)').text(),
-                    r: row.find('td:eq(28)').text(),
-                    akun_platform: row.find('td:eq(30)').text(),
-                    interviewer_wii: row.find('td:eq(31)').text(),
-                    rating_wii: row.find('td:eq(32)').text(),
+                    waktu_interview: row.find('td:eq(21)').text(), // Adjust the column index based on your actual structure
+                    jam_interview: row.find('td:eq(22)').text(),
+                    konfirmasi_kehadiran_wii: row.find('td:eq(23)').text(),
+                    p: row.find('td:eq(24)').text(),
+                    a: row.find('td:eq(25)').text(),
+                    k: row.find('td:eq(26)').text(),
+                    r: row.find('td:eq(27)').text(),
+                    akun_platform: row.find('td:eq(29)').text(),
+                    interviewer_wii: row.find('td:eq(30)').text(),
+                    rating_wii: row.find('td:eq(31)').text(),
+                    keterangan_wii: row.find('td:eq(32)').text(),
                     pengumuman_wii: row.find('td:eq(33)').text()
 
                 };
@@ -1148,7 +1151,7 @@ include 'komponen/koneksi.php';
             // UPdate WII = DONE
             function updateDataPsikotest(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server for Psikotest
                 var dataPsikotest = {
@@ -1156,9 +1159,9 @@ include 'komponen/koneksi.php';
                     tanggal_psikotest: row.find('td:eq(34)').text(), // Adjust the column index based on your actual structure
                     jam_psikotest: row.find('td:eq(35)').text(),
                     konfirmasi_kehadiran: row.find('td:eq(36)').text(),
-                    pengumuman_psikotest: row.find('td:eq(37)').text(),
+                    pengumuman_psikotest: row.find('td:eq(39)').text(),
                     keterangan_psikotest: row.find('td:eq(38)').text(),
-                    rating_psikotest: row.find('td:eq(39)').text()
+                    rating_psikotest: row.find('td:eq(37)').text()
                 };
 
                 // Send AJAX request to update data on the server for Psikotest
@@ -1180,7 +1183,7 @@ include 'komponen/koneksi.php';
             // UPdate Indepth = DONE
             function updateDataIndepth(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server for Indepth
                 var dataIndepth = {
@@ -1192,9 +1195,9 @@ include 'komponen/koneksi.php';
                     KPR: row.find('td:eq(44)').text(),
                     Siker: row.find('td:eq(45)').text(),
                     interviewer_indepth: row.find('td:eq(46)').text(),
-                    pengumuman_in: row.find('td:eq(47)').text(),
+                    pengumuman_in: row.find('td:eq(49)').text(),
                     keterangan_in: row.find('td:eq(48)').text(),
-                    hasil_indepth: row.find('td:eq(49)').text()
+                    hasil_indepth: row.find('td:eq(47)').text()
                 };
 
                 // Send AJAX request to update data on the server for Indepth
@@ -1216,7 +1219,7 @@ include 'komponen/koneksi.php';
             // UPdate Tes Bidang = DONE
             function updateDataTestBidang(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server for Test Bidang
                 var dataTestBidang = {
@@ -1252,7 +1255,7 @@ include 'komponen/koneksi.php';
             // UPdate Interview User = DONE
             function updateDataInterviewUser(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server for Interview User
                 var dataInterviewUser = {
@@ -1266,11 +1269,10 @@ include 'komponen/koneksi.php';
                     pd: row.find('td:eq(66)').text(),
                     bd: row.find('td:eq(67)').text(),
                     ktb: row.find('td:eq(68)').text(),
-                    keterangan_iu: row.find('td:eq(69)').text(),
-                    pengumuman_iu: row.find('td:eq(70)').text(),
-                    interviewer_iu: row.find('td:eq(71)').text(),
-                    hasil_iu: row.find('td:eq(72)').text(),
-                    // Add more fields as needed
+                    interviewer_iu: row.find('td:eq(69)').text(),
+                    hasil_iu: row.find('td:eq(70)').text(),
+                    keterangan_iu: row.find('td:eq(71)').text(),
+                    pengumuman_iu: row.find('td:eq(72)').text()
                 };
 
                 // Send AJAX request to update data on the server for Interview User
@@ -1292,7 +1294,7 @@ include 'komponen/koneksi.php';
             // UPdate hasil akhir = DONE
             function updateDataHasilAkhir(cell) {
                 var row = cell.closest('tr');
-                var idPelamar = row.find('td:eq(5)').text(); // Assuming the ID Pelamar is in the 4th column
+                var idPelamar = row.find('td:eq(4)').text(); // Assuming the ID Pelamar is in the 4th column
 
                 // Prepare data to be sent to the server for Hasil Akhir
                 var dataHasilAkhir = {
@@ -1323,233 +1325,8 @@ include 'komponen/koneksi.php';
 
 
 
-            // // Add a checkbox for row selection
-            // $('#deviceTable thead tr').first().prepend('<th><input type="checkbox" id="select-all"></th>');
-
-            // // Handle row selection
-            // $('#deviceTable tbody').on('click', '.select-checkbox', function () {
-            //     $(this).toggleClass('selected');
-            // });
-
-            // // Handle "Select All" checkbox
-            // $('#select-all').on('click', function () {
-            //     var rows = table.rows({
-            //         page: 'current'
-            //     }).nodes();
-            //     $(':checkbox', rows).prop('checked', this.checked).toggleClass('selected', this.checked);
-            // });
-
-            // // Create select inputs for each column
-            // table.columns().every(function () {
-            //     var column = this;
-            //     if (column.index() !== 0 && column.index() !== 1) {
-            //         var select = $('<br><select class="w-100 form-control form-control-sm"><option value=""></option></select>')
-            //             .appendTo($(column.header()))
-            //             .on('change', function () {
-            //                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
-            //                 column.search(val ? '^' + val + '$' : '', true, false).draw();
-            //             });
-
-            //         column.data().unique().sort().each(function (d, j) {
-            //             select.append('<option value="' + d + '">' + d + '</option>');
-            //         });
-            //     }
-            // });
-
 
         });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            // Function to populate form fields based on the selected IDs
-            function populateFormFields() {
-                var selectedIds = [];
-                $('.select-checkbox:checked').each(function () {
-                    var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
-                    selectedIds.push(id);
-                });
-
-                if (selectedIds.length > 0) {
-                    var selectedIdsString = selectedIds.join(',');
-
-                    $('#selectedIdsInput').val(selectedIdsString);
-
-
-                    $('#idPelamarInput').val(idPelamar);
-
-                    $('#editModal').modal('show');
-                } else {
-
-                    alert('Please select at least one row to edit.');
-                }
-            }
-
-            $('#editButton').on('click', function () {
-                populateFormFields();
-            });
-
-            function populateFormWii() {
-                var selectedIds = [];
-                $('.select-checkbox:checked').each(function () {
-                    var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
-                    selectedIds.push(id);
-                });
-
-                if (selectedIds.length > 0) {
-                    var selectedIdsString = selectedIds.join(',');
-
-                    $('#selectedIdsInputWii').val(selectedIdsString);
-
-
-
-                    $('#editModalWii').modal('show');
-                } else {
-
-                    alert('Please select at least one row to edit.');
-                }
-            }
-
-            // Event handler for the "Edit" button
-
-
-            $('#editButtonWii').on('click', function () {
-                populateFormWii();
-            });
-
-            function populateFormPsikotest() {
-                var selectedIds = [];
-                $('.select-checkbox:checked').each(function () {
-                    var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
-                    selectedIds.push(id);
-                });
-
-                if (selectedIds.length > 0) {
-                    var selectedIdsString = selectedIds.join(',');
-
-                    $('#selectedIdsInputPsikotest').val(selectedIdsString);
-
-
-
-                    $('#editModalPsikotest').modal('show');
-                } else {
-
-                    alert('Please select at least one row to edit.');
-                }
-            }
-
-            // Event handler for the "Edit" button
-            $('#editButtonPsikotest').on('click', function () {
-                populateFormPsikotest();
-            });
-
-            function populateFormIndepth() {
-                var selectedIds = [];
-                $('.select-checkbox:checked').each(function () {
-                    var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
-                    selectedIds.push(id);
-                });
-
-                if (selectedIds.length > 0) {
-                    var selectedIdsString = selectedIds.join(',');
-
-                    $('#selectedIdsInputIndepth').val(selectedIdsString);
-
-
-
-                    $('#editModalIndepth').modal('show');
-                } else {
-                    alert('Please select at least one row to edit.');
-                }
-            }
-
-            // Event handler for the "Edit" button
-
-
-            $('#editButtonIndepth').on('click', function () {
-                populateFormIndepth();
-            });
-
-            function populateFormTesBidang() {
-                var selectedIds = [];
-                $('.select-checkbox:checked').each(function () {
-                    var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
-                    selectedIds.push(id);
-                });
-
-                if (selectedIds.length > 0) {
-                    var selectedIdsString = selectedIds.join(',');
-
-                    $('#selectedIdsInputTesBidang').val(selectedIdsString);
-
-
-
-                    $('#editModalTesBidang').modal('show');
-                } else {
-
-                    alert('Please select at least one row to edit.');
-                }
-            }
-
-            // Event handler for the "Edit" button
-
-
-            $('#editButtonTesBidang').on('click', function () {
-                populateFormTesBidang();
-            });
-
-            function populateFormInterviewUser() {
-                var selectedIds = [];
-                $('.select-checkbox:checked').each(function () {
-                    var id = $(this).closest('tr').find('td:eq(5)').text(); // Assuming the ID is in the fourth column
-                    selectedIds.push(id);
-                });
-
-                if (selectedIds.length > 0) {
-                    var selectedIdsString = selectedIds.join(',');
-
-                    $('#selectedIdsInputInterviewUser').val(selectedIdsString);
-
-                    $('#editModalInterviewUser').modal('show');
-                } else {
-
-                    alert('Please select at least one row to edit.');
-                }
-            }
-
-            // Event handler for the "Edit" button
-            $('#editButtonInterviewUser').on('click', function () {
-                populateFormInterviewUser();
-            });
-
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
-    <script>
-        function exportToExcel() {
-            // Get table element
-            var table = document.getElementById('deviceTable');
-
-            // Generate an array of arrays containing the table data
-            var data = [];
-            for (var i = 0; i < table.rows.length; i++) {
-                var rowData = [];
-                for (var j = 0; j < table.rows[i].cells.length; j++) {
-                    rowData.push(table.rows[i].cells[j].textContent);
-                }
-                data.push(rowData);
-            }
-
-            // Create a new workbook and add a worksheet
-            var wb = XLSX.utils.book_new();
-            var ws = XLSX.utils.aoa_to_sheet(data);
-
-            // Add the worksheet to the workbook
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-            // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'data_rekrutmen.xlsx');
-        }
     </script>
 
 
