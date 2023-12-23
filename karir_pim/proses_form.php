@@ -18,10 +18,7 @@ if (isset($_POST['nama_lengkap'])) {
     $sekolah = $_POST['sekolah'];
     $posisi = $_POST['posisi'];
 
-    // Unggah dokumen
-    $target_directory = "uploads/"; // Direktori tempat Anda akan menyimpan dokumen yang diunggah
-    $dokumen = $target_directory . basename($_FILES['dokumen']['name']);
-    move_uploaded_file($_FILES['dokumen']['tmp_name'], $dokumen);
+
 
     $query_cek_jumlah_pelamar = "
     SELECT COUNT(*) AS jumlah_data
@@ -42,6 +39,10 @@ if (isset($_POST['nama_lengkap'])) {
 
     $kode_pelamar = $bulan = $ordinalRepresentation . $tahun = date("y") . ($jumlah_data + 1);
 
+    // Unggah dokumen
+    $target_directory = "uploads/"; // Direktori tempat Anda akan menyimpan dokumen yang diunggah
+    $dokumen = $target_directory . $kode_pelamar . '_' . basename($_FILES['dokumen']['name']);
+    move_uploaded_file($_FILES['dokumen']['tmp_name'], $dokumen);
     // Check if email already exists
     $checkEmailQuery = "SELECT * FROM pelamar2 WHERE email = '$email'";
     $result = $conn->query($checkEmailQuery);
@@ -82,4 +83,3 @@ if (isset($_POST['nama_lengkap'])) {
     $conn->close();
     exit;
 }
-?>

@@ -1,64 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Karir PIM</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <!-- <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
-
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-</head>
+<?php require_once 'komponen/head.php'; ?>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo_main.png" alt="">
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
-          <li><a class="nav-link scrollto" href="#about">Tentang Kami</a></li>
-          <li><a class="nav-link scrollto" href="#services">Lowongan Kerja</a></li>
-          <!-- <li><a class="nav-link scrollto" href="#portfolio">Kontak</a></li>
-        
-
-          </li>
-
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li> -->
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
+  <?php require_once 'komponen/header.php'; ?>
+  <!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center">
@@ -71,8 +17,7 @@
             maju dan berkembang bersama kami.</h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="#services"
-                class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+              <a href="#services" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                 <span>Join Now</span>
                 <i class="bi bi-arrow-right"></i>
               </a>
@@ -117,9 +62,8 @@
                 dan offline untuk pelanggan individu (B2C), instansi pemerintah (B2G), maupun korporasi (B2B).
               </p>
               <div class="text-center text-lg-start">
-                <a href="https://www.insanmadani.com/profil"
-                  class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-                  <span>Read More</span>
+                <a href="https://www.insanmadani.com/profil" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Selengkapnya</span>
                   <i class="bi bi-arrow-right"></i>
                 </a>
               </div>
@@ -127,7 +71,7 @@
           </div>
 
           <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
+            <img src="assets/img/features-2.png" class="img-fluid" alt="">
           </div>
 
         </div>
@@ -147,8 +91,7 @@
 
             <form action="" class="col-lg-4 col-md-6 mt-2">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Cari lowongan.." aria-label="Cari lowongan..."
-                  aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="Cari lowongan.." aria-label="Cari lowongan..." aria-describedby="button-addon2">
                 <button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
               </div>
             </form>
@@ -159,42 +102,43 @@
         <div class="row gy-4">
           <?php
           require_once('koneksi.php');
-          $sql = "SELECT * FROM lowongan_baru JOIN posisi USING(kode_ps)";
+          $sql = "SELECT * FROM lowongan_baru JOIN posisi USING(kode_ps) WHERE status = 1";
           $result = $conn->query($sql);
           $i = 0;
           if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-              ?>
+          ?>
               <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="service-box blue text-start">
 
                   <div class="row">
                     <div class="col lg-6">
-                      <h3>
-                        <?php echo $row['nama_ps']; ?>
-                      </h3>
+                      <div style="height: 90px;">
+                        <h3>
+                          <a href="detail_lowongan.php?kode_ps=<?php echo $row['kode_ps']; ?>"> <?php echo $row['nama_ps']; ?></a>
+                        </h3>
+                      </div>
+
                     </div>
                     <div class="col lg-6 text-end">
                       <span style="font-size:10px;">Buka hingga
-                        <?php echo $row['tenggat_daftar']; ?>
+                        <?php
+                        $tenggatDaftar = $row['tenggat_daftar'];
+                        $formattedDate = date('d-m-Y', strtotime($tenggatDaftar));
+                        echo $formattedDate;
+                        ?>
+
                       </span><br>
                     </div>
                   </div>
                   <p>
-                    <?php echo substr($row['deskripsi'], 0, 200) . "..."; ?>
-
+                    <?php
+                    $deskripsi = strip_tags($row['deskripsi']); // Menghapus tag HTML
+                    echo substr($deskripsi, 0, 150) . "..."; // Menampilkan 150 karakter pertama
+                    ?>
                   </p>
-
-
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop<?php echo $i; ?>">
-                    Lihat Lowongan
-                  </button>
-
                   <!-- Modal -->
-                  <div class="modal fade" id="staticBackdrop<?php echo $i; ?>" data-bs-backdrop="static"
-                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal fade" id="staticBackdrop<?php echo $i; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -227,7 +171,7 @@
                   </div>
                 </div>
               </div>
-              <?php
+          <?php
               $i++;
             }
           }
@@ -248,11 +192,10 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-
+  <?php require_once 'komponen/footer.php'; ?>
   <!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>

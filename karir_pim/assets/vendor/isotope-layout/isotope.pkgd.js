@@ -295,7 +295,7 @@ return EvEmitter;
 // get a number from a string, not a percentage
 function getStyleSize( value ) {
   var num = parseFloat( value );
-  // not a percent like '1200%', and a number
+  // not a percent like '100%', and a number
   var isValid = value.indexOf('%') == -1 && !isNaN( num );
   return isValid && num;
 }
@@ -682,7 +682,7 @@ utils.filterFindElements = function( elems, selector ) {
 // ----- debounceMethod ----- //
 
 utils.debounceMethod = function( _class, methodName, threshold ) {
-  threshold = threshold || 1200;
+  threshold = threshold || 100;
   // original method
   var method = _class.prototype[ methodName ];
   var timeoutName = methodName + 'Timeout';
@@ -909,10 +909,10 @@ proto.getPosition = function() {
   // convert percent to pixels
   var layoutSize = this.layout.size;
   if ( xValue.indexOf('%') != -1 ) {
-    x = ( x / 1200 ) * layoutSize.width;
+    x = ( x / 100 ) * layoutSize.width;
   }
   if ( yValue.indexOf('%') != -1 ) {
-    y = ( y / 1200 ) * layoutSize.height;
+    y = ( y / 100 ) * layoutSize.height;
   }
   // clean up 'auto' or other non-integer values
   x = isNaN( x ) ? 0 : x;
@@ -961,13 +961,13 @@ proto.layoutPosition = function() {
 proto.getXValue = function( x ) {
   var isHorizontal = this.layout._getOption('horizontal');
   return this.layout.options.percentPosition && !isHorizontal ?
-    ( ( x / this.layout.size.width ) * 1200 ) + '%' : x + 'px';
+    ( ( x / this.layout.size.width ) * 100 ) + '%' : x + 'px';
 };
 
 proto.getYValue = function( y ) {
   var isHorizontal = this.layout._getOption('horizontal');
   return this.layout.options.percentPosition && isHorizontal ?
-    ( ( y / this.layout.size.height ) * 1200 ) + '%' : y + 'px';
+    ( ( y / this.layout.size.height ) * 100 ) + '%' : y + 'px';
 };
 
 proto._transitionTo = function( x, y ) {
@@ -1962,7 +1962,7 @@ proto.onresize = function() {
   this.resize();
 };
 
-utils.debounceMethod( Outlayer, 'onresize', 1200 );
+utils.debounceMethod( Outlayer, 'onresize', 100 );
 
 proto.resize = function() {
   // don't trigger if size did not change

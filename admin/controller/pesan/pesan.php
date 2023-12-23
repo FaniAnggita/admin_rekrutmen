@@ -44,7 +44,16 @@ $row = mysqli_fetch_assoc($result);
 echo $row['id'] . " - " . $row['nama_lengkap'] . " - " . $row['kode_ps'];
 $nama_pelamar = $row['nama_lengkap'];
 $gender = $row['gender'] == 'Laki-Laki' ? 'saudara' : 'saudari';
-$phone = $row['no_hp'];
+$no_hp = $row['no_hp'];
+
+// Check if the phone number starts with 0
+if (is_string($no_hp) && substr($no_hp, 0, 1) === '0') {
+    // Replace the leading 0 with 62
+    $no_hp = '62' . substr($no_hp, 1);
+}
+$phone =  $no_hp;
+// Now, $no_hp contains the parsed phone number
+
 $kode_ps = $row['nama_ps'];
 echo $_GET['pesan'];
 
@@ -339,4 +348,3 @@ if ($_GET['pesan'] == 'interviewuser') {
     $teks = urlencode($teks);
     header("Location: https://api.whatsapp.com/send?phone=$phone&text=$teks");
 }
-?>

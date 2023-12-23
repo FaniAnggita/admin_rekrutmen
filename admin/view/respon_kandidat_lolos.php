@@ -62,14 +62,7 @@ include 'komponen/koneksi.php';
                                         LEFT JOIN seleksi_interviewuser sin ON pl.kode_pelamar = sin.id_pelamar
                                         LEFT JOIN pelamar_lolos pls ON pl.kode_pelamar = pls.id_pelamar
                                         LEFT JOIN posisi pss ON pss.kode_ps = pl.kode_ps
-                                        WHERE
-                                            -- Add your conditions here
-                                            sa.hasil_seleksi_adm = 'lolos'
-                                            AND sw.rating_wii = 'lolos'
-                                            AND sp.rating_psikotest = 'lolos'
-                                            AND si.hasilIndepth = 'lolos'
-                                            AND st.hasil_tb = 'lolos'
-                                            AND sin.hasil_iu = 'lolos';";
+                                        WHERE sin.hasil_iu = 'lolos';";
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
@@ -176,7 +169,7 @@ include 'komponen/koneksi.php';
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#deviceTable').DataTable({
                 "scrollX": true,
                 "scrollY": "300px",
@@ -189,25 +182,25 @@ include 'komponen/koneksi.php';
             var end_date_input = $('#end_date');
 
             // Add the individual column searching (select inputs) for each column
-            table.columns().every(function () {
+            table.columns().every(function() {
                 var column = this;
                 var columnIndex = column[0][0];
 
                 if (columnIndex !== 14 && columnIndex !== 15) {
                     var select = $('<br><select class="w-1200 form-select-sm"><option value=""></option></select>')
                         .appendTo($(column.header()))
-                        .on('change', function () {
+                        .on('change', function() {
                             var val = $.fn.dataTable.util.escapeRegex($(this).val());
                             column.search(val ? '^' + val + '$' : '', true, false).draw();
                         });
 
-                    column.data().unique().sort().each(function (d, j) {
+                    column.data().unique().sort().each(function(d, j) {
                         select.append('<option value="' + d + '">' + d + '</option>');
                     });
                 }
             });
 
-            $('#start_date, #end_date').on('change', function () {
+            $('#start_date, #end_date').on('change', function() {
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
 
@@ -215,7 +208,7 @@ include 'komponen/koneksi.php';
             });
 
             $.fn.dataTable.ext.search.push(
-                function (settings, data, dataIndex) {
+                function(settings, data, dataIndex) {
                     var start_date = $('#start_date').val();
                     var end_date = $('#end_date').val();
                     var tanggalDaftar = data[0]; // Kolom Tanggal Daftar

@@ -16,9 +16,9 @@ require_once '../koneksi/koneksi.php';
     <table id="deviceTable" class="table display table-sm table-bordered table-striped">
         <thead>
             <tr style="font-size: 12px;">
-                <th colspan="13"></th>
-                <th colspan="6" class="table-warning text-center">Administrasi</th>
-                <th colspan="12" class="table-info text-center">WII</th>
+                <th colspan="14">Data Pelamar</th>
+                <th colspan="7" class="table-warning text-center">Administrasi</th>
+                <th colspan="13" class="table-info text-center">WII</th>
                 <th colspan="6" class="table-success text-center">Psikotest</th>
                 <th colspan="10" class="table-danger text-center">Indepth</th>
                 <th colspan="10" class="table-primary text-center">Tes Bidang</th>
@@ -26,98 +26,95 @@ require_once '../koneksi/koneksi.php';
                 <th colspan="3"></th>
             </tr>
             <tr class="text-center" style="font-size: 12px;">
-
-                <th class="table-primary">Tgl. Daftar</th>
-                <th class="table-primary">Kd. Ps</th>
-                <th class="table-primary">Pos. Refer</th>
+                <!-- <th><input type="checkbox" id="select-all"> </th> -->
+                <th class="table-danger"></th>
+                <th class="table-primary">Tgl. dftr</th>
+                <th class="table-primary">Kode JBT</th>
+                <th class="table-primary">Refer</th>
                 <th class="table-primary">Kd. Plmr</th>
                 <th class="table-primary">Nama</th>
-                <!-- lainnya -->
                 <th class="table-primary">Jenjang</th>
                 <th class="table-primary">Jurusan/Prodi</th>
                 <th class="table-primary">Sekolah/Univ.</th>
                 <th class="table-primary">Domisili</th>
-                <th class="table-primary">Gender</th>
+                <th class="table-primary">JK</th>
                 <th class="table-primary">Tgl. Lahir</th>
                 <th class="table-primary">Usia</th>
                 <th class="table-primary">No. HP</th>
+
                 <!-- Administrasi -->
                 <th class="table-warning">Tgl. Adm</th>
-
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV
+                <th class="table-warning">Dok</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai kualifikasi">Klf</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai Pengalaman">Pgl</th>
+                <th class="table-warning not-editable" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hasil Seleksi Administrasi">Hasil
                 </th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Nilai kualifikasi">Klf</th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Nilai Pengalaman">Pgl</th>
-                <th class="table-warning not-editable" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Hasil Seleksi Administrasi">Hasil
-                </th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Keterangan Seleksi Administrasi">Keterangan</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Keterangan Seleksi Administrasi">Ket</th>
                 <!-- Akhir Administrasi -->
                 <!-- WII -->
-                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Tanggal WII">Tanggal WII</th>
-                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-title="Jam WII">Jam WII</th>
-                <th class="table-info" data-bs-title="Konfirmasi WII">Konfirmasi</th>
+                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tanggal WII">Tgl WII</th>
+                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Jam WII">Jam</th>
+                <th class="table-info" data-bs-title="Konfirmasi WII">confirm</th>
                 <th class="table-info" data-bs-title="Pakar">P</th>
                 <th class="table-info" data-bs-title="Antusias">A</th>
                 <th class="table-info">K</th>
                 <th class="table-info">R</th>
-                <th class="table-info">Platform Loker</th>
+                <th class="table-info">Platform</th>
                 <th class="table-info">Akun Platform</th>
                 <th class="table-info">Interviewer</th>
                 <th class="table-info">Hasil</th>
-                <th class="table-info">Pengumuman</th>
+                <th class="table-info">Ket</th>
+                <th class="table-info">info</th>
                 <!-- Akhir WII -->
                 <!-- Psikotest -->
-                <th class="table-success">Tanggal Psikotest</th>
-                <th class="table-success">Jam Psikotest</th>
-                <th class="table-success">Konfirmasi Kehadiran</th>
-                <th class="table-success">Pengumuman</th>
-                <th class="table-success">Keterangan Psikotest</th>
-                <th class="table-success">Hasil Psikotest</th>
+                <th class="table-success">tgl Psikotest</th>
+                <th class="table-success">Jam</th>
+                <th class="table-success">Confirm</th>
+                <th class="table-success">Hasil</th>
+                <th class="table-success">Ket</th>
+                <th class="table-success">info</th>
                 <!-- Akhr Psikotest -->
                 <!-- Indepth -->
-                <th class="table-danger">Tanggal Indepth</th>
-                <th class="table-danger">Jam Indepth</th>
-                <th class="table-danger">Konfirmasi Kehadiran</th>
+                <th class="table-danger">Tgl Indepth</th>
+                <th class="table-danger">Jam</th>
+                <th class="table-danger">Confirm</th>
                 <th class="table-danger">KTB</th>
                 <th class="table-danger">KPR</th>
                 <th class="table-danger">SiKer</th>
-                <th class="table-danger">Interviewer Indepth</th>
-                <th class="table-danger">Pengumuman Indepth</th>
-                <th class="table-danger">Keterangan</th>
-                <th class="table-danger">Hasil Indepth</th>
+                <th class="table-danger">Interviewer</th>
+                <th class="table-danger">Hasil</th>
+                <th class="table-danger">ket</th>
+                <th class="table-danger">info</th>
+
                 <!-- Akhir Indepth -->
                 <!-- Tes Bidang -->
-                <th class="table-primary">Tanggal Tes Bidang</th>
-                <th class="table-primary">Jam Tes Bidang</th>
-                <th class="table-primary">Konfirmasi Kehadiran Tes Bidang</th>
+                <th class="table-primary">tgl Tes Bd</th>
+                <th class="table-primary">Jam</th>
+                <th class="table-primary">Confirm</th>
                 <th class="table-primary">Nilai TB 1</th>
                 <th class="table-primary">Korektor 1</th>
-                <th class="table-primary">Nilai TBg 2</th>
+                <th class="table-primary">Nilai TB 2</th>
                 <th class="table-primary">Korektor 2</th>
-                <th class="table-primary">Keterangan</th>
-                <th class="table-primary">Pengumuman</th>
-                <th class="table-primary">Hasil TB</th>
+                <th class="table-primary">Hasil</th>
+                <th class="table-primary">ket</th>
+                <th class="table-primary">info</th>
+
                 <!-- Akhir Tes Bidang -->
                 <!-- Interview User -->
-                <th class="table-warning">Tanggal Interview User</th>
-                <th class="table-warning">Jam Interview User</th>
-                <th class="table-warning">Konfirmasi Kehadiran</th>
+                <th class="table-warning">Tanggal User</th>
+                <th class="table-warning">Jam</th>
+                <th class="table-warning">Confirm</th>
                 <th class="table-warning">DT</th>
                 <th class="table-warning">KA</th>
                 <th class="table-warning">PM</th>
                 <th class="table-warning">PD</th>
                 <th class="table-warning">BD</th>
                 <th class="table-warning">KTB2</th>
-                <th class="table-warning">Keterangan</th>
-                <th class="table-warning">Pengumuman</th>
                 <th class="table-warning">Interviewer</th>
                 <th class="table-warning">Hasil</th>
+                <th class="table-warning">ket</th>
+                <th class="table-warning">info</th>
                 <!-- Akhir Interview User -->
                 <!-- Hasil Akhir -->
                 <!-- <th class="table-danger">Hasil Akhir</th> -->
@@ -177,8 +174,9 @@ require_once '../koneksi/koneksi.php';
 
                     $tes = ($row['status'] == 1 ? 'text-danger' : '');
                     echo "<tr style='line-height: 25px;'>";
+                    // echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "' style='position: absolute; z-index: 9;'></td>";
                     // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
-                    ?>
+            ?>
 
                     <?php
                     echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
@@ -190,7 +188,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='not-editable'>" . $row['jurusan'] . "</td>";
                     echo "<td class='not-editable'>" . $row['sekolah'] . "</td>";
                     echo "<td class='not-editable'>" . $row['domisili'] . "</td>";
-                    echo "<td class='not-editable'>" . $row['gender'] . "</td>";
+                    echo "<td class='not-editable'>" . ($row['gender'] == 'Laki-Laki' ? 'L' : 'P') . "</td>";
                     echo "<td class='not-editable'>" . $row['tanggal_lahir'] . "</td>";
                     // Create a DateTime object for the birthdate
                     $birthdate = new DateTime($row['tanggal_lahir']);
@@ -200,10 +198,11 @@ require_once '../koneksi/koneksi.php';
                     $age = $currentDate->diff($birthdate)->y;
                     // Display the age in your table cell
                     echo "<td class='not-editable'>" . $age . "</td>";
-                    echo "<td class='editable-date'>" . $row['no_hp'] . "</td>";
+                    echo "<td class='not-editable'>" . $row['no_hp'] . "</td>";
 
                     // Administrasi
                     echo "<td class='editable-date'>" . $row['tanggal_administrasi'] . "</td>";
+                    echo "<td class='not-editable'><a href='../../karir_pim/" . $row['dokumen'] . "' target='_blank'><i class='fa-solid fa-eye'></i></a></td>";
                     $options = ['', '1', '0'];
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_cv'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_kualifikasi'] . "</td>";
@@ -212,9 +211,10 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($hasilSeleksiAdmOptions)) . "'>" . $row['hasil_seleksi_adm'] . "</td>";
                     echo "<td class='editable-text'>" . $row['keterangan_adm'] . "</td>";
                     // Akhir Administrasi
+
                     // WII
                     echo "<td class='editable-date'>" . $row['waktuInterview'] . "</td>";
-                    echo "<td class='editable-time'>" . $row['jam_wii'] . "</td>";
+                    echo "<td class='editable-time'>" . (isset($row['jam_wii']) ? date('H:i', strtotime($row['jam_wii'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'bersedia', 'tidak bersedia', 'reschedule'])) . "'>" . $row['konfirmasiKehadiran_wii'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['p'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['a'] . "</td>";
@@ -243,20 +243,21 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($listOfInterviewers)) . "'>" . $defaultValue . "</td>";
 
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'blm dijadwalkan'])) . "'>" . $row['rating_wii'] . "</td>";
+                    echo "<td class='editable-text'>" . $row['keterangan_wii'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'sudah', 'belum'])) . "'>" . $row['pengumuman_wii'] . "</td>";
                     // Akhir WII
                     // Psikotest
                     echo "<td class='editable-date'>" . $row['tanggalPsikotest'] . "</td>"; // Use class 'editable-date' for datetime input
-                    echo "<td class='editable-time'>" . $row['jam_psikotest'] . "</td>";
+                    echo "<td class='editable-time'>" . (isset($row['jam_psikotest']) ? date('H:i', strtotime($row['jam_psikotest'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia'])) . "'>" . $row['konfirmasiKehadiran'] . "</td>";
-                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_psikotest'] . "</td>";
-                    echo "<td class='editable-text'>" . $row['keterangan_psikotest'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'dlm proses', 'tdk psikotest'])) . "'>" . $row['rating_psikotest'] . "</td>";
+                    echo "<td class='editable-text'>" . $row['keterangan_psikotest'] . "</td>";
+                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_psikotest'] . "</td>";
                     // Akhir Psikotest
-            
+
                     // Indepth
                     echo "<td class='editable-date'>" . $row['tanggalIndepth'] . "</td>";
-                    echo "<td class='editable-time'>" . $row['jam_indepth'] . "</td>";
+                    echo "<td class='editable-time'>" . (isset($row['jam_indepth']) ? date('H:i', strtotime($row['jam_indepth'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia', 'Reschedule'])) . "'>" . $row['konfirmasiKehadiran_in'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['KTB'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['KPR'] . "</td>";
@@ -277,13 +278,14 @@ require_once '../koneksi/koneksi.php';
                     }
 
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($listOfInterviewers)) . "'>" . $defaultValue . "</td>";
-                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_in'] . "</td>";
-                    echo "<td class='editable-text'>" . $row['keterangan_in'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'blm dijadwalkan'])) . "'>" . $row['hasilIndepth'] . "</td>";
+                    echo "<td class='editable-text'>" . $row['keterangan_in'] . "</td>";
+                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_in'] . "</td>";
+
                     // Akhir Indepth
                     // Test Bidang
                     echo "<td class='editable-date'>" . $row['tanggalTesBidang'] . "</td>";
-                    echo "<td class='editable-time'>" . $row['jam_tb'] . "</td>";
+                    echo "<td class='editable-time'>" . (isset($row['jam_tb']) ? date('H:i', strtotime($row['jam_tb'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'bersedia', 'tidak bersedia', 'reschedule'])) . "'>" . $row['konfirmasi_kehadiran_tb'] . "</td>";
                     echo "<td class='editable-text'>" . $row['nilaiTesBidang1'] . "</td>";
 
@@ -323,13 +325,13 @@ require_once '../koneksi/koneksi.php';
                     }
 
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($listOfInterviewers2)) . "'>" . $defaultValue2 . "</td>";
+                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Lolos', 'tidak lolos'])) . "'>" . $row['hasil_tb'] . "</td>";
                     echo "<td class='editable-text'>" . $row['keterangan_tb'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_tb'] . "</td>";
-                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Lolos', 'Tidak Lolos'])) . "'>" . $row['hasil_tb'] . "</td>";
                     // Akhir Test Bidang
                     // Interview User
                     echo "<td class='editable-date'>" . $row['tanggalInterviewUser'] . "</td>";
-                    echo "<td class='editable-time'>" . $row['jam_iu'] . "</td>";
+                    echo "<td class='editable-time'>" . (isset($row['jam_iu']) ? date('H:i', strtotime($row['jam_iu'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia', 'Reschedule'])) . "'>" . $row['konfirmasiKehadiran_iu'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['dt'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['ka'] . "</td>";
@@ -337,10 +339,11 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['pd'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['bd'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['ktb'] . "</td>";
+                    echo "<td class='editable-text'>" . $row['interviewer_iu'] . "</td>";
+                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'blm dijadwalkan'])) . "'>" . $row['hasil_iu'] . "</td>";
                     echo "<td class='editable-text'>" . $row['keterangan_iu'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_iu'] . "</td>";
-                    echo "<td>" . $row['interviewer_iu'] . "</td>";
-                    echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'blm dijadwalkan'])) . "'>" . $row['hasil_iu'] . "</td>";
+
 
                     // Akhir Interview User
                     // Hasil akhir
@@ -348,134 +351,99 @@ require_once '../koneksi/koneksi.php';
                     ?>
 
                     <td>
-
-
-
                         <?php
-                        // ...
-                
-                        $errorMessages = [];
-
-
                         $stages = [
-                            'administrasi' => [
-                                'result' => $row['hasil_seleksi_adm'],
-                                'timestamp' => $row['updated_at_administrasi']
-                            ],
-                            'wii' => [
-                                'result' => $row['rating_wii'],
-                                'timestamp' => $row['updated_at_wii']
-                            ],
-                            'psikotest' => [
-                                'result' => $row['rating_psikotest'],
-                                'timestamp' => $row['updated_at_psikotest']
-                            ],
-                            'indepth' => [
-                                'result' => $row['hasilIndepth'],
-                                'timestamp' => $row['updated_at_indepth']
-                            ],
-                            'tb' => [
-                                'result' => $row['hasil_tb'],
-                                'timestamp' => $row['updated_at_tb']
-                            ],
-                            'iu' => [
-                                'result' => $row['hasil_iu'],
-                                'timestamp' => $row['updated_at_iu']
-                            ],
+                            'iu' => ['result' => $row['hasil_iu']],
+                            'tb' => ['result' => $row['hasil_tb']],
+                            'indepth' => ['result' => $row['hasilIndepth']],
+                            'psikotest' => ['result' => $row['rating_psikotest']],
+                            'wii' => ['result' => $row['rating_wii']],
+                            'administrasi' => ['result' => $row['hasil_seleksi_adm']],
                         ];
 
-                        $latestTimestamp = 0;
-                        $latestStage = '';
+                        foreach ($stages as $stage => $data) {
+                            // Check if the result is not null or empty
+                            if (!empty($data['result'])) {
+                                // Check if the result is "lolos"
+                                if ($data['result'] == 'lolos') {
+                                    // echo $stage . ' lolos';
+                                } else {
+                                    // Specific messages based on the stage
+                                    if ($stage == 'administrasi') {
+                                        if ($row['nilai_cv'] === '0') {
+                                            echo ' CV, ';
+                                        }
+                                        if ($row['nilai_kualifikasi'] === '0') {
+                                            echo ' Kualifikasi, ';
+                                        }
+                                        if ($row['nilai_pengalaman'] === '0') {
+                                            echo ' Pengalaman, ';
+                                        }
+                                    } elseif ($stage == 'wii') {
+                                        if ($row['p'] === '0') {
+                                            echo 'Percaya Diri, ';
+                                        }
+                                        if ($row['a'] === '0') {
+                                            echo 'Antusias, ';
+                                        }
+                                        if ($row['k'] === '0') {
+                                            echo 'Komunikasi, ';
+                                        }
+                                        if ($row['r'] === '0') {
+                                            echo 'Keramahan, ';
+                                        }
+                                        // Add conditions for the 'psikotest' stage
+                                    } elseif ($stage == 'psikotest') {
+                                        echo 'Psikotest, ';
+                                    } elseif ($stage == 'indepth') {
+                                        if ($row['KTB'] === '0') {
+                                            echo 'Kemampuan Teknis Bidang, ';
+                                        }
+                                        if ($row['KPR'] === '0') {
+                                            echo 'Kepribadian, ';
+                                        }
+                                        if ($row['Siker'] === '0') {
+                                            echo 'Sikap Kerja, ';
+                                        }
+                                    } elseif ($stage == 'tb') {
 
-                        foreach ($stages as $stage => $info) {
-                            // Check if the stage result is "tidak lolos" and timestamp is greater than the current latestTimestamp
-                            if ($info['result'] === 'tidak lolos' && strtotime($info['timestamp']) > $latestTimestamp) {
-                                $latestTimestamp = strtotime($info['timestamp']);
-                                $latestStage = $stage;
+                                        echo 'Tes Bidang, ';
+                                    } elseif ($stage == 'iu') {
+                                        if ($row['dt'] === '0') {
+                                            echo 'Daya Tangkap, ';
+                                        }
+                                        if ($row['ka'] === '0') {
+                                            echo 'Kemampuan Analisa, ';
+                                        }
+                                        if ($row['pm'] === '0') {
+                                            echo 'Pemecahan Masalah, ';
+                                        }
+                                        if ($row['pd'] === '0') {
+                                            echo 'Kepercayaan Diri, ';
+                                        }
+                                        if ($row['bd'] === '0') {
+                                            echo 'Pembawaan Diri, ';
+                                        }
+                                        if ($row['ktb'] === '0') {
+                                            echo 'Kemampuan Teknis Bidang, ';
+                                        }
+                                    }
+
+
+                                    // Remove the trailing comma and space
+                                    echo rtrim(', ', ', ');
+                                }
+
+
+
+                                // Break the loop after processing one stage
+                                break;
                             }
                         }
-
-                        if ($latestTimestamp > 0 && !empty($latestStage)) {
-                            // echo "Latest Timestamp for Tahapan Tidak Lolos: " . date("Y-m-d H:i:s", $latestTimestamp);
-                            // echo "Stage: $latestStage";
-                            // Administrasi
-                            if ($latestStage == 'administrasi') {
-                                if ($row['nilai_cv'] === '0') {
-                                    echo 'CV, ';
-                                }
-                                if ($row['nilai_kualifikasi'] === '0') {
-                                    echo 'Kualifikasi, ';
-                                }
-                                if ($row['nilai_pengalaman'] === '0') {
-                                    echo 'Pengalaman, ';
-                                }
-                            }
-
-                            // WII
-                            if ($latestStage == 'wii') {
-                                if ($row['p'] === '0') {
-                                    echo 'Percaya Diri, ';
-                                }
-                                if ($row['a'] === '0') {
-                                    echo 'Antusias, ';
-                                }
-                                if ($row['k'] === '0') {
-                                    echo 'Komunikasi, ';
-                                }
-                                if ($row['r'] === '0') {
-                                    echo 'Keramahan, ';
-                                }
-                            }
-
-                            // Psikotest
-                            if ($latestStage == 'psikotest') {
-                                echo 'Psikotest, ';
-                            }
-
-                            // Indepth
-                            if ($latestStage == 'indepth') {
-                                if ($row['KTB'] === '0') {
-                                    echo 'Kemampuan Teknis Bidang, ';
-                                }
-                                if ($row['KPR'] === '0') {
-                                    echo 'Kepribadian, ';
-                                }
-                                if ($row['Siker'] === '0') {
-                                    echo 'Sikap Kerja, ';
-                                }
-                            }
-
-                            // Interviewer User
-                            if ($latestStage == 'iu') {
-                                if ($row['dt'] === '0') {
-                                    echo 'Daya Tangkap, ';
-                                }
-                                if ($row['ka'] === '0') {
-                                    echo 'Kemampuan Analisa, ';
-                                }
-                                if ($row['pm'] === '0') {
-                                    echo 'Pemecahan Masalah, ';
-                                }
-                                if ($row['pd'] === '0') {
-                                    echo 'Kepercayaan Diri, ';
-                                }
-                                if ($row['bd'] === '0') {
-                                    echo 'Pembawaan Diri, ';
-                                }
-                                if ($row['ktb'] === '0') {
-                                    echo 'Kemampuan Teknis Bidang, ';
-                                }
-                            }
-                            // Remove the trailing comma and space
-                            echo rtrim(', ', ', ');
-                        }
-
                         ?>
-
-
                     </td>
 
-                    <?php
+            <?php
                     echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
                     echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
                     // AKhir Hasil Akhir
@@ -516,7 +484,7 @@ require_once '../koneksi/koneksi.php';
             XLSX.writeFile(wb, 'data_rekrutmen.xlsx');
 
             // Automatically close the page after 3 seconds
-            setTimeout(function () {
+            setTimeout(function() {
                 window.close();
             }, 1000);
         }

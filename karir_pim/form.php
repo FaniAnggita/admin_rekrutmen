@@ -28,9 +28,8 @@ require_once('koneksi.php');
 
                 if ($result->num_rows > 0) { ?>
                     <?php while ($row = $result->fetch_assoc()) { ?>
-                        <input type="text" class="form-control" id="posisi" name="posisi" value="<?php echo $row['kode_ps']; ?>"
-                            hidden>
-                    <?php }
+                        <input type="text" class="form-control" id="posisi" name="posisi" value="<?php echo $row['kode_ps']; ?>" hidden>
+                <?php }
                 } else {
                     echo "0 results";
                 }
@@ -46,7 +45,7 @@ require_once('koneksi.php');
                 if ($result->num_rows > 0) { ?>
                     <?php while ($row = $result->fetch_assoc()) { ?>
                         <input type="text" class="form-control" value="<?php echo $row['nama_ps']; ?>" disabled>
-                    <?php }
+                <?php }
                 } else {
                     echo "0 results";
                 }
@@ -75,13 +74,11 @@ require_once('koneksi.php');
             <div class="form-group">
                 <label>Jenis Kelamin:</label>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="gender_laki" name="gender" value="Laki-Laki"
-                        required>
+                    <input type="radio" class="form-check-input" id="gender_laki" name="gender" value="Laki-Laki" required>
                     <label class="form-check-label" for="gender_laki">Laki-Laki</label>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="gender_perempuan" name="gender" value="Perempuan"
-                        required>
+                    <input type="radio" class="form-check-input" id="gender_perempuan" name="gender" value="Perempuan" required>
                     <label class="form-check-label" for="gender_perempuan">Perempuan</label>
                 </div>
                 <div class="invalid-feedback">
@@ -198,8 +195,7 @@ require_once('koneksi.php');
     </div>
     <!-- Modal Konfirmasi -->
     <!-- Modal Konfirmasi -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -222,45 +218,27 @@ require_once('koneksi.php');
     <!-- Tambahkan script Bootstrap JavaScript dan script Anda -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        (function () {
+        (function() {
             'use strict';
 
-            window.addEventListener('load', function () {
+            window.addEventListener('load', function() {
                 var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
+                        } else {
+                            // Validasi berhasil, kirim formulir secara langsung
+                            form.submit();
                         }
                         form.classList.add('was-validated');
                     }, false);
                 });
             }, false);
-
-            // Tambahkan event listener untuk tombol "Submit"
-            document.getElementById('showConfirmationModal').addEventListener('click', function () {
-                // Validasi form sebelum menampilkan modal
-                var form = document.querySelector('.needs-validation');
-                if (form.checkValidity() === false) {
-                    form.classList.add('was-validated');
-                } else {
-                    $('#confirmationModal').modal('show'); // Menampilkan modal konfirmasi
-                }
-            });
-
-            // Tambahkan event listener untuk tombol "Ya, Kirim Data"
-            document.getElementById('submitData').addEventListener('click', function () {
-                // Kirim data ke server jika dikonfirmasi
-                var form = document.querySelector('.needs-validation');
-                if (form.checkValidity() === true) {
-                    // Simpan kode PHP untuk mengirim data ke server di sini
-                    // Anda juga perlu mengganti "proses_form.php" dengan skrip PHP yang sesuai
-                    form.submit();
-                }
-            });
         })();
     </script>
+
 
 </body>
 
