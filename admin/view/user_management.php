@@ -38,7 +38,7 @@ include 'komponen/koneksi.php';
                                             <th>NIK</th>
                                             <th>Nama</th>
                                             <th>Email</th>
-                                            <th>Password</th>
+                                            <!-- <th>Password</th> -->
                                             <th>Role</th>
                                             <!-- <th>Aksi</th> -->
                                         </tr>
@@ -57,7 +57,16 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['nik'] . "</td>";
                                                 echo "<td>" . $row['name'] . "</td>";
                                                 echo "<td>" . $row['email'] . "</td>";
-                                                echo "<td>" . $row['password'] . "</td>";
+                                                // echo "<td>";
+                                                // echo "<div class='password-container'>";
+                                                // // Display the original (unhashed) password
+                                                // echo "<input type='text' value='" . htmlspecialchars(password_hash($row['password'], PASSWORD_DEFAULT)) . "' class='password-input' readonly>";
+                                                // // Toggle password visibility
+                                                // echo "<i class='toggle-password fas fa-eye'></i>";
+                                                // echo "</div>";
+                                                // echo "</td>";
+                                        
+
                                                 echo "<td>";
 
                                                 if ($row['role'] == '1') {
@@ -179,7 +188,16 @@ include 'komponen/koneksi.php';
             $('#myTable').DataTable();
         });
     </script>
-
+    <!-- JavaScript for toggling password visibility -->
+    <script>
+        $(document).ready(function () {
+            $('.toggle-password').on('click', function () {
+                var passwordInput = $(this).siblings('.password-input');
+                var type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+                passwordInput.attr('type', type);
+            });
+        });
+    </script>
 
 </body>
 

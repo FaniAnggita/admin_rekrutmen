@@ -1,178 +1,323 @@
-<?php require_once 'komponen/head.php';
+<?php require_once 'koneksi.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL); ?>
+<?php
+require_once('koneksi.php');
+
+$kode_ps = $_GET['kode_ps'];
+
+// Membuat prepared statement
+$sql = "SELECT * FROM lowongan_baru JOIN posisi USING(kode_ps) WHERE kode_ps = ?";
+$stmt = $conn->prepare($sql);
+
+// Bind parameter
+$stmt->bind_param("s", $kode_ps);
+
+// Eksekusi prepared statement
+$stmt->execute();
+
+// Mendapatkan hasil query
+$result = $stmt->get_result();
+
+
+// Fetch satu baris data
+$row = $result->fetch_assoc();
+
+
+
+?>
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>PIM | Karier</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Pustaka Insan Madani" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://insanmadani.com/rekrutmen/assets/js/jquery.min.js"></script>
+    <script src="https://insanmadani.com/rekrutmen/assets/js/bootstrap.min.js"></script>
+    <link href="https://insanmadani.com/rekrutmen/assets/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="https://insanmadani.com/rekrutmen/assets/css/style.css" rel='stylesheet' type='text/css' />
+    <link href="https://insanmadani.com/rekrutmen/assets/css/lumen.css" rel='stylesheet' type='text/css' />
+    <link href="https://insanmadani.com/rekrutmen/assets/css/framework.css" rel='stylesheet' type='text/css' />
+    <!-- <link href="https://insanmadani.com/rekrutmen/assets/css/offcanvas.css" rel='stylesheet' type='text/css' /> -->
+    <link href="https://insanmadani.com/rekrutmen/assets/css/custom.css" rel='stylesheet' type='text/css' />
+    <link href="https://insanmadani.com/rekrutmen/assets/css/font-awesome.min.css" rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900' rel='stylesheet'
+        type='text/css'>
+
+    <link href="https://insanmadani.com/rekrutmen/assets/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://insanmadani.com/rekrutmen/assets/css/sweetalert2.min.css">
+    <link rel="icon" href="https://insanmadani.com/rekrutmen/images/Insan madani.png" type="image/gif">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        body {
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #0F2535;
+        }
+
+        .navbar-brand {
+            height: auto;
+        }
+
+        .nav>li>a {
+            padding-left: 45px;
+            padding-right: 45px;
+        }
+
+        .foot h4 {
+            color: white;
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            color: #ffffff;
+            background-color: #1548A1;
+            border-color: #00058C;
+        }
+
+        p {
+            margin: 0px;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-group.open .dropdown-toggle.btn-primary {
+            background-color: #00058C;
+            border-color: #00058C;
+        }
+
+        a .fa,
+        a .glyphicon {
+            margin-right: 6px;
+        }
+
+        @font-face {
+            src: url(https://insanmadani.com/rekrutmen/assets/fonts/MyriadPro-Bold.otf);
+            font-family: 'Myriad pro Bold';
+        }
+
+        @font-face {
+            src: url(https://insanmadani.com/rekrutmen/assets/fonts/MyriadPro-Regular.otf);
+            font-family: 'Myriad';
+        }
+    </style>
+
+</head>
 
 <body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://insanmadani.com/"><img
+                                src="https://insanmadani.com/template/images/logo_main.png" alt="" width="200" /></a>
+                    </div>
+                    <!--/.navbar-header-->
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                </div>
+                <div class="col-md-9">
 
-            <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/logo_main.png" alt="">
-            </a>
-
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="nav-link scrollto active" href="index.php">Beranda</a></li>
-                    <li><a class="nav-link scrollto" href="index.php#about">Tentang Kami</a></li>
-                    <li><a class="nav-link scrollto" href="index.php#services">Lowongan Kerja</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-
+                    <!-- 			    	 			 <a href="https://insanmadani.com/rekrutmen/index.php/Daftar" class="btn btn-warning">Daftar</a>
+                                  <a href="https://insanmadani.com/rekrutmen/index.php/Daftar" class="btn btn-primary">Masuk</a> -->
+                </div>
+            </div>
         </div>
     </header>
-    <!-- End Header -->
 
 
-
-    <main id="main">
-
-        <?php
-        require_once('koneksi.php');
-
-        $kode_ps = $_GET['kode_ps'];
-
-        // Membuat prepared statement
-        $sql = "SELECT * FROM lowongan_baru JOIN posisi USING(kode_ps) WHERE kode_ps = ?";
-        $stmt = $conn->prepare($sql);
-
-        // Bind parameter
-        $stmt->bind_param("s", $kode_ps);
-
-        // Eksekusi prepared statement
-        $stmt->execute();
-
-        // Mendapatkan hasil query
-        $result = $stmt->get_result();
-
-
-        // Fetch satu baris data
-        $row = $result->fetch_assoc();
-
-
-
-        ?>
-
-        <!-- ======= Breadcrumbs ======= -->
-        <section class="breadcrumbs">
-            <div class="container">
-
-                <ol>
-                    <li><a href="index.html">Lowongan Kerja</a></li>
-                    <li><?php echo $row['nama_ps']; ?></li>
-                </ol>
-
-
+    <nav class="navbar navbar-inverse bs-docs-nav" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                    data-target=".bs-navbar-collapse">
+                    <span class="sr-only">navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-        </section><!-- End Breadcrumbs -->
+            <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;"
+                aria-expanded="false">
+                <ul class="nav navbar-nav d-flex">
+                    <li>
+                        <a href="https://insanmadani.com/rekrutmen/index.php/Main"><i class="fa fa-home"></i>
+                            BERANDA</a>
+                    </li>
+                    <li>
+                        <a href="https://insanmadani.com/rekrutmen/index.php/Main/lowongan"><i class="fa fa-book"></i>
+                            INFO LOWONGAN KERJA</a>
+                    </li>
+                </ul>
 
-        <!-- ======= Blog Section ======= -->
-        <section id="blog" class="blog">
-            <div class="container" data-aos="fade-up">
-
-                <div class="row">
-
-                    <div class="col-lg-8 entries">
-
-                        <article class="entry">
+            </nav>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="single row">
 
 
-                            <h2 class="entry-title">
-                                <?php echo $row['nama_ps']; ?>
-                            </h2>
+            <div class="col-md-4">
+                <div class="col_3">
+                    <h3>Loker Terbaru</h3>
+                    <ul class="list_1">
+                        <?php
+                        $sql = "SELECT * FROM lowongan_baru JOIN posisi USING(kode_ps) WHERE status = 1 AND kode_ps != '$kode_ps'";
+                        $result = $conn->query($sql);
+                        $i = 0;
+                        if ($result->num_rows > 0) {
+                            while ($row3 = $result->fetch_assoc()) {
+                                ?>
+                                <li>
+                                    <a href="detail_lowongan.php?kode_ps=<?php echo $row3['kode_ps']; ?>">
+                                        <?php echo $row3['nama_ps']; ?>
+                                    </a>
 
-                            <div class="entry-meta">
-                                <ul>
-                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> Dibuka hingga <?php
-                                                                                                                    $tenggatDaftar = $row['tenggat_daftar'];
-                                                                                                                    $formattedDate = date('d-m-Y', strtotime($tenggatDaftar));
-                                                                                                                    echo $formattedDate;
-                                                                                                                    ?></li>
-                                    <!-- <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li> -->
-                                </ul>
-                            </div>
+                                </li>
+                                <hr>
+                            <?php }
+                        } ?>
+                    </ul>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#list_1 a').click(function () {
+                        var url = $(this).attr('href');
+                        $('#location_box1').load(url);
+                        return false;
+                    });
+                });
+                /*$("#list_1 a").click(function(){
+                  $.ajax({url: "demo_test.txt", success: function(result){
+                    $("#location_box1").html(result);
+                  }});
+                });*/
+            </script>
 
-                            <div class="entry-content">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Deskripsi
-                                    </div>
-                                    <div class="card-body">
-                                        <?php echo $row['deskripsi']; ?>
-                                    </div>
-                                    <div class="card-header">
-                                        Kualifikasi
-                                    </div>
-                                    <div class="card-body">
-                                        <?php echo $row['kualifikasi']; ?>
-                                    </div>
+            <div class="col-md-8">
+
+                <div class="row m-t-20">
+                    <div class="col-sm-12">
+
+                        <div class="location_box1">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3 class="c-orange m-0">
+                                        <?php echo $row['nama_ps']; ?>
+                                    </h3><span class="m-0 c-darkblue"> <br>dibuka sampai
+                                        <?php
+                                        $tenggatDaftar = $row['tenggat_daftar'];
+                                        $formattedDate = date('d-m-Y', strtotime($tenggatDaftar));
+                                        echo $formattedDate;
+                                        ?>
+                                    </span>
                                 </div>
-                                <div class="read-more mt-3">
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <div class="col-md-4">
+                                    <!-- <button type="button" class="btn btn-success pull-right" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Lamar Sekarang
+                                    </button> -->
+                                    <!-- tombol pemicu -->
+                                    <button class="btn btn-default btn-success" data-toggle="modal"
+                                        data-target="#tesModal">
                                         Lamar Sekarang
                                     </button>
-
-
                                 </div>
                             </div>
-
-                        </article><!-- End blog entry -->
-
-                    </div><!-- End blog entries list -->
-
-                    <div class="col-lg-4">
-
-                        <div class="sidebar">
-
-                            <h3 class="sidebar-title">Lowongan Kerja Lain</h3>
                             <hr>
-                            <div class="sidebar-item categories">
-                                <ul>
-                                    <?php
-                                    $sql = "SELECT * FROM lowongan_baru JOIN posisi USING(kode_ps) WHERE status = 1 AND kode_ps != '$kode_ps'";
-                                    $result = $conn->query($sql);
-                                    $i = 0;
-                                    if ($result->num_rows > 0) {
-                                        while ($row3 = $result->fetch_assoc()) {
-                                    ?>
-                                            <li>
-                                                <a href="detail_lowongan.php?kode_ps=<?php echo $row3['kode_ps']; ?>"> <?php echo $row3['nama_ps']; ?></a>
-
-                                            </li>
-                                            <hr>
-                                    <?php }
-                                    } ?>
-                                </ul>
-                            </div><!-- End sidebar categories-->
-
-
-
-                        </div><!-- End sidebar -->
-
-                    </div><!-- End blog sidebar -->
-
+                            <strong><strong>Deskripsi</strong><br />
+                                <?php echo $row['deskripsi']; ?>
+                                <br /><strong>Kualifikasi :</strong><br />
+                                <?php echo $row['kualifikasi']; ?>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
                 </div>
-
             </div>
-        </section><!-- End Blog Section -->
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="foot"
+        style="padding-left: 0px !important;border-top:20px solid #fdbf0f;color:#fff;font-size:14px;font-family:calibri;background:url('https://insanmadani.com/template/images/footer_img.jpg');background-size:100% 100%;padding-top:10px;">
 
-    </main><!-- End #main -->
+        <div class="container">
+            <div class="row" style="">
 
-    <!-- modal lamaran -->
-    <!-- Modal -->
-    <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Lamar Posisi <?php echo $row['nama_ps']; ?></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="col-md-3  col-sm-6">
+                    <h4>Kantor Pusat</h4>
+                    <p>Gedung Insan Madani <br>
+                        Jl.Kenanga, Maguwoharjo, Depok, Sleman <br>
+                        Yogyakarta 55282
+                    </p>
                 </div>
+
+                <div class="col-md-3  col-sm-6">
+                    <h4>Showroom & Warehouse</h4>
+                    <p>Jl. K.H. Hasyim Asy’ari, Srago, Mojayan, Klaten, Jawa Tengah</p>
+                </div>
+
+                <div class="col-md-3  col-sm-6">
+                    <h4>Kontak</h4>
+                    <p>Telp : (0274) 4332394 <br>
+                        HP : 082328217888 <br>
+                        E-mail : cs@insanmadani.com <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cs.insanmadani@yahoo.co.id
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cs.insanmadanionline@gmail.com
+                    </p>
+                </div>
+
+                <div class="col-md-3  col-sm-6">
+                    <h4>Sosial Media</h4>
+                    <p>Facebook&nbsp;&nbsp;: PT. Pustaka insan Madani<br>
+                        Twitter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: @insanmadani_<br>
+                        Instagram&nbsp;&nbsp;: pustakainsanmadani_official<br>
+                        LinkedIn&nbsp;&nbsp;&nbsp;&nbsp;: PT. Pustaka insan Madani<br>
+                    </p>
+                </div>
+
+                <div class="col-md-12" style="height:40px;text-align:center;color:#fff;padding-top:10px;">Copyright@2023
+                    PT. Pustaka Insan Madani</div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="tesModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- header-->
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Lamar Posisi
+                        <?php echo $row['nama_ps']; ?>
+                    </h4>
+                </div>
+                <!--body-->
                 <div class="modal-body">
-                    <form action="proses_form.php" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <form action="proses_form.php" method="post" enctype="multipart/form-data" class="needs-validation"
+                        novalidate>
 
                         <div class="form-group mt-4">
                             <?php
@@ -182,8 +327,9 @@ error_reporting(E_ALL); ?>
 
                             if ($result->num_rows > 0) { ?>
                                 <?php while ($row2 = $result->fetch_assoc()) { ?>
-                                    <input type="text" class="form-control" id="posisi" name="posisi" value="<?php echo $row2['kode_ps']; ?>" hidden>
-                            <?php }
+                                    <input type="text" class="form-control" id="posisi" name="posisi"
+                                        value="<?php echo $row2['kode_ps']; ?>" hidden>
+                                <?php }
                             } else {
                                 echo "0 results";
                             }
@@ -199,7 +345,7 @@ error_reporting(E_ALL); ?>
                             if ($result->num_rows > 0) { ?>
                                 <?php while ($row2 = $result->fetch_assoc()) { ?>
                                     <input type="text" class="form-control" value="<?php echo $row2['nama_ps']; ?>" disabled>
-                            <?php }
+                                <?php }
                             } else {
                                 echo "0 results";
                             }
@@ -228,11 +374,13 @@ error_reporting(E_ALL); ?>
                         <div class="form-group mt-4">
                             <label>Jenis Kelamin:</label>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="gender_laki" name="gender" value="Laki-Laki" required>
+                                <input type="radio" class="form-check-input" id="gender_laki" name="gender"
+                                    value="Laki-Laki" required>
                                 <label class="form-check-label" for="gender_laki">Laki-Laki</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="gender_perempuan" name="gender" value="Perempuan" required>
+                                <input type="radio" class="form-check-input" id="gender_perempuan" name="gender"
+                                    value="Perempuan" required>
                                 <label class="form-check-label" for="gender_perempuan">Perempuan</label>
                             </div>
                             <div class="invalid-feedback">
@@ -337,7 +485,8 @@ error_reporting(E_ALL); ?>
                         <!-- Unggah Dokumen (PDF) -->
                         <div class="form-group mt-4">
                             <label for="dokumen">Unggah Dokumen (PDF):</label>
-                            <input type="file" class="form-control-file" id="dokumen" name="dokumen" accept=".pdf" required>
+                            <input type="file" class="form-control-file" id="dokumen" name="dokumen" accept=".pdf"
+                                required>
                             <div class="invalid-feedback">
                                 Silakan unggah dokumen dalam format PDF.
                             </div>
@@ -348,60 +497,24 @@ error_reporting(E_ALL); ?>
                         </div>
 
                     </form>
-
                 </div>
-
+                <!--footer-->
+                <!-- <div class="modal-footer">
+                    <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                </div> -->
             </div>
         </div>
     </div>
 
-    <!-- Modal Konfirmasi -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Data</h5>
-                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> -->
-                </div>
-                <div class="modal-body">
-                    Apakah yakin data yang Anda masukkan sudah benar?
-                </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button> -->
-                    <button type="button" class="btn btn-primary" id="submitData">Ya, Kirim Data</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- ======= Footer ======= -->
-
-    <!-- End Footer -->
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        (function() {
+        (function () {
             'use strict';
 
-            window.addEventListener('load', function() {
+            window.addEventListener('load', function () {
                 var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
@@ -422,7 +535,7 @@ error_reporting(E_ALL); ?>
             // });
 
             // Tambahkan event listener untuk tombol "Submit"
-            document.getElementById('submitData').addEventListener('click', function() {
+            document.getElementById('submitData').addEventListener('click', function () {
                 // Kirim data ke server tanpa konfirmasi
                 var form = document.querySelector('.needs-validation');
                 if (form.checkValidity() === true) {
@@ -432,6 +545,8 @@ error_reporting(E_ALL); ?>
         })();
     </script>
 
+
 </body>
+
 
 </html>

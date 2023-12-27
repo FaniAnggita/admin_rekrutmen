@@ -27,9 +27,9 @@ require_once '../koneksi/koneksi.php';
             </tr>
             <tr class="text-center" style="font-size: 12px;">
                 <!-- <th><input type="checkbox" id="select-all"> </th> -->
-                <th class="table-danger"></th>
+
                 <th class="table-primary">Tgl. dftr</th>
-                <th class="table-primary">Kode JBT</th>
+                <th class="table-primary">KD JBT</th>
                 <th class="table-primary">Refer</th>
                 <th class="table-primary">Kd. Plmr</th>
                 <th class="table-primary">Nama</th>
@@ -45,16 +45,23 @@ require_once '../koneksi/koneksi.php';
                 <!-- Administrasi -->
                 <th class="table-warning">Tgl. Adm</th>
                 <th class="table-warning">Dok</th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV</th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai kualifikasi">Klf</th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai Pengalaman">Pgl</th>
-                <th class="table-warning not-editable" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Hasil Seleksi Administrasi">Hasil
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV
                 </th>
-                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Keterangan Seleksi Administrasi">Ket</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Nilai kualifikasi">Klf</th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Nilai Pengalaman">Pgl</th>
+                <th class="table-warning not-editable" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Hasil Seleksi Administrasi">Hasil
+                </th>
+                <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Keterangan Seleksi Administrasi">Ket</th>
                 <!-- Akhir Administrasi -->
                 <!-- WII -->
-                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tanggal WII">Tgl WII</th>
-                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Jam WII">Jam</th>
+                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Tanggal WII">Tgl WII</th>
+                <th class="table-info" class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-title="Jam WII">Jam</th>
                 <th class="table-info" data-bs-title="Konfirmasi WII">confirm</th>
                 <th class="table-info" data-bs-title="Pakar">P</th>
                 <th class="table-info" data-bs-title="Antusias">A</th>
@@ -169,6 +176,7 @@ require_once '../koneksi/koneksi.php';
 
             $result = $conn->query($sql);
 
+
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
 
@@ -176,7 +184,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<tr style='line-height: 25px;'>";
                     // echo "<td class='not-editable'><input type='checkbox' class='select-checkbox' data-id='" . $row['id'] . "' style='position: absolute; z-index: 9;'></td>";
                     // echo "<td class='not-editable'><a href='edit_rekrutmen.php?id_pelamar=" . $row['id'] . "' class='btn btn-warning btn-sm'><i class='fa-solid fa-envelope'></i></a></td>";
-            ?>
+                    ?>
 
                     <?php
                     echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
@@ -211,7 +219,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($hasilSeleksiAdmOptions)) . "'>" . $row['hasil_seleksi_adm'] . "</td>";
                     echo "<td class='editable-text'>" . $row['keterangan_adm'] . "</td>";
                     // Akhir Administrasi
-
+            
                     // WII
                     echo "<td class='editable-date'>" . $row['waktuInterview'] . "</td>";
                     echo "<td class='editable-time'>" . (isset($row['jam_wii']) ? date('H:i', strtotime($row['jam_wii'])) : '') . "</td>";
@@ -254,7 +262,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-text'>" . $row['keterangan_psikotest'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_psikotest'] . "</td>";
                     // Akhir Psikotest
-
+            
                     // Indepth
                     echo "<td class='editable-date'>" . $row['tanggalIndepth'] . "</td>";
                     echo "<td class='editable-time'>" . (isset($row['jam_indepth']) ? date('H:i', strtotime($row['jam_indepth'])) : '') . "</td>";
@@ -443,13 +451,15 @@ require_once '../koneksi/koneksi.php';
                         ?>
                     </td>
 
-            <?php
+                    <?php
+
                     echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
                     echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
                     // AKhir Hasil Akhir
                     echo "</tr>";
                 }
             }
+
 
             // Close the database connection
             $conn->close();
@@ -484,7 +494,7 @@ require_once '../koneksi/koneksi.php';
             XLSX.writeFile(wb, 'data_rekrutmen.xlsx');
 
             // Automatically close the page after 3 seconds
-            setTimeout(function() {
+            setTimeout(function () {
                 window.close();
             }, 1000);
         }

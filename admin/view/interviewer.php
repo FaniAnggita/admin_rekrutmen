@@ -69,23 +69,19 @@ include 'komponen/koneksi.php';
                                                 echo "<td>" . $row['id_int'] . "</td>";
                                                 echo "<td>" . $row['nik'] . "</td>";
                                                 echo "<td>" . $row['nama_int'] . "</td>";
-                                                echo '
+                                        ?>
                                                 <td>
-                                                <div class="dropdown">
+                                                    <div class="dropdown">
                                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="edit_interviewer.php?"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                            <form  method="post" action=""> 
-                                                                <input type="text" id="uid" name="uid" value="" hidden/>
-                                                                <button type="submit" class="btn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
-                                                            
+                                                            <a class="dropdown-item" href="form_edit_interviewer.php?id_int=<?php echo $row['id_int']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+
                                                         </div>
                                                     </div>
                                                 </td>
-                                                ';
+                                        <?php
                                                 echo "</tr>";
                                             }
                                         } else {
@@ -171,7 +167,7 @@ include 'komponen/koneksi.php';
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#myTable').DataTable();
         });
     </script>
