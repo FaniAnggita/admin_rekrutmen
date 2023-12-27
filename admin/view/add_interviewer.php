@@ -14,7 +14,7 @@ include 'komponen/koneksi.php';
         <div class="layout-container">
 
 
-            <!-- Layout container -->
+
             <div class="layout-page">
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
