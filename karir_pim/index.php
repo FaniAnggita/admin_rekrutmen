@@ -137,23 +137,15 @@ error_reporting(E_ALL); ?>
                 aria-expanded="false">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="https://insanmadani.com/rekrutmen/index.php/Main"><i class="fa fa-home"></i>
+                        <a href="index.php"><i class="fa fa-home"></i>
                             BERANDA</a>
                     </li>
-                    <li>
-                        <a href="https://insanmadani.com/rekrutmen/index.php/Main/lowongan"><i class="fa fa-book"></i>
+                    <!-- <li>
+                        <a href="detail_lowongan.php"><i class="fa fa-book"></i>
                             INFO LOWONGAN KERJA</a>
-                    </li>
+                    </li> -->
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="">
-                        <a href="https://forms.gle/w8urtKPBYWxsrjKE9" target="_blank" style="cursor:pointer"
-                            id="head_registrasi"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            Mendaftar</a>
-                    </li>
-                    <li class="">
-                        <!--<a href="https://insanmadani.com/rekrutmen/rec/" style="cursor:pointer" id="head_registrasi"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a>                </li>-->
-                </ul>
+
             </nav>
         </div>
     </nav>

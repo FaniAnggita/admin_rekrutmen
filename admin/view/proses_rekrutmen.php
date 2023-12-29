@@ -59,10 +59,7 @@ include 'komponen/koneksi.php';
                                 </div>
                             </div>
 
-                            <div class="card-body">
 
-
-                            </div>
                             <?php
                             $queryHistori = "SELECT akun_platform FROM seleksi_wii GROUP BY akun_platform";
                             $resultHistori = mysqli_query($conn, $queryHistori);
@@ -298,7 +295,7 @@ include 'komponen/koneksi.php';
                                                 echo "<td class='not-editable'>" . $row['sekolah'] . "</td>";
                                                 echo "<td class='not-editable'>" . $row['domisili'] . "</td>";
                                                 echo "<td class='not-editable'>" . ($row['gender'] == 'Laki-Laki' ? 'L' : 'P') . "</td>";
-                                                echo "<td class='not-editable'>" . $row['tanggal_lahir'] . "</td>";
+                                                echo "<td class='not-editable'>" . date('d-m-Y', strtotime($row['tanggal_lahir'])) . "</td>";
                                                 $birthdate = new DateTime($row['tanggal_lahir']);
                                                 // Get the current date
                                                 $currentDate = new DateTime();

@@ -44,7 +44,7 @@ require_once '../koneksi/koneksi.php';
 
                 <!-- Administrasi -->
                 <th class="table-warning">Tgl. Adm</th>
-                <th class="table-warning">Dok</th>
+
                 <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Nilai CV">CV
                 </th>
                 <th class="table-warning" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -187,7 +187,7 @@ require_once '../koneksi/koneksi.php';
                     ?>
 
                     <?php
-                    echo "<td class='not-editable'>" . date('Y-m-d', strtotime($row['time'])) . "</td>";
+                    echo "<td class='not-editable'>" . date('d-m-Y', strtotime($row['time'])) . "</td>";
                     echo "<td class='not-editable'>" . $row['kode_ps'] . "</td>";
                     echo "<td class='editable-text'>" . $row['refer_posisi'] . "</td>";
                     echo "<td class='$tes not-editable'>" . $row['kode_pelamar'] . "</td>";
@@ -197,8 +197,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='not-editable'>" . $row['sekolah'] . "</td>";
                     echo "<td class='not-editable'>" . $row['domisili'] . "</td>";
                     echo "<td class='not-editable'>" . ($row['gender'] == 'Laki-Laki' ? 'L' : 'P') . "</td>";
-                    echo "<td class='not-editable'>" . $row['tanggal_lahir'] . "</td>";
-                    // Create a DateTime object for the birthdate
+                    echo "<td class='not-editable'>" . date('d-m-Y', strtotime($row['tanggal_lahir'])) . "</td>";
                     $birthdate = new DateTime($row['tanggal_lahir']);
                     // Get the current date
                     $currentDate = new DateTime();
@@ -209,8 +208,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='not-editable'>" . $row['no_hp'] . "</td>";
 
                     // Administrasi
-                    echo "<td class='editable-date'>" . $row['tanggal_administrasi'] . "</td>";
-                    echo "<td class='not-editable'><a href='../../karir_pim/" . $row['dokumen'] . "' target='_blank'><i class='fa-solid fa-eye'></i></a></td>";
+                    echo "<td class='editable-date'>" . (isset($row['tanggal_administrasi']) ? date('d-m-Y', strtotime($row['tanggal_administrasi'])) : '') . "</td>";
                     $options = ['', '1', '0'];
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_cv'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode($options)) . "'>" . $row['nilai_kualifikasi'] . "</td>";
@@ -221,7 +219,7 @@ require_once '../koneksi/koneksi.php';
                     // Akhir Administrasi
             
                     // WII
-                    echo "<td class='editable-date'>" . $row['waktuInterview'] . "</td>";
+                    echo "<td class='editable-date'>" . (isset($row['waktuInterview']) ? date('d-m-Y', strtotime($row['waktuInterview'])) : '') . "</td>";
                     echo "<td class='editable-time'>" . (isset($row['jam_wii']) ? date('H:i', strtotime($row['jam_wii'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'bersedia', 'tidak bersedia', 'reschedule'])) . "'>" . $row['konfirmasiKehadiran_wii'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['p'] . "</td>";
@@ -255,7 +253,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'sudah', 'belum'])) . "'>" . $row['pengumuman_wii'] . "</td>";
                     // Akhir WII
                     // Psikotest
-                    echo "<td class='editable-date'>" . $row['tanggalPsikotest'] . "</td>"; // Use class 'editable-date' for datetime input
+                    echo "<td class='editable-date'>" . (isset($row['tanggalPsikotest']) ? date('d-m-Y', strtotime($row['tanggalPsikotest'])) : '') . "</td>";
                     echo "<td class='editable-time'>" . (isset($row['jam_psikotest']) ? date('H:i', strtotime($row['jam_psikotest'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia'])) . "'>" . $row['konfirmasiKehadiran'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'lolos', 'tidak lolos', 'dlm proses', 'tdk psikotest'])) . "'>" . $row['rating_psikotest'] . "</td>";
@@ -264,7 +262,7 @@ require_once '../koneksi/koneksi.php';
                     // Akhir Psikotest
             
                     // Indepth
-                    echo "<td class='editable-date'>" . $row['tanggalIndepth'] . "</td>";
+                    echo "<td class='editable-date'>" . (isset($row['tanggalIndepth']) ? date('d-m-Y', strtotime($row['tanggalIndepth'])) : '') . "</td>";
                     echo "<td class='editable-time'>" . (isset($row['jam_indepth']) ? date('H:i', strtotime($row['jam_indepth'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia', 'Reschedule'])) . "'>" . $row['konfirmasiKehadiran_in'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['KTB'] . "</td>";
@@ -292,7 +290,7 @@ require_once '../koneksi/koneksi.php';
 
                     // Akhir Indepth
                     // Test Bidang
-                    echo "<td class='editable-date'>" . $row['tanggalTesBidang'] . "</td>";
+                    echo "<td class='editable-date'>" . (isset($row['tanggalTesBidang']) ? date('d-m-Y', strtotime($row['tanggalTesBidang'])) : '') . "</td>";
                     echo "<td class='editable-time'>" . (isset($row['jam_tb']) ? date('H:i', strtotime($row['jam_tb'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'bersedia', 'tidak bersedia', 'reschedule'])) . "'>" . $row['konfirmasi_kehadiran_tb'] . "</td>";
                     echo "<td class='editable-text'>" . $row['nilaiTesBidang1'] . "</td>";
@@ -338,7 +336,7 @@ require_once '../koneksi/koneksi.php';
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Sudah', 'Belum'])) . "'>" . $row['pengumuman_tb'] . "</td>";
                     // Akhir Test Bidang
                     // Interview User
-                    echo "<td class='editable-date'>" . $row['tanggalInterviewUser'] . "</td>";
+                    echo "<td class='editable-date'>" . (isset($row['tanggalInterviewUser']) ? date('d-m-Y', strtotime($row['tanggalInterviewUser'])) : '') . "</td>";
                     echo "<td class='editable-time'>" . (isset($row['jam_iu']) ? date('H:i', strtotime($row['jam_iu'])) : '') . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', 'Bersedia', 'Tidak Bersedia', 'Reschedule'])) . "'>" . $row['konfirmasiKehadiran_iu'] . "</td>";
                     echo "<td class='editable-combobox' data-options='" . htmlspecialchars(json_encode(['', '1', '0'])) . "'>" . $row['dt'] . "</td>";
@@ -454,7 +452,9 @@ require_once '../koneksi/koneksi.php';
                     <?php
 
                     echo "<td class='editable-text'>" . $row['spkwt'] . "</td>";
-                    echo "<td class='editable-date'>" . $row['onboard'] . "</td>";
+
+                    echo "<td class='editable-date'>" . (isset($row['onboard']) ? date('d-m-Y', strtotime($row['onboard'])) : '') . "</td>";
+
                     // AKhir Hasil Akhir
                     echo "</tr>";
                 }

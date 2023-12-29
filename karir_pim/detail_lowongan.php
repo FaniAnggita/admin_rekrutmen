@@ -162,15 +162,15 @@ $row = $result->fetch_assoc();
             </div>
             <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;"
                 aria-expanded="false">
-                <ul class="nav navbar-nav d-flex">
+                <ul class="nav navbar-nav">
                     <li>
-                        <a href="https://insanmadani.com/rekrutmen/index.php/Main"><i class="fa fa-home"></i>
+                        <a href="index.php"><i class="fa fa-home"></i>
                             BERANDA</a>
                     </li>
-                    <li>
-                        <a href="https://insanmadani.com/rekrutmen/index.php/Main/lowongan"><i class="fa fa-book"></i>
+                    <!-- <li>
+                        <a href="detail_lowongan.php"><i class="fa fa-book"></i>
                             INFO LOWONGAN KERJA</a>
-                    </li>
+                    </li> -->
                 </ul>
 
             </nav>
